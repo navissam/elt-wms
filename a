@@ -1,0 +1,66 @@
+* [33m7f58b24[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m sto record done
+* [33mb1edf27[m sti record done
+* [33m86025c0[m transisi -> buat record masing-masing
+* [33m487c4f1[m vehicle_rec print done
+* [33m8c28ff1[m inventory record per goods
+* [33m096c0bc[m scrap print beres
+*   [33m352d89c[m Merge branch 'main' of https://github.com/navissam/cangku
+[32m|[m[33m\[m  
+[32m|[m * [33m026f690[m return ok, company logo ok, scrap belum fix
+* [33m|[m [33mc0e7107[m refuel print done
+[33m|[m[33m/[m  
+* [33m00f564e[m perbaiki bahasa ok, update syslog detail data
+*   [33m746f27e[m Merge branch 'main' of https://github.com/navissam/cangku
+[34m|[m[35m\[m  
+[34m|[m * [33m33be309[m datatable syslog selesai
+* [35m|[m [33md3e9ed4[m stock out ok, company logo not
+[35m|[m[35m/[m  
+* [33m670a7b7[m update semua dropdown fk php jadi jquery
+* [33mc8d99c4[m stockout 50% fix
+* [33mf04bcba[m crud vehicle_rec modal dan jquery 90%
+* [33m1952404[m stock in beres
+* [33mca3dd8c[m crud refuel modal dan jquery selesai
+* [33m2e24b57[m crud vehicle modal dan query selesai
+* [33m4c87a81[m update crud menu modal dan jquery
+* [33m38fa692[m update crud company modal & jquery 80%
+* [33ma742278[m crud open_req modal dan jquery selesai
+*   [33m70276ee[m Merge branch 'main' of https://github.com/navissam/cangku
+[36m|[m[1;31m\[m  
+[36m|[m * [33m2191084[m crud wh_type modal dan jquery selesai
+[36m|[m * [33m631ab7e[m crud formowner modal dan jquery selesai
+[36m|[m * [33ma4e8681[m update crud company menggunakan modal dan jquery 70%
+* [1;31m|[m [33macc3aa8[m auth, filter, dynamic route, font
+[1;31m|[m[1;31m/[m  
+* [33m71e6a74[m update crud user menggunakan modal dan jquery
+* [33m3f7995f[m update crud route menggunakan modal dan jquery
+* [33m9312849[m update crud permission menggunakan modal dan jquery
+* [33mb3cae77[m crud goods_src modal dan jquery selesai
+* [33me7de911[m crud location menggunakan modal dan jquery selesai
+* [33m17a8078[m dynamic sidebar base on role
+* [33m44a59bf[m crud owner menggunakan modal dan jquery selesai
+* [33me106076[m crud goods menggunakan modal dan jquery selesai
+* [33m7cedb76[m update crud unit menggunakan modal dan jquery
+* [33m5cd7bcd[m crud unit selesai
+*   [33maeedade[m Merge branch 'main' of https://github.com/navissam/cangku
+[1;32m|[m[1;33m\[m  
+[1;32m|[m *   [33m32dc797[m Merge branch 'main' of https://github.com/navissam/cangku
+[1;32m|[m [1;34m|[m[1;35m\[m  
+[1;32m|[m * [1;35m|[m [33mdb3034e[m controller role beres, sudah rapi
+[1;32m|[m * [1;35m|[m [33me146c79[m controller role beres, belum rapikan
+* [1;35m|[m [1;35m|[m [33m0b43f88[m crud user selesai
+[1;35m|[m [1;35m|[m[1;35m/[m  
+[1;35m|[m[1;35m/[m[1;35m|[m   
+* [1;35m|[m [33m112e0a2[m crud dept selesai
+[1;35m|[m[1;35m/[m  
+* [33m5d318db[m crud company selesai
+* [33m44603dd[m crud route selesai
+* [33md3aca4b[m crud menu selesai
+* [33mc89d634[m crud permission selesai
+* [33mb45bdef[m update template rendering untuk style, controller role on progress
+* [33m4276a1f[m edit basecontroller var request
+* [33mcf6d684[m percobaan kedua
+* [33m9f7b1df[m percobaan pertama
+* [33m1e02ec2[m starter page configuration
+* [33m066effb[m adminlte plugin
+* [33m9c0df85[m ci4 starter
+* [33m7e7d5d6[m first commit

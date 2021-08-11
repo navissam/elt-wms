@@ -1,0 +1,30 @@
+@font-face {
+  font-family: kaiti;
+  src: url(STKAITI.TTF);
+}
+@font-face {
+  font-family: songti;
+  src: url(simsun.ttc);
+}
+@media only screen and (min-width: 992px) {
+  body {
+    font-family: "kaiti", "Source Sans Pro", Helvetica, Arial, sans-serif !important;
+  }
+}
+
+@media print {
+  .report {
+    font-family: "kaiti", "Source Sans Pro", Helvetica, Arial, sans-serif !important;
+  }
+}
+
+.invoice-order {
+  /* font-family: "songti", "Source Sans Pro", Helvetica, Arial, sans-serif !important; */
+  font-family: Verdana, Tahoma, "Courier New", sans-serif !important;
+}
+
+.invoice-order .table-detail td {
+  border-width: 2px !important;
+  border-style: dashed !important;
+  border-color: black !important;
+}
