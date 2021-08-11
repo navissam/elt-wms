@@ -52,7 +52,7 @@
                                         <th>工号</th>
                                         <th>名称</th>
                                         <th>角色</th>
-                                        <th>部门</th>
+                                        <th>仓库ID</th>
                                         <th>状态</th>
                                         <th>创建时间</th>
                                         <th>更新时间</th>
@@ -100,8 +100,10 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="add-deptID">部门</label>
-                        <select class="form-control select2-dept" id="add-deptID" style="width: 100%;">
+                        <label for="add-wh_id">仓库ID</label>
+                        <select id="add-wh_id" class="form-control">
+                            <option value="1">通用仓库</option>
+                            <!-- <option value="0">不可用</option> -->
                         </select>
                     </div>
                     <div class="form-group">
@@ -154,8 +156,10 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="edit-deptID">部门</label>
-                        <select class="form-control select2-dept-edit" id="edit-deptID" style="width: 100%;">
+                        <label for="edit-wh_id">仓库ID</label>
+                        <select id="edit-wh_id" class="form-control">
+                            <option value="1">通用仓库</option>
+                            <!-- <option value="0">不可用</option> -->
                         </select>
                     </div>
                 </div>

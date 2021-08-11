@@ -31,7 +31,7 @@ $(document).ready(function() {
                     data: 'role_name'
                 },
                 {
-                    data: 'dept_name'
+                    data: 'wh_id'
                 },
                 {
                     data: 'status',
@@ -101,35 +101,35 @@ $(document).ready(function() {
         });
     });
 
-    // get data dept for add
-    $.get("/user/getDept/", function (data) {
-        let object = JSON.parse(data);
-        dept = $.map(object, function (obj) {
-            obj.id = obj.id || obj.deptID;
-            obj.text = obj.text || obj.deptName;
-            return obj;
-        });
-        dept_select = $(".select2-dept").select2({
-            data: dept,
-            theme: 'bootstrap4',
-            dropdownParent: $("#addModal") 
-        });
-    });
+    // // get data dept for add
+    // $.get("/user/getDept/", function (data) {
+    //     let object = JSON.parse(data);
+    //     dept = $.map(object, function (obj) {
+    //         obj.id = obj.id || obj.deptID;
+    //         obj.text = obj.text || obj.deptName;
+    //         return obj;
+    //     });
+    //     dept_select = $(".select2-dept").select2({
+    //         data: dept,
+    //         theme: 'bootstrap4',
+    //         dropdownParent: $("#addModal") 
+    //     });
+    // });
 
-    // get data dept for edit
-    $.get("/user/getDept/", function (data) {
-        let object = JSON.parse(data);
-        dept = $.map(object, function (obj) {
-            obj.id = obj.id || obj.deptID;
-            obj.text = obj.text || obj.deptName;
-            return obj;
-        });
-        dept_select = $(".select2-dept-edit").select2({
-            data: dept,
-            theme: 'bootstrap4',
-            dropdownParent: $("#editModal") 
-        });
-    });
+    // // get data dept for edit
+    // $.get("/user/getDept/", function (data) {
+    //     let object = JSON.parse(data);
+    //     dept = $.map(object, function (obj) {
+    //         obj.id = obj.id || obj.deptID;
+    //         obj.text = obj.text || obj.deptName;
+    //         return obj;
+    //     });
+    //     dept_select = $(".select2-dept-edit").select2({
+    //         data: dept,
+    //         theme: 'bootstrap4',
+    //         dropdownParent: $("#editModal") 
+    //     });
+    // });
 
 
     // reload datasource from ajax
@@ -158,7 +158,7 @@ $(document).ready(function() {
             empID: $('#add-empID').val(),
             name: $('#add-name').val(),
             roleID: $('#add-roleID').val(),
-            deptID: $('#add-deptID').val(),
+            wh_id: $('#add-wh_id').val(),
             password: $('#add-password').val(),
             passConfirm: $('#add-passConfirm').val()
         }, function(response) {
@@ -200,7 +200,7 @@ $(document).ready(function() {
             empID_ori: empID_ori,
             name: $('#edit-name').val(),
             roleID: $('#edit-roleID').val(),
-            deptID: $('#edit-deptID').val(),
+            wh_id: $('#edit-wh_id').val(),
         }, function(response) {
             let u = JSON.parse(response);
             if (u.status == 'invalid') {
@@ -238,13 +238,13 @@ $(document).ready(function() {
         let empID = u.empID;
         let name = u.name;
         let roleID = u.roleID;
-        let deptID = u.deptID;
+        let wh_id = u.wh_id;
         empID_ori = empID;
         // console.log(userID);
         $('#edit-empID').val(empID);
         $('#edit-name').val(name);
         $('#edit-roleID').val(roleID).trigger('change');
-        $('#edit-deptID').val(deptID).trigger('change');
+        $('#edit-wh_id').val(wh_id).trigger('change');
         $('#editModal').modal('show');
     });
 

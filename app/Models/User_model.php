@@ -14,7 +14,7 @@ class User_model extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['empID', 'name', 'roleID', 'deptID', 'password', 'status'];
+    protected $allowedFields = ['empID', 'name', 'roleID', 'wh_id', 'password', 'status'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
@@ -58,10 +58,10 @@ class User_model extends Model
         $builder->select([
             'user.*', 'concat(user.userID,\'-\',user.status) as concate',
             'role.name as role_name',
-            'dept.deptName as dept_name',
+            // 'dept.deptName as dept_name',
         ]);
         $builder->join('role', 'role.roleID = user.roleID', 'left');
-        $builder->join('dept', 'dept.deptID = user.deptID', 'left');
+        // $builder->join('dept', 'dept.deptID = user.deptID', 'left');
         // $builder->where('user.roleID <>', 14);
         return $builder->get()->getResultArray();
     }
