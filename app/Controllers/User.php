@@ -5,16 +5,14 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\User_model;
 use App\Models\Role_model;
-use App\Models\Dept_model;
 
 class User extends BaseController
 {
-    protected $userModel, $roleModel, $deptModel;
+    protected $userModel, $roleModel;
     public function __construct()
     {
         $this->userModel = new User_model();
         $this->roleModel = new Role_model();
-        $this->deptModel = new Dept_model();
     }
 
     public function index()
@@ -41,10 +39,8 @@ class User extends BaseController
         return json_encode($this->roleModel->findAll());
     }
 
-    public function getDept()
-    {
-        return json_encode($this->deptModel->findAll());
-    }
+
+
 
 
     public function save()
@@ -95,7 +91,6 @@ class User extends BaseController
                 'empID' => $this->request->getPost('empID'),
                 'name' => $this->request->getPost('name'),
                 'roleID' => $this->request->getPost('roleID'),
-                'deptID' => $this->request->getPost('deptID'),
                 'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             ]);
         } catch (\Exception $e) {
