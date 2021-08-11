@@ -47,10 +47,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="<?= base_url() ?>/dist/img/logo.png" alt="cangku" height="120" width="120">
-            <p class="h3 mt-5 text-bbb animation__shake">仓储管理系统</p>
-        </div>
+        <!-- <div class="preloader flex-column justify-content-center align-items-center">
+                <img class="animation__shake" src="<?= base_url() ?>/dist/img/logo.png" alt="cangku" height="120" width="120">
+                <p class="h3 mt-5 text-bbb animation__shake">仓储管理系统</p>
+            </div> -->
         <!-- Navbar -->
         <?= $this->include('templates/navbar') ?>
         <!-- /.navbar -->

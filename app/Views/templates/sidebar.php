@@ -33,9 +33,10 @@ if ($roleID != 0) {
     $b2->orderBy('ord', 'ASC');
     $query2 = $b2->getCompiledSelect();
 
-    $builder = $db->query('(' . $query1 . ') UNION (' . $query2 . ')');
-    // dd($query1);
+    $builder = $db->query('SELECT * FROM ((' . $query1 . ') UNION (' . $query2 . ')) AS uni ORDER BY uni.ord, uni.menuID ASC');
+    // dd($query2);
     // $builder = $db->query($query1);
+    // dd($builder);
     $result = $builder->getResultArray();
     // dd($result);
 } else {
@@ -61,21 +62,25 @@ if ($roleID != 0) {
                                 <i class="nav-icon <?= $r['icon']; ?>"></i>
                                 <p>
                                     <?= $r['name']; ?>
-                                    <i class="right fas fa-angle-left"></i>
+                                    <?php if ($r['type'] == 1) : ?>
+                                        <i class="right fas fa-angle-left"></i>
+                                    <?php endif; ?>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <?php foreach ($result as $r1) : ?>
-                                    <?php if ($r1['parentCode'] == $r['code']) : ?>
-                                        <li class="nav-item">
-                                            <a href="<?= $r1['type'] === 1 ? '#' : $r1['url']; ?>" class="nav-link <?= isset($active[$r['code']][$r1['code']]) ? 'active' : '' ?>">
-                                                <i class="<?= $r1['icon']; ?> nav-icon"></i>
-                                                <p><?= $r1['name']; ?></p>
-                                            </a>
-                                        </li>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </ul>
+                            <?php if ($r['type'] == 1) :                            ?>
+                                <ul class="nav nav-treeview">
+                                    <?php foreach ($result as $r1) : ?>
+                                        <?php if ($r1['parentCode'] == $r['code']) : ?>
+                                            <li class="nav-item">
+                                                <a href="<?= $r1['type'] === 1 ? '#' : $r1['url']; ?>" class="nav-link <?= isset($active[$r['code']][$r1['code']]) ? 'active' : '' ?>">
+                                                    <i class="<?= $r1['icon']; ?> nav-icon"></i>
+                                                    <p><?= $r1['name']; ?></p>
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif;                            ?>
                         </li>
                     <?php endif; ?>
                 <?php endforeach; ?>
