@@ -62,7 +62,7 @@ $(document).ready(function() {
     $('#save-edit').on('click', function() {
             $(".is-invalid").removeClass("is-invalid");
 
-        $.post('/goods/update', {
+        $.post('/tyck/goods/update', {
             goods_id: goods_id,
             name_type: $('#edit-name_type').val(),
             unit: $('#edit-unit').val(),
