@@ -36,12 +36,13 @@
                             <table id="table1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>库号</th>
+                                        <th>序号</th>
                                         <th>公司</th>
                                         <th>物料代码</th>
                                         <th>数量</th>
                                         <th>库位</th>
                                         <th>安全库存</th>
+                                        <th>创建时间</th>
                                         <th>更新时间</th>
                                         <th>备注</th>
                                         <th>操作</th>
@@ -63,7 +64,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="switchModalLabel">库位转储</h5>
+                    <h5 class="modal-title" id="switchModalLabel"><span class="goods_id"></span> - 库位转储</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -71,50 +72,54 @@
                 <div class="modal-body">
                     <table class="table table-sm table-borderless">
                         <tr>
-                            <td class="font-weight-bold">物料代码</td>
-                            <td>: <span class="goodsID"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-bold">物料名称</td>
-                            <td>: <span class="goodsName"></span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-bold">归属</td>
-                            <td>: <span class="ownerName"></span></td>
+                            <td class="font-weight-bold">序号</td>
+                            <td>: <span class="inv_id"></span></td>
+                            <td class="font-weight-bold">公司</td>
+                            <td>: <span class="company"></span></td>
                         </tr>
                     </table>
                     <div class="form-group row mt-4">
                         <div class="col-2 mt-1">
                             <label>库位</label>
                         </div>
-                        <div class="col-4">
-                            <input type="text" class="form-control" id="locationID" readonly>
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="location" readonly>
                         </div>
                         <div class="col-1 mt-2">
-                            <i class="fas fa-sync-alt float-right" aria-hidden="true"></i>
+                            <i class="fas fa-long-arrow-alt-right float-right" aria-hidden="true"></i>
                         </div>
                         <div class="col-5">
-                            <select class="form-control select2-location-switch" id="locationID2" style="width: 100%;">
-                            </select>
-                            <div class="invalid-feedback locationID2-invalid">
+                            <div class="swapselect">
+                                <select class="form-control select2-location-switch" style="width: 100%;">
+                                </select>
+                                <div class="invalid-feedback location2-invalid">
+                                </div>
                             </div>
+                            <div class="swaptext">
+                                <input type="text" class="form-control text-location" placeholder="输入新库位" maxlength="30">
+                                <div class="invalid-feedback location2-invalid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-outline-secondary float-right" id="swaps"><i class="fas fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-outline-secondary float-right" id="swapt"><i class="fas fa-chevron-circle-down" aria-hidden="true"></i></button>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-2 mt-1">
                             <label>数量</label>
                         </div>
-                        <div class="col-4">
-                            <input type="hidden" class="form-control" id="goodsID">
-                            <input type="hidden" class="form-control" id="ownerID">
+                        <div class="col-3">
+                            <input type="hidden" class="form-control" id="company">
+                            <input type="hidden" class="form-control" id="goods_id">
                             <input type="text" class="form-control" id="qty" readonly>
                         </div>
                         <div class="col-1 mt-2">
-                            <i class="fas fa-sync-alt float-right" aria-hidden="true"></i>
+                            <i class="fas fa-long-arrow-alt-right float-right" aria-hidden="true"></i>
                         </div>
-                        <div class="col-5">
-                            <input type="number" class="form-control" id="qty2" placeholder="输入转储数量" min="0" maxlength="2147483647">
+                        <div class="col-6">
+                            <input type="number" class="form-control" id="qty2" min="0" maxlength="2147483647">
                             <div class="invalid-feedback qty2-invalid">
                             </div>
                         </div>

@@ -37,4 +37,46 @@ class Inventory_model extends Model
         $builder->where(['tyck_inventory.deleted_at' => null]);
         return $builder->get()->getResultArray();
     }
+
+    public function getLocation()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table($this->table);
+        $builder->select('location');
+        $builder->distinct('location');
+        $builder->where(['deleted_at' => null]);
+        return $builder->get()->getResultArray();
+    }
+
+    public function switch($company, $goods_id, $from_location, $to_location, $qty, $remark)
+    {
+        $db      = \Config\Database::connect();
+        // $this->db->transBegin();
+        $db->transBegin();
+        // $rec = $db->table('record');
+        // $rec->insert($data);
+        // $rec->insert($data2);
+
+        // $inv = $db->table($this->table);
+        // $inv->where('inv_id', $id);
+        // $inv->update(['qty' => $left]);
+
+        $swc = $db->table('tyck_switch');
+        $swc->insert([
+            'company' => $company,
+            'goods_id' => $goods_id,
+            'qty' => $qty,
+            'from_location' => $from_location,
+            'to_location' => $to_location,
+            'remark' => $remark,
+        ]);
+
+        if ($db->transStatus() === FALSE) {
+            $db->transRollback();
+            return false;
+        } else {
+            $db->transCommit();
+            return true;
+        }
+    }
 }

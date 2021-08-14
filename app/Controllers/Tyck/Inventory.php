@@ -14,7 +14,7 @@ class Inventory extends BaseController
     }
     public function index()
     {
-        $data['active']['inv']['inventory'] = true;
+        $data['active']['inventory']['inventory'] = true;
         return view('tyck/inventory/v_inventory_index', $data);
     }
 
@@ -23,6 +23,10 @@ class Inventory extends BaseController
         return json_encode($this->inventoryModel->getAll());
     }
 
+    public function getLocation()
+    {
+        return json_encode($this->inventoryModel->getLocation());
+    }
     // public function sto_print($id = null)
     // {
     //     if (is_null($id)) {
@@ -103,45 +107,39 @@ class Inventory extends BaseController
 
     public function switch()
     {
-        $id = $this->request->getPost('inv_id');
         if ($this->request->getMethod() != 'post') {
             return redirect()->to('/tyck/inventory');
         }
 
-        $invID = $this->request->getPost('invID');
-        $ownerID = $this->request->getPost('ownerID');
-        $goodsID = $this->request->getPost('goodsID');
-        $fromLocationID = $this->request->getPost('locationID');
-        $toLocationID = $this->request->getPost('locationID2');
-        $qtyOld = $this->request->getPost('qty');
+        $id = $this->request->getPost('inv_id');
+        $company = $this->request->getPost('company');
+        $goods_id = $this->request->getPost('goods_id');
+        $from_location = $this->request->getPost('location');
+        $to_location = $this->request->getPost('location2');
+        // $qtyOld = $this->request->getPost('qty');
         $qty = $this->request->getPost('qty2');
         $remark = $this->request->getPost('remark');
-        $recordType = $this->request->getPost('recordType');
-        $left = $qtyOld - $qty;
-        // $items = json_decode($this->request->getPost('items'));
+        // $left = $qtyOld - $qty;
+        // dd($left);
         try {
-            $data = [
-                'ownerID' => $ownerID,
-                'goodsID' => $goodsID,
-                'locationID' => $toLocationID,
-                'statusQty' => '+',
-                'qty' => $qty,
-                'remark' => $remark,
-                'recordType' => $recordType,
-            ];
-            $data2 = [
-                'ownerID' => $ownerID,
-                'goodsID' => $goodsID,
-                'locationID' => $fromLocationID,
-                'statusQty' => '-',
-                'qty' => $qty,
-                'remark' => $remark,
-                'recordType' => $recordType,
-            ];
-            $res = $this->inventoryModel->switch($ownerID, $goodsID, $fromLocationID, $toLocationID, $qty, $remark, $data, $data2, $invID, $left);
+            // $data = [
+            //     'company' => $company,
+            //     'goods_id' => $goods_id,
+            //     'qty' => $qty,
+            //     'location' => $to_location,
+            //     'remark' => $remark,
+            // ];
+            // $data2 = [
+            //     'company' => $company,
+            //     'goods_id' => $goods_id,
+            //     'qty' => $qty,
+            //     'location' => $from_location,
+            //     'remark' => $remark,
+            // ];
+            $this->inventoryModel->switch($company, $goods_id, $from_location, $to_location, $qty, $remark);
         } catch (\Exception $e) {
             $this->syslog->insert([
-                'controller' => 'inventory',
+                'controller' => 'inv',
                 'method' => 'switch',
                 'userID' => session()->get('userID') ?? '',
                 'status' => 0,
@@ -154,7 +152,7 @@ class Inventory extends BaseController
             ]);
         }
         $this->syslog->insert([
-            'controller' => 'inventory',
+            'controller' => 'inv',
             'method' => 'switch',
             'userID' => session()->get('userID') ?? '',
             'status' => 1,
