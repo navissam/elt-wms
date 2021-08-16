@@ -88,7 +88,7 @@ $(document).ready(function () {
     });
 
     $('#goods').on('click', function () {
-        window.location.href = "/tyck/inventory";    
+        window.location.href = "/tyck/goods";    
     });
 
 });
