@@ -27,6 +27,14 @@ $(document).ready(function() {
                     data: 'unit'
                 },
                 {
+                    data: 'safety',
+                    render: function (data) {
+                        if (data % 1 == 0)
+                            return parseInt(data);
+                        return data;
+                    }
+                },
+                {
                     data: 'created_at'
                 },
                 {
@@ -66,6 +74,7 @@ $(document).ready(function() {
             goods_id: goods_id,
             name_type: $('#edit-name_type').val(),
             unit: $('#edit-unit').val(),
+            safety: $('#edit-safety').val(),
         }, function(response) {
             let g = JSON.parse(response);
             if (g.status == 'invalid') {
@@ -102,8 +111,10 @@ $(document).ready(function() {
         let g = goods.find(x => x.goods_id == goods_id);
         let name_type = g.name_type;
         let unit = g.unit;
+        let safety = g.safety;
         $('#edit-name_type').val(name_type);
         $('#edit-unit').val(unit);
+        $('#edit-safety').val(safety);
         $('#editModal').modal('show');
     });
   

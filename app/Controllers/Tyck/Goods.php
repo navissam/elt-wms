@@ -25,7 +25,6 @@ class Goods extends BaseController
         return json_encode($this->goodsModel->getAll());
     }
 
-
     public function update()
     {
         $id = $this->request->getPost('goods_id');
@@ -42,6 +41,12 @@ class Goods extends BaseController
                 ]
             ],
             'unit' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '不允许为空'
+                ]
+            ],
+            'safety' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => '不允许为空'

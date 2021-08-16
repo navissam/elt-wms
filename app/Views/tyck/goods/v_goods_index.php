@@ -39,6 +39,7 @@
                                         <th>物料代码</th>
                                         <th>物料名称与规格型号</th>
                                         <th>单位</th>
+                                        <th>安全库存</th>
                                         <th>创建时间</th>
                                         <th>更新时间</th>
                                         <th>操作</th>
@@ -76,6 +77,12 @@
                         <label for="edit-unit">单位</label>
                         <input type="text" class="form-control" id="edit-unit" placeholder="输入单位" maxlength="255">
                         <div class="invalid-feedback unit-invalid">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-safety">安全库存</label>
+                        <input type="number" class="form-control" id="edit-safety" placeholder="输入单位" min="0" maxlength="2147483647">
+                        <div class="invalid-feedback safety-invalid">
                         </div>
                     </div>
                 </div>

@@ -29,7 +29,7 @@
             </div>
             <div class="row mb-2">
                 <div class="col-sm-1">
-                    <div class="small-box bg-info" id="inv">
+                    <div class="small-box bg-info mt-2" id="inv">
                         <div class="icon">
                             <i class="fas fa-cubes"></i>
                         </div>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="col-sm-1">
-                    <div class="small-box bg-primary" id="sti">
+                    <div class="small-box bg-primary mt-2" id="sti">
                         <div class="icon">
                             <i class="fas fa-sign-in-alt"></i>
                         </div>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="col-sm-1">
-                    <div class="small-box bg-success" id="sto">
+                    <div class="small-box bg-success mt-2" id="sto">
                         <div class="icon">
                             <i class="fas fa-sign-out-alt"></i>
                         </div>
@@ -73,8 +73,34 @@
                             <h3 class="mt-4">出库</h3>
                         </div>
                     </div>
+                    <div class="small-box bg-secondary" id="report">
+                        <div class="icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="inner">
+                            <h3 class="mt-4">报表</h3>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-3"></div>
+                <div class="col-sm-2">
+                    <div class="small-box bg-lightblue mt-2" id="history">
+                        <div class="icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <div class="inner">
+                            <h3 class="mt-4">物料库存历史</h3>
+                        </div>
+                    </div>
+                    <div class="small-box bg-olive" id="goods">
+                        <div class="icon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="inner">
+                            <h3 class="mt-4">物料管理</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1"></div>
                 <div class="col-sm-6">
                     <!-- safety stock -->
                     <div class="card">

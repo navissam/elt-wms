@@ -28,7 +28,7 @@ class Safety_model extends Model
     public function getAllTyck()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('tyck_inventory_under_safety');
+        $builder = $db->table('tyck_under_safety_union');
         return $builder->get()->getResultArray();
     }
 }

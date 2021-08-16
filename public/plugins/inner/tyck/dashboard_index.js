@@ -79,4 +79,16 @@ $(document).ready(function () {
         window.location.href = "/tyck/inventory";    
     });
 
+    $('#report').on('click', function () {
+        window.location.href = "/tyck/inventory";    
+    });
+
+    $('#history').on('click', function () {
+        window.location.href = "/tyck/inventory";    
+    });
+
+    $('#goods').on('click', function () {
+        window.location.href = "/tyck/inventory";    
+    });
+
 });
