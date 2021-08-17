@@ -64,11 +64,11 @@ $(document).ready(function () {
     });
 
     $('#sti').on('click', function () {
-        window.location.href = "/tyck/inventory";    
+        window.location.href = "/tyck/stock_in";    
     });
 
     $('#sto').on('click', function () {
-        window.location.href = "/tyck/inventory";    
+        window.location.href = "/tyck/stock_out";    
     });
 
     $('#ret').on('click', function () {

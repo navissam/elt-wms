@@ -59,7 +59,7 @@ $(document).ready(function () {
                 {
                     data: 'inv_id',
                     render: function (data) {
-                        let btn = '<button type="button" class="btn bg-teal btn-sm btn-switch" data-toggle="tooltip" title="库位转储" data-inv_id="' + data + '">';
+                        let btn = '<button type="button" class="btn btn-primary btn-sm btn-switch" data-toggle="tooltip" title="库位转储" data-inv_id="' + data + '">';
                         btn += '<i class="fas fa-sync-alt" aria-hidden="true"></i>';
                         btn += '</button> ';
                         return btn;

@@ -14,6 +14,13 @@
     .welcome {
         color: white;
     }
+
+    @media (min-width: 576px) and (max-width: 767.98px) {
+        h3 {
+            font-size: 1.0rem;
+        }
+
+    }
 </style>
 <?= $this->endSection() ?>
 
@@ -23,12 +30,12 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-lg-6">
                     <h1 class="m-0 welcome">欢迎，<?= session()->get('name') ?></h1>
                 </div><!-- /.col -->
             </div>
             <div class="row mb-2">
-                <div class="col-sm-1">
+                <div class="col-lg-1">
                     <div class="small-box bg-info mt-2" id="inv">
                         <div class="icon">
                             <i class="fas fa-cubes"></i>
@@ -46,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-lg-1">
                     <div class="small-box bg-primary mt-2" id="sti">
                         <div class="icon">
                             <i class="fas fa-sign-in-alt"></i>
@@ -64,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-lg-1">
                     <div class="small-box bg-success mt-2" id="sto">
                         <div class="icon">
                             <i class="fas fa-sign-out-alt"></i>
@@ -75,14 +82,14 @@
                     </div>
                     <div class="small-box bg-secondary" id="report">
                         <div class="icon">
-                            <i class="fas fa-clipboard-check"></i>
+                            <i class="fas fa-file-export"></i>
                         </div>
                         <div class="inner">
                             <h3 class="mt-4">报表</h3>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-lg-2">
                     <div class="small-box bg-lightblue mt-2" id="history">
                         <div class="icon">
                             <i class="fas fa-history"></i>
@@ -100,8 +107,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-1"></div>
-                <div class="col-sm-6">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-6">
                     <!-- safety stock -->
                     <div class="card">
                         <!-- <div class="card-header">
@@ -145,11 +152,5 @@
 <script src="<?= base_url('/'); ?>/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="<?= base_url('/'); ?>/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
 <script src="<?= base_url('/'); ?>/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="<?= base_url('/'); ?>/plugins/jszip/jszip.min.js"></script>
-<script src="<?= base_url('/'); ?>/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="<?= base_url('/'); ?>/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="<?= base_url('/'); ?>/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="<?= base_url('/'); ?>/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="<?= base_url('/'); ?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script src="<?= base_url('/'); ?>/plugins/inner/tyck/dashboard_index.js"></script>
 <?= $this->endSection() ?>

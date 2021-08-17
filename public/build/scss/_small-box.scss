@@ -11,11 +11,11 @@
   position: relative;
 
   // content wrapper
-  > .inner {
+  >.inner {
     padding: 10px;
   }
 
-  > .small-box-footer {
+  >.small-box-footer {
     background-color: rgba($black, .1);
     color: rgba($white, .8);
     display: block;
@@ -40,6 +40,7 @@
   }
 
   @include media-breakpoint-up(lg) {
+
     .col-xl-2 &,
     .col-lg-2 &,
     .col-md-2 & {
@@ -58,6 +59,7 @@
   }
 
   @include media-breakpoint-up(xl) {
+
     .col-xl-2 &,
     .col-lg-2 &,
     .col-md-2 & {
@@ -78,7 +80,7 @@
   p {
     font-size: 1rem;
 
-    > small {
+    >small {
       color: $gray-100;
       display: block;
       font-size: .9rem;
@@ -96,7 +98,7 @@
     color: rgba($black, .15);
     z-index: 0;
 
-    > i {
+    >i {
       font-size: 90px;
       position: absolute;
       right: 15px;
@@ -130,7 +132,8 @@
 
     // Animate icons on small box hover
     .icon {
-      > i {
+      >i {
+
         &,
         &.fa,
         &.fas,
@@ -142,7 +145,8 @@
           transform: scale(1.1);
         }
       }
-      > svg {
+
+      >svg {
         transform: scale(1.1);
       }
     }
@@ -150,6 +154,7 @@
 }
 
 @include media-breakpoint-down(sm) {
+
   // No need for icons on very small devices
   .small-box {
     text-align: center;
