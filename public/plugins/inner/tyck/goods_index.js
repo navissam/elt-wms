@@ -63,6 +63,64 @@ $(document).ready(function() {
         });
     }
 
+    var safety_edit = false;
+    $('#table1').on('dblclick', 'tbody td:nth-child(4)', function (e) {
+        if (!safety_edit) {
+            var safety = $(this);
+            var val = safety.text();
+            var input = "<input min=\"0\" class=\"form-control\" id=\"edit-safety\" type=\"number\" value=\"" + val + "\">";
+            safety.html(input);
+            safety_edit = true;
+        }
+    });
+
+    $('#table1').on('keypress', 'tbody td:nth-child(4) input#edit-safety', function (e) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            if (safety_edit) {
+                var val = Number($(this).val());
+                var row = table1.row($(this).parents('tr')).data();
+                var old = row.safety;
+                var id = row.goods_id;
+                if (val == old) {
+                    table1.cell($(this).parents('td')).data(val).draw();
+                    $(this).remove();
+                    safety_edit = false;
+                } else if (val < 0) {
+                    Swal.fire(
+                        "失误", "数量不可低于零", "error"
+                    );
+                    $(this).val(0);
+                } else {
+                    // console.log('ok');
+                    $.post('/tyck/goods/update_safety', {
+                        goods_id: id,
+                        safety: $('#edit-safety').val(),
+                    }, function (response) {
+                        let i = JSON.parse(response);
+                        if (i.status == 'error') {
+                            Swal.fire(
+                                '保存失败!',
+                                i.msg,
+                                'error'
+                            );
+                        } else if (i.status == 'success') {
+                            Swal.fire(
+                                '保存成功!',
+                                '',
+                                'success'
+                            );
+                        }
+                    });
+                    table1.cell($(this).parents('td')).data(val).draw();
+                    $(this).remove();
+                    safety_edit = false;
+                    reloadTable1();
+                }
+            }
+        }
+    });
+
     // reload on web document first loading
     reloadTable1();
 

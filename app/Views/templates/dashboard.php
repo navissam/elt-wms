@@ -15,11 +15,46 @@
         color: white;
     }
 
-    @media (min-width: 576px) and (max-width: 767.98px) {
-        h3 {
-            font-size: 1.0rem;
+    @media (max-width: 1300px) {
+        h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 10px 0 10px;
+            text-align: center;
         }
 
+        .icon {
+            display: none;
+        }
+    }
+
+    @media (min-width: 1300px) and (max-width: 1400px) {
+        h2 {
+            font-size: 1.37rem;
+            font-weight: 700;
+            margin: 10px 0 10px;
+            text-align: center;
+        }
+
+        .icon {
+            display: none;
+        }
+    }
+
+    @media (min-width: 1400px) and (max-width: 1600px) {
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 40px 0 10px;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 40px 0 10px;
+        }
     }
 </style>
 <?= $this->endSection() ?>
@@ -41,7 +76,7 @@
                             <i class="fas fa-cubes"></i>
                         </div>
                         <div class="inner">
-                            <h3 class="mt-4">库存</h3>
+                            <h2>库存</h2>
                         </div>
                     </div>
                     <div class="small-box bg-teal" id="ret">
@@ -49,7 +84,7 @@
                             <i class="fas fa-undo-alt"></i>
                         </div>
                         <div class="inner">
-                            <h3 class="mt-4">退库</h3>
+                            <h2>退库</h2>
                         </div>
                     </div>
                 </div>
@@ -59,7 +94,7 @@
                             <i class="fas fa-sign-in-alt"></i>
                         </div>
                         <div class="inner">
-                            <h3 class="mt-4">入库</h3>
+                            <h2>入库</h2>
                         </div>
                     </div>
                     <div class="small-box bg-danger" id="scr">
@@ -67,7 +102,7 @@
                             <i class="fas fa-times-circle"></i>
                         </div>
                         <div class="inner">
-                            <h3 class="mt-4">报废</h3>
+                            <h2>报废</h2>
                         </div>
                     </div>
                 </div>
@@ -77,15 +112,16 @@
                             <i class="fas fa-sign-out-alt"></i>
                         </div>
                         <div class="inner">
-                            <h3 class="mt-4">出库</h3>
+                            <h2>出库</h2>
                         </div>
                     </div>
                     <div class="small-box bg-secondary" id="report">
                         <div class="icon">
-                            <i class="fas fa-file-export"></i>
+                            <i class="fas fa-clipboard-check"></i>
+                            <!-- <i class="fas fa-file-export"></i> -->
                         </div>
                         <div class="inner">
-                            <h3 class="mt-4">报表</h3>
+                            <h2>报表</h2>
                         </div>
                     </div>
                 </div>
@@ -95,7 +131,7 @@
                             <i class="fas fa-history"></i>
                         </div>
                         <div class="inner">
-                            <h3 class="mt-4">物料库存历史</h3>
+                            <h2>物料库存历史</h2>
                         </div>
                     </div>
                     <div class="small-box bg-olive" id="goods">
@@ -103,7 +139,7 @@
                             <i class="fas fa-boxes"></i>
                         </div>
                         <div class="inner">
-                            <h3 class="mt-4">物料管理</h3>
+                            <h2>物料管理</h2>
                         </div>
                     </div>
                 </div>
@@ -112,7 +148,7 @@
                     <!-- safety stock -->
                     <div class="card">
                         <!-- <div class="card-header">
-                            <h3>安全库存</h3>
+                            <h2>安全库存</h2>
                         </div> -->
                         <!-- /.card-header -->
                         <div class="card-body">

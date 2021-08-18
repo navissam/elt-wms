@@ -236,6 +236,11 @@ $(document).ready(function () {
             $(".location2-invalid").html("请输入 " + location + " 以外的库位");
             err = true;
         }
+        if (location2 == '' || location == null) {
+            $("#location2").addClass("is-invalid");
+            $(".location2-invalid").html("库位不可以空");
+            err = true;
+        }
         if (qty2 <= 0.01) {
             $("#qty2").addClass("is-invalid");
             $(".qty2-invalid").html("数量不可低于 0.01");

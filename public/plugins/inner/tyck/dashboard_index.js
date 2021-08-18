@@ -72,7 +72,7 @@ $(document).ready(function () {
     });
 
     $('#ret').on('click', function () {
-        window.location.href = "/tyck/inventory";    
+        window.location.href = "/tyck/return_";    
     });
 
     $('#scr').on('click', function () {

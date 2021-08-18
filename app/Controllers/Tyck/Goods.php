@@ -88,4 +88,39 @@ class Goods extends BaseController
             'status' => 'success',
         ]);
     }
+
+    public function update_safety()
+    {
+        $id = $this->request->getPost('goods_id');
+
+        if ($this->request->getMethod() != 'post') {
+            return redirect()->to('/tyck/goods');
+        }
+        try {
+            $this->goodsModel->update($this->request->getPost('goods_id'), $this->request->getPost());
+        } catch (\Exception $e) {
+            $this->syslog->insert([
+                'controller' => 'goods',
+                'method' => 'update',
+                'userID' => session()->get('userID') ?? '',
+                'status' => 0,
+                'data' => json_encode($id),
+                'response' => $e->getMessage()
+            ]);
+            return json_encode([
+                'status' => 'error',
+                'msg' => $e->getMessage()
+            ]);
+        }
+        $this->syslog->insert([
+            'controller' => 'goods',
+            'method' => 'update',
+            'userID' => session()->get('userID') ?? '',
+            'status' => 1,
+            'data' => json_encode($id)
+        ]);
+        return json_encode([
+            'status' => 'success',
+        ]);
+    }
 }
