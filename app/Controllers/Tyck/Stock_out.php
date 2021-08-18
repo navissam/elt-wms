@@ -17,7 +17,7 @@ class Stock_out extends BaseController
     {
         $data['title'] = '出库';
         $data['active']['sto']['stock_out'] = true;
-        return view('tyck/stock_out/v_stock_out', $data);
+        return view('tyck/stock_out/v_stock_out_index', $data);
     }
 
     public function getAll()

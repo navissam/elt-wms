@@ -17,7 +17,7 @@ class Return_ extends BaseController
     {
         $data['title'] = '退库';
         $data['active']['ret']['return'] = true;
-        return view('tyck/return/v_return', $data);
+        return view('tyck/return/v_return_index', $data);
     }
 
     public function getGoods()

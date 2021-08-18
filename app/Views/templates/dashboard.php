@@ -146,31 +146,36 @@
                 <div class="col-lg-1"></div>
                 <div class="col-lg-6">
                     <!-- safety stock -->
-                    <div class="card">
-                        <!-- <div class="card-header">
+                    <?php if ($x) : ?>
+                        <div class="card mt-2" id="safety">
+                            <!-- <div class="card-header">
                             <h2>安全库存</h2>
                         </div> -->
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="table1" class="table table-sm">
-                                <h5><strong>安全库存</strong></h5>
-                                <thead>
-                                    <tr>
-                                        <th>公司</th>
-                                        <th>物料代码</th>
-                                        <th>物料名称与规格型号</th>
-                                        <th>单位</th>
-                                        <th>数量</th>
-                                        <th>库位</th>
-                                        <!-- <th>状态</th> -->
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-danger">
-                                </tbody>
-                            </table>
+                            <!-- /.card-header -->
+
+                            <div class="card-body">
+                                <table id="table1" class="table table-sm table-bordered">
+                                    <h5><strong>安全库存</strong></h5>
+                                    <thead>
+                                        <tr>
+                                            <th>公司</th>
+                                            <th>物料代码</th>
+                                            <th>物料名称与规格型号</th>
+                                            <th>单位</th>
+                                            <th>数量</th>
+                                            <th>库位</th>
+                                            <!-- <th>状态</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-danger">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card -->
                         </div>
-                        <!-- /.card -->
-                    </div>
+                    <?php
+                    endif;
+                    ?>
                 </div>
                 <!-- /.col -->
             </div>

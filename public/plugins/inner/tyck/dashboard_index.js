@@ -51,8 +51,13 @@ $(document).ready(function () {
         let url = '/tyck/safety/getAllTyck';
         $.get(url, function (data) {
             let obj = JSON.parse(data);
-            console.log(obj);
-            createTable1(obj);
+            check = obj.length;
+            // console.log(check);
+            // if (check == 0) {
+            //     $('#safety').hide('slow');
+            // } else {
+                createTable1(obj);
+            // }
         });
     }
 
@@ -60,35 +65,35 @@ $(document).ready(function () {
     reloadTable1();
 
     $('#inv').on('click', function () {
-        window.location.href = "/tyck/inventory";    
+        window.location.href = "/tyck/inventory";
     });
 
     $('#sti').on('click', function () {
-        window.location.href = "/tyck/stock_in";    
+        window.location.href = "/tyck/stock_in";
     });
 
     $('#sto').on('click', function () {
-        window.location.href = "/tyck/stock_out";    
+        window.location.href = "/tyck/stock_out";
     });
 
     $('#ret').on('click', function () {
-        window.location.href = "/tyck/return_";    
+        window.location.href = "/tyck/return_";
     });
 
     $('#scr').on('click', function () {
-        window.location.href = "/tyck/inventory";    
+        window.location.href = "/tyck/scrap";
     });
 
     $('#report').on('click', function () {
-        window.location.href = "/tyck/inventory";    
+        window.location.href = "/tyck/inventory";
     });
 
     $('#history').on('click', function () {
-        window.location.href = "/tyck/inventory";    
+        window.location.href = "/tyck/inventory";
     });
 
     $('#goods').on('click', function () {
-        window.location.href = "/tyck/goods";    
+        window.location.href = "/tyck/goods";
     });
 
 });
