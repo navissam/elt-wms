@@ -2,8 +2,6 @@
 
 namespace Config;
 
-use App\Models\Route_model;
-
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 

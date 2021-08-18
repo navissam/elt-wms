@@ -44,7 +44,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </style>
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
     <div class="wrapper">
         <!-- Preloader -->
         <!-- <div class="preloader flex-column justify-content-center align-items-center">

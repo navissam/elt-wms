@@ -46,7 +46,7 @@ if ($roleID != 0) {
 <aside class="main-sidebar sidebar-dark-bbb elevation-4">
     <!-- Brand Logo -->
     <a href="<?= base_url(); ?>" class="brand-link">
-        <img src="<?= base_url(); ?>/dist/img/logo.png" alt="Cangku" class="brand-image img-circle elevation-3 bg-white" style="opacity: .8">
+        <img src="<?= base_url(); ?>/dist/img/logo.png" alt="Cangku" class="brand-image img-circle elevation-3 bg-white" style="opacity: 1">
         <span class="brand-text font-weight-light text-white">仓储管理系统</span>
     </a>
     <!-- Sidebar -->
