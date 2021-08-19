@@ -4,6 +4,7 @@ namespace App\Controllers\Tyck;
 
 use App\Controllers\BaseController;
 use App\Models\Tyck\Sti_temp_model;
+use PhpParser\Node\Stmt\Continue_;
 
 class Stock_in extends BaseController
 {
@@ -37,12 +38,12 @@ class Stock_in extends BaseController
     {
         $data['active']['sti'] = true;
         $data['isset_temp'] = ($this->sti_temp_model->countAllResults() > 0);
-        $data['duplicate'] = count($this->sti_temp_model->getDuplicate());
-        $data['inconsistent'] = count($this->sti_temp_model->getInconsistent());
-        $data['new_goods'] = count($this->sti_temp_model->getNewGoods());
-        $data['new_location'] = count($this->sti_temp_model->getNewLocation());
-        $data['new_company'] = count($this->sti_temp_model->getNewCompany());
-        $data['invalid_qty'] = count($this->sti_temp_model->getInvalidQty());
+        // $data['duplicate'] = count($this->sti_temp_model->getDuplicate());
+        // $data['inconsistent'] = count($this->sti_temp_model->getInconsistent());
+        // $data['new_goods'] = count($this->sti_temp_model->getNewGoods());
+        // $data['new_location'] = count($this->sti_temp_model->getNewLocation());
+        // $data['new_company'] = count($this->sti_temp_model->getNewCompany());
+        // $data['invalid_qty'] = count($this->sti_temp_model->getInvalidQty());
         return view('tyck/stock_in/v_stock_in_index', $data);
     }
 
@@ -163,6 +164,14 @@ class Stock_in extends BaseController
                     ]);
                 }
             }
+
+            $blank = false;
+            foreach ($row as $index => $cell) {
+                if ($index != 7)
+                    $blank = $blank || (trim($cell) === '');
+            }
+            if ($blank) continue;
+
             $sti_temp = [];
             foreach ($row as $index => $cell) {
                 $sti_temp[$this->field_header[$index]] = $cell;
