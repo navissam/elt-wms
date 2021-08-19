@@ -110,8 +110,9 @@
                                 <div class="invalid-feedback remark-invalid">
                                 </div>
                             </div>
-                            <hr class="mt-4">
-                            <button type="button" class="btn btn-primary mb-2 float-right" id="save"><i class="fas fa-save"></i> 保存</button>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <button type="button" class="btn btn-primary float-right" id="save"><i class="fas fa-save"></i> 保存</button>
                         </div>
                     </div>
                 </div>
@@ -140,7 +141,6 @@
                         <table id="table1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>公司</th>
                                     <th>库位</th>
                                     <th>物料代码</th>

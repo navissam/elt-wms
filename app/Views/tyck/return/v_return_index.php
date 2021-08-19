@@ -100,8 +100,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr>
-                            <button type="button" class="btn btn-primary mb-2 float-right" id="save"><i class="fas fa-save"></i> 保存</button>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <button type="button" class="btn btn-primary float-right" id="save"><i class="fas fa-save"></i> 保存</button>
                         </div>
                     </div>
                 </div>

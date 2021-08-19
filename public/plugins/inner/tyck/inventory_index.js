@@ -32,11 +32,21 @@ $(document).ready(function () {
                     data: 'goods_id'
                 },
                 {
-                    data: 'qty',
+                    data: 'concate',
                     render: function (data) {
-                        if (data % 1 == 0)
-                            return parseInt(data);
-                        return data;
+                        data = data.split('-');
+                        warn = data[0]-data[1];
+                        if(data[0] < data[1]) {
+                            dt = '<span class="text-danger">'
+                        } else if(warn <= 10) {
+                            dt = '<span class="text-warning">'
+                        } else {
+                            dt = '<span class="text-success">'
+                        }
+                        if (data[0] % 1 == 0)
+                            dt += parseInt(data[0]) + '</span>';
+                        dt += '</span>';
+                        return dt;
                     }
                 },
                 {

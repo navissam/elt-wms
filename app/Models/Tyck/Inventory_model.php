@@ -29,12 +29,8 @@ class Inventory_model extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table($this->table);
-        // $builder->select([
-        //     'tyck_inventory.*',
-        //     'tyck_goods.name_type as goods_name',
-        // ]);
-        // $builder->join('tyck_goods', 'tyck_goods.goods_id = tyck_inventory.goods_id', 'left');
-        $builder->where(['tyck_inventory.deleted_at' => null]);
+        $builder->select(['*', 'concat(qty,\'-\',safety) as concate']);
+        $builder->where(['deleted_at' => null]);
         return $builder->get()->getResultArray();
     }
 
