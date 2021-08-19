@@ -67,44 +67,11 @@
                                         <span class="h5">数据分析</span>
                                     </div>
                                     <div class="card-body row">
-                                        <div class="list-group col-8">
-                                            <?php if (($inconsistent) > 0) : ?>
-                                                <div id="analysis-inconsistent" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center">
-                                                    <span>发现<b>不一致</b>物料数据</span>
-                                                    <span class="badge badge-danger"><?= ($inconsistent); ?></span>
-                                                </div>
-                                            <?php endif; ?>
-                                            <?php if (($duplicate) > 0) : ?>
-                                                <div id="analysis-duplicate" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center">
-                                                    <span>发现<b>重复</b>库存数据</span>
-                                                    <span class="badge badge-danger"><?= ($duplicate); ?></span>
-                                                </div>
-                                            <?php endif; ?>
-                                            <?php if (($invalid_qty) > 0) : ?>
-                                                <div id="analysis-invalid-qty" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center">
-                                                    <span>发现<b>无效数量</b>数据</span>
-                                                    <span class="badge badge-danger"><?= ($invalid_qty); ?></span>
-                                                </div>
-                                            <?php endif; ?>
-                                            <?php if (($new_company) > 0) : ?>
-                                                <div id="analysis-new-company" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center">
-                                                    <span>发现<b>新公司</b></span>
-                                                    <span class="badge badge-danger"><?= ($new_company); ?></span>
-                                                </div>
-                                            <?php endif; ?>
-                                            <?php if (($new_goods) > 0) : ?>
-                                                <div id="analysis-new-goods" class="list-group-item list-group-item-action list-group-item-warning d-flex justify-content-between align-items-center">
-                                                    <span>发现<b>新物料</b>代码</span>
-                                                    <span class="badge badge-warning"><?= ($new_goods); ?></span>
-                                                </div>
-                                            <?php endif; ?>
-                                            <?php if (($new_location) > 0) : ?>
-                                                <div id="analysis-new-location" class="list-group-item list-group-item-action list-group-item-info d-flex justify-content-between align-items-center">
-                                                    <span>发现<b>新库位</b></span>
-                                                    <span class="badge badge-info"><?= ($new_location); ?></span>
-                                                </div>
-                                            <?php endif; ?>
-                                            <!-- <div id="analysis-inconsistent" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center hhh">
+                                        <div class="list-group col-8" id="analysis">
+
+                                        </div>
+                                        <div class="d-none" id="analysis-template">
+                                            <div id="analysis-inconsistent" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center">
                                                 <span>发现<b>不一致</b>物料数据</span>
                                                 <span class="badge badge-danger"></span>
                                             </div>
@@ -112,22 +79,22 @@
                                                 <span>发现<b>重复</b>库存数据</span>
                                                 <span class="badge badge-danger"></span>
                                             </div>
-                                            <div id="analysis-invalid-qty" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center">
+                                            <div id="analysis-invalid_qty" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center">
                                                 <span>发现<b>无效数量</b>数据</span>
                                                 <span class="badge badge-danger"></span>
                                             </div>
-                                            <div id="analysis-new-company" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center">
+                                            <div id="analysis-new_company" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center">
                                                 <span>发现<b>新公司</b></span>
                                                 <span class="badge badge-danger"></span>
                                             </div>
-                                            <div id="analysis-new-goods" class="list-group-item list-group-item-action list-group-item-warning d-flex justify-content-between align-items-center">
+                                            <div id="analysis-new_goods" class="list-group-item list-group-item-action list-group-item-warning d-flex justify-content-between align-items-center">
                                                 <span>发现<b>新物料</b>代码</span>
                                                 <span class="badge badge-warning"></span>
                                             </div>
-                                            <div id="analysis-new-location" class="list-group-item list-group-item-action list-group-item-info d-flex justify-content-between align-items-center">
+                                            <div id="analysis-new_location" class="list-group-item list-group-item-action list-group-item-info d-flex justify-content-between align-items-center">
                                                 <span>发现<b>新库位</b></span>
                                                 <span class="badge badge-info"></span>
-                                            </div> -->
+                                            </div>
                                         </div>
                                         <div class="col-4">
                                             <p><span class="badge badge-danger">-</span> 必须处理</p>
@@ -143,7 +110,7 @@
                                         <span class="h5">操作</span>
                                     </div>
                                     <div class="card-body">
-                                        <button class="btn btn-primary" onclick="location.reload()">
+                                        <button class="btn btn-primary" id="reload">
                                             <i class="fas fa-sync"></i> 刷新界面
                                         </button>
                                         <button type="button" class="btn btn-danger" id="cancel">

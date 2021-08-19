@@ -1,52 +1,28 @@
 $(document).ready(function () {
     // declare analysis
-
-    analysis = {
-        data: {},
-        reload: function () {
-            $.get("/tyck/stock_in/analysis", function (data) {
-                data = JSON.parse(data);
-                this.data = data.data;
-                console.log(this.data);
+    function reload_analysis() {
+        $.get("/tyck/stock_in/analysis", function (data) {
+            $("#analysis").html($("#analysis-template").html());
+            data = JSON.parse(data);
+            Object.entries(data.data).forEach(([key, value]) => {
+                $("#analysis-" + key + " .badge").html(value);
+                if (value > 0)
+                    $("#analysis-" + key).show();
+                else
+                    $("#analysis-" + key).remove();
             });
-            if (this.data.duplicate > 0)
-                $("#analysis-duplicate").show();
-            // console.log('duplicate lebih dari 0');
-            else
-                // console.log('duplicate = 0');
-                $("#analysis-duplicate").hide();
-
-
-
-            if (this.data.inconsistent > 0)
-                $("#analysis-inconsistent").show();
-            else
-                $("#analysis-inconsistent").hide();
-
-            if (this.data.inavlid_qty > 0)
-                $("#analysis-inavlid-qty").show();
-            else
-                $("#analysis-inavlid-qty").hide();
-
-            if (this.data.new_goods > 0)
-                $("#analysis-new-goods").show();
-            else
-                $("#analysis-new-goods").hide();
-
-            if (this.data.new_location > 0)
-                $("#analysis-new-location").show();
-            else
-                $("#analysis-new-location").hide();
-
-            if (this.data.new_company > 0)
-                $("#analysis-new-company").show();
-            else
-                $("#analysis-new-company").hide();
-        }
+            if (data.data.inconsistent > 0 || data.data.invalid_qty > 0 || data.data.new_company > 0 || data.data.duplicate > 0) {
+                $("#submit").prop("disabled", true);
+            }
+            else {
+                $("#submit").prop("disabled", false);
+            }
+        });
     }
 
-    $("#testing").click(function () {
-        $("#analysis-duplicate").addClass("d-none");
+    reload_analysis();
+    $("#reload").click(function () {
+        reload_analysis();
     })
 
     table1 = $("#table1").DataTable({
@@ -285,7 +261,6 @@ $(document).ready(function () {
             type: 'post',
             success: function (response) {
                 let r = JSON.parse(response);
-                console.log(r);
                 if (r.status == 'invalid') {
                     $("#file").addClass("is-invalid");
                     $(".file-invalid").html(
@@ -317,27 +292,27 @@ $(document).ready(function () {
         });
     })
 
-    $('#analysis-duplicate').click(function () {
-        table_duplicate.ajax.reload();
-        $('#duplicateModal').modal('show');
-    });
-    $('#analysis-new-company').click(function () {
+    $("#analysis").on("click", "#analysis-new_company", function (e) {
         table_new_company.ajax.reload();
         $('#newCompanyModal').modal('show');
     });
-    $('#analysis-new-goods').click(function () {
+    $("#analysis").on("click", "#analysis-duplicate", function (e) {
+        table_duplicate.ajax.reload();
+        $('#duplicateModal').modal('show');
+    });
+    $("#analysis").on("click", "#analysis-new_goods", function (e) {
         table_new_goods.ajax.reload();
         $('#newGoodsModal').modal('show');
     });
-    $('#analysis-new-location').click(function () {
+    $("#analysis").on("click", "#analysis-new_location", function (e) {
         table_new_location.ajax.reload();
         $('#newLocationModal').modal('show');
     });
-    $('#analysis-inconsistent').click(function () {
+    $("#analysis").on("click", "#analysis-inconsistent", function (e) {
         table_inconsistent.ajax.reload();
         $('#inconsistentModal').modal('show');
     });
-    $('#analysis-invalid-qty').click(function () {
+    $("#analysis").on("click", "#analysis-invalid_qty", function (e) {
         table_invalid_qty.ajax.reload();
         $('#invalidQtyModal').modal('show');
     });
@@ -372,7 +347,6 @@ $(document).ready(function () {
             remark: $('#edit-remark').val(),
         }, function (response) {
             let g = JSON.parse(response);
-            console.log(g);
             if (g.status == 'invalid') {
                 for (const [key, value] of Object.entries(g.errors)) {
                     $(`#edit-${key}`).addClass("is-invalid");
@@ -396,6 +370,7 @@ $(document).ready(function () {
                 $('.form-control').val('');
                 $('#editModal').modal('toggle');
                 table1.ajax.reload();
+                reload_analysis();
             }
         });
     });
@@ -415,7 +390,6 @@ $(document).ready(function () {
                 $.post('/tyck/stock_in/delete', {
                     sti_id: sti_id,
                 }, function (response) {
-                    console.log(response);
                     let g = JSON.parse(response);
                     if (g.status == 'error') {
                         Swal.fire(
@@ -426,9 +400,11 @@ $(document).ready(function () {
                     } else if (g.status == 'success') {
                         Swal.fire(
                             '已删除',
+                            '',
                             'success'
                         );
                         table1.ajax.reload();
+                        reload_analysis();
                     }
                 });
             }
@@ -450,7 +426,6 @@ $(document).ready(function () {
                 $.post('/tyck/stock_in/cancel', {
                     cancel: true,
                 }, function (response) {
-                    console.log(response);
                     let g = JSON.parse(response);
                     if (g.status == 'error') {
                         Swal.fire(
@@ -489,7 +464,6 @@ $(document).ready(function () {
                 $.post('/tyck/stock_in/import', {
                     submit: true,
                 }, function (response) {
-                    console.log(response);
                     let g = JSON.parse(response);
                     if (g.status == 'error') {
                         Swal.fire(
