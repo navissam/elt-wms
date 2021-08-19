@@ -94,7 +94,7 @@ class Sti_temp_model extends Model
 
         $db->query('INSERT `tyck_stock_in_rec` (`company`, `goods_id`, `qty`, `location`, `remark`)
         SELECT `company`, `goods_id`, `qty`, `location`, `remark`
-        FROM `tyck_stock_in_temp`;');
+        FROM `tyck_stock_in_temp` WHERE `deleted_at` is null;');
 
         $db->query('TRUNCATE TABLE `tyck_stock_in_temp`');
 
