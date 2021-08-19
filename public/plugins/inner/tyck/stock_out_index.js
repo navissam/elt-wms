@@ -53,19 +53,19 @@ $(document).ready(function () {
     $("#sto_date").attr("max", today);
     $("#qty").prop("disabled", true);
 
-    // $.get("/tyck/stock_out/getCompany", function (data) {
-    //     let object = JSON.parse(data);
-    //     dept = $.map(object, function (obj) {
-    //         obj.id = obj.id || obj.companyID;
-    //         obj.text = obj.text || obj.nameInd;
-    //         return obj;
-    //     });
-    //     company_select = $(".select2-recipient_company").select2({
-    //         data: dept,
-    //         theme: 'bootstrap4',
-    //     });
+    $.get("/tyck/stock_out/getCompany", function (data) {
+        let object = JSON.parse(data);
+        dept = $.map(object, function (obj) {
+            obj.id = obj.id || obj.companyID;
+            obj.text = obj.text || obj.nameInd + ' - ' + obj.nameMan;
+            return obj;
+        });
+        company_select = $(".select2-recipient_company").select2({
+            data: dept,
+            theme: 'bootstrap4',
+        });
 
-    // });
+    });
 
     // function for rebuild datatables (restore table)
     function createTable2(obj) {
@@ -235,12 +235,12 @@ $(document).ready(function () {
         $(".is-invalid").removeClass("is-invalid");
         var err = false;
         var field = [];
-        if ($("#recipient_company").val() == '' || $("#recipient_company").val() == null) {
-            $("#recipient_company").addClass("is-invalid");
-            $(".recipient_company-invalid").html("领用公司不可以空");
-            err = true;
-            field.push('recipient_company');
-        }
+        // if ($("#recipient_company").val() == '' || $("#recipient_company").val() == null) {
+        //     $("#recipient_company").addClass("is-invalid");
+        //     $(".recipient_company-invalid").html("领用公司不可以空");
+        //     err = true;
+        //     field.push('recipient_company');
+        // }
         if ($("#recipient_dept").val() == '' || $("#recipient_dept").val() == null) {
             $("#recipient_dept").addClass("is-invalid");
             $(".recipient_dept-invalid").html("领用部门不可以空");

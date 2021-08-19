@@ -42,4 +42,12 @@ class Return_model extends Model
         $builder->where(['deleted_at' => null]);
         return $builder->get()->getResultArray();
     }
+
+    public function getCompany()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('company');
+        $builder->where(['deleted_at' => null]);
+        return $builder->get()->getResultArray();
+    }
 }

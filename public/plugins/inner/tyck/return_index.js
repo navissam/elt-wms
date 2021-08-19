@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     // declare global variable
-    var  goods, goods_select, location, location_select;
+    var  goods, goods_select, location, location_select, company, company_select;
 
 
     $.get("/tyck/return_/getGoods", function (data) {
@@ -29,6 +29,23 @@ $(document).ready(function () {
             data: location,
             theme: 'bootstrap4',
             // dropdownParent: $("#switchModal")
+        });
+    });
+
+    $.get("/tyck/return_/getCompany", function (data) {
+        let object = JSON.parse(data);
+        dept = $.map(object, function (obj) {
+            obj.id = obj.id || obj.companyID;
+            obj.text = obj.text || obj.nameInd + ' - ' + obj.nameMan;
+            return obj;
+        });
+        company_select = $(".select2-ret_company").select2({
+            data: dept,
+            theme: 'bootstrap4',
+        });
+        company_select = $(".select2-company").select2({
+            data: dept,
+            theme: 'bootstrap4',
         });
     });
 
@@ -72,44 +89,11 @@ $(document).ready(function () {
         $(".select2-ret_location").attr("id", "ret_location");
     });
 
-    
-    // function swap() {
-    //     $("#swaps").show();
-    //     $(".swaptext").hide();
-    //     $(".swapselect").show();
-    //     $(".select2-ret_location").attr("id", "ret_location");
-    //     $(".text-location").removeAttr("id");
-    // }
-
-    // $('#swaps').on('click', function () {
-    //     $(this).removeAttr("id");
-    //     $(this).attr("id", "swapt");
-    //     $(".swaptext").show();
-    //     $(".swapselect").hide();
-    //     $(".select2-ret_location").removeAttr("id");
-    //     $(".text-location").attr("id", "ret_location");
-    // });
-
-    // $('#swapt').on('click', function () {
-    //     $(this).removeAttr("id");
-    //     $(this).attr("id", "swaps");
-    //     $(".swaptext").hide();
-    //     $(".swapselect").show();
-    //     $(".select2-ret_location").attr("id", "ret_location");
-    //     $(".text-location").removeAttr("id");
-    // });
-
     $("#save").on("click", function () {
         $(".marg").addClass("mb-auto");
         $(".is-invalid").removeClass("is-invalid");
         var err = false;
         var field = [];
-        if ($("#ret_company").val() == '' || $("#ret_company").val() == null) {
-            $("#ret_company").addClass("is-invalid");
-            $(".ret_company-invalid").html("退库公司不可以空");
-            err = true;
-            field.push('ret_company');
-        }
         if ($("#ret_dept").val() == '' || $("#ret_dept").val() == null) {
             $("#ret_dept").addClass("is-invalid");
             $(".ret_dept-invalid").html("退库部门不可以空");
@@ -127,12 +111,6 @@ $(document).ready(function () {
             $(".ret_date-invalid").html("退库日期不可以空");
             err = true;
             field.push('ret_date');
-        }
-        if ($("#company").val() == '' || $("#company").val() == null) {
-            $("#company").addClass("is-invalid");
-            $(".company-invalid").html("公司不可以空");
-            err = true;
-            field.push('company');
         }
         if ($("#ret_location").val() == '' || $("#ret_location").val() == null) {
             $("#ret_location").addClass("is-invalid");

@@ -61,10 +61,10 @@
     <!-- /.content -->
     <!-- Modal Switch-->
     <div class="modal fade" id="switchModal" tabindex="-1" role="dialog" aria-labelledby="switchModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="switchModalLabel"><span class="goods_id"></span> - 库位转储</h5>
+                    <h5 class="modal-title" id="switchModalLabel"><span class="goods_id"></span> - 库位变更</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -72,23 +72,21 @@
                 <div class="modal-body">
                     <table class="table table-sm table-borderless">
                         <tr>
-                            <td class="font-weight-bold">序号</td>
-                            <td>: <span class="inv_id"></span></td>
-                            <td class="font-weight-bold">公司</td>
-                            <td>: <span class="company"></span></td>
+                            <td class="font-weight-bold">序号: <span class="inv_id"></span></td>
+                            <td class="font-weight-bold">公司: <span class="company"></span></td>
                         </tr>
                     </table>
                     <div class="form-group row mt-4">
                         <div class="col-2 mt-1">
                             <label>库位</label>
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <input type="text" class="form-control" id="location" readonly>
                         </div>
-                        <div class="col-1 mt-2">
-                            <i class="fas fa-long-arrow-alt-right float-right" aria-hidden="true"></i>
+                        <div class="col-1">
+                            <i class="fas fa-long-arrow-alt-right fa-2x" style="padding: 0 15px;" aria-hidden="true"></i>
                         </div>
-                        <div class="col-5">
+                        <div class="col-4" style="padding: 0 0 0 7.5px;">
                             <div class="swapselect">
                                 <select class="form-control select2-location-switch" style="width: 100%;">
                                 </select>
@@ -101,24 +99,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-1">
-                            <button type="button" class="btn btn-outline-secondary float-right" id="swaps"><i class="fas fa-plus" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-outline-secondary float-right" id="swapt"><i class="fas fa-chevron-circle-down" aria-hidden="true"></i></button>
+                        <div class="col-1" style="padding: 0 7.5px 0 0;">
+                            <button type="button" class="btn btn-block btn-outline-secondary float-right" id="swaps"><i class="fas fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-block btn-outline-secondary float-right" style="margin: 0 0 0;" id="swapt"><i class="fas fa-chevron-circle-down" aria-hidden="true"></i></button>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-2 mt-1">
                             <label>数量</label>
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <input type="hidden" class="form-control" id="company">
                             <input type="hidden" class="form-control" id="goods_id">
                             <input type="text" class="form-control" id="qty" readonly>
                         </div>
-                        <div class="col-1 mt-2">
-                            <i class="fas fa-long-arrow-alt-right float-right" aria-hidden="true"></i>
+                        <div class="col-1">
+                            <i class="fas fa-long-arrow-alt-right fa-2x" style="padding: 0 15px;" aria-hidden="true"></i>
                         </div>
-                        <div class="col-6">
+                        <div class="col-5">
                             <input type="number" class="form-control" id="qty2" min="0" maxlength="2147483647">
                             <div class="invalid-feedback qty2-invalid">
                             </div>

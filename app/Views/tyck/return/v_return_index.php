@@ -32,19 +32,11 @@
                 <div class="col-6">
                     <div class="card card-bbb card-outline">
                         <div class="card-header">
-                            <!-- <div class="form-group col">
-                                    <label class="" for="recipient_company">领用公司</label>
-                                    <select id="recipient_company" class="select2-recipient_company form-control" style="width: 100%;">
-                                        </select>
-                                        <div class="invalid-feedback recipient_company-invalid">
-                                            </div>
-                                        </div> -->
                             <div class="row row-cols-lg-2 row-cols-md-2 row-cols-sm-1">
                                 <div class="form-group col">
                                     <label class="" for="ret_company">退库公司</label>
-                                    <input type="text" class="form-control" id="ret_company" placeholder="输入退库公司" maxlength="10">
-                                    <div class="invalid-feedback ret_company-invalid">
-                                    </div>
+                                    <select id="ret_company" class="select2-ret_company form-control" style="width: 100%;">
+                                    </select>
                                 </div>
                                 <div class="form-group col">
                                     <label class="" for="ret_dept">退库部门</label>
@@ -70,22 +62,13 @@
                                 <select id="goods_id" class="select2-goods_id form-control" style="width: 100%;">
                                 </select>
                             </div>
-                            <!-- <div class="form-group row">
-                                <div class="col-6">
-
-                                </div>
-                                <div class="col-6">
-
-                                </div>
-                            </div> -->
                             <div class="form-group row">
                                 <div class="col-6">
                                     <label class="" for="company">公司</label>
-                                    <input type="text" class="form-control" id="company" placeholder="输入公司" maxlength="10">
-                                    <div class="invalid-feedback company-invalid">
-                                    </div>
+                                    <select id="company" class="select2-company form-control" style="width: 100%;">
+                                    </select>
                                 </div>
-                                <div class="col-5">
+                                <div class="col-5" style="padding: 0 0 0 7.5px;">
                                     <label for="ret_location">库位</label>
                                     <div class="swapselect">
                                         <select class="form-control select2-ret_location" style="width: 100%;">
@@ -97,7 +80,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-1 marg">
+                                <div class="col-1 marg" style="padding: 0 7.5px 0 0;">
                                     <button type="button" class="btn btn-block btn-outline-secondary" style="margin: 8px 0 0;" id="swaps"><i class="fas fa-plus" aria-hidden="true"></i></button>
                                     <button type="button" class="btn btn-block btn-outline-secondary" id="swapt"><i class="fas fa-chevron-circle-down" aria-hidden="true"></i></button>
                                     <!-- <a class="btn btn-block btn-outline-secondary" id="swaps"><i class="fas fa-plus" aria-hidden="true"></i></a> -->
