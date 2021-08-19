@@ -179,6 +179,11 @@ class Stock_in extends BaseController
             array_push($sti_temps, $sti_temp);
         }
         try {
+            if (count($sti_temps) == 0)
+                return json_encode([
+                    'status' => 'error',
+                    'msg' => '数据不全'
+                ]);
             $this->sti_temp_model->insertBatch($sti_temps);
             // return json_encode([
             //     'status' => 'error',
