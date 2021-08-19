@@ -80,9 +80,7 @@ $(document).ready(function () {
                 // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
             },
             data: obj,
-            columns: [{
-                data: 'inv_id',
-            },
+            columns: [
             {
                 data: 'company'
             },

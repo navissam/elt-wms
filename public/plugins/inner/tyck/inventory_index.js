@@ -36,9 +36,9 @@ $(document).ready(function () {
                     render: function (data) {
                         data = data.split('-');
                         warn = data[0]-data[1];
-                        if(data[0] < data[1]) {
+                        if(data[0] < data[1] || data[0] == 0) {
                             dt = '<span class="text-danger">'
-                        } else if(warn <= 10) {
+                        } else if(warn <= 20) {
                             dt = '<span class="text-warning">'
                         } else {
                             dt = '<span class="text-success">'

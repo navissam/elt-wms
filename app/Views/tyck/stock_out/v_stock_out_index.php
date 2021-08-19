@@ -123,7 +123,6 @@
                         <table id="table2" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>公司</th>
                                     <th>库位</th>
                                     <th>物料代码</th>
