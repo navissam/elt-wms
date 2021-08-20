@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="col-2 mt-auto">
                                     <button id="add" class="btn btn-secondary btn-block">
-                                        <i class="fa fa-search" aria-hidden="true"></i> 寻找物料
+                                        <i class="fa fa-search" aria-hidden="true"></i> 查询库存
                                     </button>
                                 </div>
                             </div>

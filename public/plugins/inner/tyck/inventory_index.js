@@ -35,17 +35,15 @@ $(document).ready(function () {
                     data: 'concate',
                     render: function (data) {
                         data = data.split('-');
-                        warn = data[0]-data[1];
-                        if(data[0] < data[1] || data[0] == 0) {
+                        warn = data[0] - data[1];
+                        if (data[0] < data[1] || data[0] == 0) {
                             dt = '<span class="text-danger">'
-                        } else if(warn <= 20) {
+                        } else if (warn <= 20) {
                             dt = '<span class="text-warning">'
                         } else {
                             dt = '<span class="text-success">'
                         }
-                        if (data[0] % 1 == 0)
-                            dt += parseInt(data[0]) + '</span>';
-                        dt += '</span>';
+                        dt += (data[0] % 1 == 0) ? parseInt(data[0]) + '</span>' : data[0] + '</span>';
                         return dt;
                     }
                 },
@@ -129,12 +127,13 @@ $(document).ready(function () {
                                 '',
                                 'success'
                             );
+                            table1.cell($('#edit-safety').parents('td')).data(val).draw();
+                            $('#edit-safety').remove();
+                            safety_edit = false;
+                            reloadTable1();
                         }
                     });
-                    table1.cell($(this).parents('td')).data(val).draw();
-                    $(this).remove();
-                    safety_edit = false;
-                    reloadTable1();
+
                 }
             }
         }

@@ -80,7 +80,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-1 marg" style="padding: 0 7.5px 0 0;">
+                                <div class="col-1 mt-auto" style="padding: 0 7.5px 0 0;">
                                     <button type="button" class="btn btn-block btn-outline-secondary" style="margin: 8px 0 0;" id="swaps"><i class="fas fa-plus" aria-hidden="true"></i></button>
                                     <button type="button" class="btn btn-block btn-outline-secondary" id="swapt"><i class="fas fa-chevron-circle-down" aria-hidden="true"></i></button>
                                     <!-- <a class="btn btn-block btn-outline-secondary" id="swaps"><i class="fas fa-plus" aria-hidden="true"></i></a> -->

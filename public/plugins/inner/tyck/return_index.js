@@ -90,7 +90,6 @@ $(document).ready(function () {
     });
 
     $("#save").on("click", function () {
-        $(".marg").addClass("mb-auto");
         $(".is-invalid").removeClass("is-invalid");
         var err = false;
         var field = [];

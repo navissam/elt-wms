@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     // declare global variable
     var goods;
@@ -42,7 +42,7 @@ $(document).ready(function() {
                 },
                 {
                     data: 'goods_id',
-                    render: function(data, type) {
+                    render: function (data, type) {
                         let btn = '<button type="button" class="btn btn-primary btn-sm btn-edit" data-goods_id="' + data + '">';
                         btn += '<i class="fas fa-edit" aria-hidden="true"></i>';
                         btn += '</button> ';
@@ -56,7 +56,7 @@ $(document).ready(function() {
     // reload datasource from ajax
     function reloadTable1() {
         let url = '/tyck/goods/getAll/';
-        $.get(url, function(data, status) {
+        $.get(url, function (data, status) {
             let obj = JSON.parse(data);
             createTable1(obj);
             goods = obj;
@@ -110,12 +110,13 @@ $(document).ready(function() {
                                 '',
                                 'success'
                             );
+                            table1.cell($('#edit-safety').parents('td')).data(val).draw();
+                            $('#edit-safety').remove();
+                            safety_edit = false;
+                            reloadTable1();
                         }
                     });
-                    table1.cell($(this).parents('td')).data(val).draw();
-                    $(this).remove();
-                    safety_edit = false;
-                    reloadTable1();
+
                 }
             }
         }
@@ -125,15 +126,15 @@ $(document).ready(function() {
     reloadTable1();
 
     // save button click event (for edited data)
-    $('#save-edit').on('click', function() {
-            $(".is-invalid").removeClass("is-invalid");
+    $('#save-edit').on('click', function () {
+        $(".is-invalid").removeClass("is-invalid");
 
         $.post('/tyck/goods/update', {
             goods_id: goods_id,
             name_type: $('#edit-name_type').val(),
             unit: $('#edit-unit').val(),
             safety: $('#edit-safety').val(),
-        }, function(response) {
+        }, function (response) {
             let g = JSON.parse(response);
             if (g.status == 'invalid') {
                 for (const [key, value] of Object.entries(g.errors)) {
@@ -163,7 +164,7 @@ $(document).ready(function() {
     });
 
     // edit button on each row
-    $("body").on("click", ".btn-edit", function(e) {
+    $("body").on("click", ".btn-edit", function (e) {
         $(".is-invalid").removeClass("is-invalid");
         goods_id = $(this).data('goods_id');
         let g = goods.find(x => x.goods_id == goods_id);
@@ -175,11 +176,11 @@ $(document).ready(function() {
         $('#edit-safety').val(safety);
         $('#editModal').modal('show');
     });
-  
-    $('#editModal').keypress(function(event){
+
+    $('#editModal').keypress(function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
-        if(keycode == '13'){
-            $('#save-edit').click();    
+        if (keycode == '13') {
+            $('#save-edit').click();
         }
     });
 });

@@ -84,12 +84,12 @@ $(document).ready(function () {
         window.location.href = "/tyck/scrap";
     });
 
-    $('#report').on('click', function () {
-        window.location.href = "/tyck/inventory";
-    });
+    // $('#report').on('click', function () {
+    //     window.location.href = "/tyck/report";
+    // });
 
     $('#history').on('click', function () {
-        window.location.href = "/tyck/inventory";
+        window.location.href = "/tyck/history";
     });
 
     $('#goods').on('click', function () {

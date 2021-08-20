@@ -78,7 +78,7 @@ $(document).ready(function () {
 
     // save button click event (for new data)
     $("#insert").on("click", function () {
-            console.log(inv);
+            // console.log(inv);
             if (inv == null) {
                 Swal.fire(
                     "失误!", "你还没有选择物料", "error"
@@ -87,7 +87,7 @@ $(document).ready(function () {
                 goods_id = inv.goods_id;
                 company = inv.company;
                 scrlocation = inv.location;
-                stock = inv.qty;
+                stock = (inv.qty % 1 == 0) ? parseInt(inv.qty) : inv.qty;
                 $("#goods_id").val(goods_id);
                 $("#company").val(company);
                 $("#location").val(scrlocation);
@@ -108,12 +108,10 @@ $("#scr_date").attr("max", today); $("#qty").prop("disabled", true);
 $("#save").on("click", function () {
     $(".is-invalid").removeClass("is-invalid");
     var err = false;
-    var field = [];
     if ($("#scr_date").val() == '' || $("#scr_date").val() == null) {
         $("#scr_date").addClass("is-invalid");
         $(".scr_date-invalid").html("报废日期不可以空");
         err = true;
-        field.push('scr_date');
     }
     if ($("#qty").val() == '' || $("#qty").val() == null) {
         $("#qty").addClass("is-invalid");
@@ -123,30 +121,25 @@ $("#save").on("click", function () {
         $("#qty").addClass("is-invalid");
         $(".qty-invalid").html("数量不可低于 0.01")
         err = true;
-        field.push('qty');
-    } else if ($("#qty").val() > stock) {
+    } else if (parseFloat($("#qty").val()) > inv.qty) {
         $("#qty").addClass("is-invalid");
         $(".qty-invalid").html("数量不可超过库存数量")
         err = true;
-        field.push('qty');
     }
     if ($("#applyPIC").val() == '' || $("#applyPIC").val() == null) {
         $("#applyPIC").addClass("is-invalid");
         $(".applyPIC-invalid").html("申请人不可以空");
         err = true;
-        field.push('applyPIC');
     }
     if ($("#verifyPIC").val() == '' || $("#verifyPIC").val() == null) {
         $("#verifyPIC").addClass("is-invalid");
         $(".verifyPIC-invalid").html("审核人不可以空");
         err = true;
-        field.push('verifyPIC');
     }
     if ($("#reason").val() == '' || $("#reason").val() == null) {
         $("#reason").addClass("is-invalid");
         $(".reason-invalid").html("物料报废原因不可以空");
         err = true;
-        field.push('reason');
     }
 
     if (!err) {
