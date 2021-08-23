@@ -6,36 +6,26 @@ use CodeIgniter\Model;
 
 class Report_model extends Model
 {
-    protected $table      = 'tyck_inventory';
-    protected $primaryKey = 'inv_id';
-
-    protected $useAutoIncrement = true;
-
-    protected $returnType     = 'array';
-    protected $useSoftDeletes = true;
-
-    protected $allowedFields = ['company', 'goods_id', 'qty', 'location', 'safety', 'remark'];
-
-    protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
-
-    protected $validationRules    = [];
-    protected $validationMessages = [];
-    protected $skipValidation     = false;
-
-    public function getInv()
+    public function sti_report($choosen, $start, $finish, $company, $goods, $location)
     {
+
         $db      = \Config\Database::connect();
-        $builder = $db->table($this->table);
-        $builder->select([
-            'tyck_inventory.*',
-            'tyck_goods.name_type as goods_name',
-            'tyck_goods.unit as unit',
-        ]);
-        $builder->join('tyck_goods', 'tyck_goods.goods_id = tyck_inventory.goods_id', 'left');
-        // $builder->where(['deleted_at' => null]);
+        $builder = $db->table('tyck_stock_in_report');
+        $builder->select($choosen);
+        $builder->where('created_at >=', $start);
+        $builder->where('created_at <=', $finish);
+        if ($company != null) {
+            // $c = explode(",", $company);
+            $builder->whereIn('company', $company);
+        }
+        if ($goods != null) {
+            // $g = explode(",", $goods);
+            $builder->whereIn('goods_id', $goods);
+        }
+        if ($location != null) {
+            // $l = explode(",", $location);
+            $builder->whereIn('location', $location);
+        }
         return $builder->get()->getResultArray();
     }
 
@@ -50,7 +40,7 @@ class Report_model extends Model
     public function getLocation()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table($this->table);
+        $builder = $db->table('tyck_inventory');
         $builder->select('location');
         $builder->distinct('location');
         $builder->where(['deleted_at' => null]);

@@ -1,67 +1,11 @@
 $(document).ready(function () {
 
-    let table1 = $("#table1").DataTable();
     selectc = $('.select2-company').select2();
     selectg = $('.select2-goods_id').select2();
     selectl = $('.select2-location').select2();
 
-    // function createTable1(obj) {
-    //     table1.destroy();
-    //     table1 = $("#table1").DataTable({
-    //         pageLength: 5,
-    //         lengthMenu: [
-    //             [5, 10, 20],
-    //             [5, 10, 20]
-    //         ],
-    //         responsive: true,
-    //         autoWidth: false,
-    //         language: {
-    //             url: "/plugins/inner/datatables-lang.json",
-    //             // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
-    //         },
-    //         data: obj,
-    //         columns: [
-    //             {
-    //                 data: 'company'
-    //             },
-    //             {
-    //                 data: 'location'
-    //             },
-    //             {
-    //                 data: 'goods_id'
-    //             },
-    //             {
-    //                 data: 'goods_name'
-    //             },
-    //             {
-    //                 data: 'unit'
-    //             },
-    //             {
-    //                 data: 'qty',
-    //                 render: function (data) {
-    //                     if (data % 1 == 0)
-    //                         return parseInt(data);
-    //                     return data;
-    //                 }
-    //             },
-    //             {
-    //                 data: 'updated_at'
-    //             },
-    //         ],
-    //     });
-    // }
-
-    // function reloadTable1() {
-    //     let url = "/tyck/scrap/getInv";
-    //     $.get(url, function (data) {
-    //         let obj = JSON.parse(data);
-    //         createTable1(obj);
-    //     });
-    // }
-    // reloadTable1();
-
     $("#chooseAll").on("change", function () {
-        ($(this).prop("checked") == true) ? $(".choose").prop("checked", true): $(".choose").prop("checked", false);
+        $(this).prop("checked") == true ? $(".choose").prop("checked", true) : $(".choose").prop("checked", false);
     });
 
     var now = new Date();
@@ -111,4 +55,106 @@ $(document).ready(function () {
             data: locate,
         });
     });
+
+    $("#alert").hide();
+    // $("#swapfilter").hide();
+    
+    $("#savefilter").on("click", function () {
+        $("#alert").hide();
+        var err = false;
+        choosen = [];
+        c = 0;
+        if ($("#sti_id").prop("checked") == true) {
+            choosen.push($("#sti_id").val());
+        } else {
+            choosen.push(null);
+            c = c + 1;
+        }
+        if ($("#company").prop("checked") == true) {
+            choosen.push($("#company").val());
+        } else {
+            choosen.push(null);
+            c = c + 1;
+        }
+        if ($("#goods_id").prop("checked") == true) {
+            choosen.push($("#goods_id").val());
+        } else {
+            choosen.push(null);
+            c = c + 1;
+        }
+        if ($("#name_type").prop("checked") == true) {
+            choosen.push($("#name_type").val());
+        } else {
+            choosen.push(null);
+            c = c + 1;
+        }
+        if ($("#unit").prop("checked") == true) {
+            choosen.push($("#unit").val());
+        } else {
+            choosen.push(null);
+            c = c + 1;
+        }
+        if ($("#qty").prop("checked") == true) {
+            choosen.push($("#qty").val());
+        } else {
+            choosen.push(null);
+            c = c + 1;
+        }
+        if ($("#location").prop("checked") == true) {
+            choosen.push($("#location").val());
+        } else {
+            choosen.push(null);
+            c = c + 1;
+        }
+        if ($("#remark").prop("checked") == true) {
+            choosen.push($("#remark").val());
+        } else {
+            choosen.push(null);
+            c = c + 1;
+        }
+        if (c == 8) {
+            $("#alert").show();
+            err = true;
+        }
+        // console.log(choosen);
+        if (!err) {
+            start = $("#start").val();
+            finish = $("#finish").val();
+            company = ($("#s_company").select2('val').length == 0) ? 'all' : $("#s_company").select2('val');
+            goods = ($("#s_goods_id").select2('val').length == 0) ? 'all' : $("#s_goods_id").select2('val');;
+            locate = ($("#s_location").select2('val').length == 0) ? 'all' : $("#s_location").select2('val');;
+            // console.log(choosen, start, finish, company, goods, locate);
+            // url = choosen + "/" + start + "/" + finish + "/" + company + "/" + goods + "/" + locate;
+
+            $("#filterForm").submit();
+            window.location.href = window.location.origin + "/tyck/report/sti";
+        }
+    });
+
+    $("#table1").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        language: {
+            url: "/plugins/inner/datatables-lang.json",
+        },
+        // searching: false,
+        dom: '<"row"<"col-1"B><"col-11"f>>t<"row"<"col-3"i><"col-9"p>>',
+        lengthMenu: [[50],["50"]],
+        buttons: [{
+                extend: 'copyHtml5',
+                // footer: true,
+                text: '复制',
+                className: 'btn btn-warning'
+            },
+            {
+                extend: 'excelHtml5',
+                // footer: true,
+                text: '导出',
+                filename: function fred() { return "入库报表" + today; },
+                exportOptions: { orthogonal: "exportxls" },
+                className: 'btn btn-success'
+            }
+        ],
+    });
+
 });

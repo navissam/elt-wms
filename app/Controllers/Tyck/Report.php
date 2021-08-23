@@ -17,7 +17,7 @@ class Report extends BaseController
     {
         $data['title'] = '入库报表';
         $data['active']['report']['sti_report'] = true;
-        return view('tyck/report/v_sti_report_index', $data);
+        return view('tyck/report/v_sti_filter_index', $data);
     }
 
     public function getGoods()
@@ -35,8 +35,40 @@ class Report extends BaseController
         return json_encode($this->report_model->getCompany());
     }
 
-    public function getInv()
+    // public function sti_report($choosen, $start, $finish, $company, $goods, $location)
+    public function sti_report()
     {
-        return json_encode($this->report_model->getInv());
+        $data['title'] = '入库报表';
+        // dd($this->request->getPost());
+        $choosen = $this->request->getPost('choosen');
+        $start = $this->request->getPost('start');
+        $finish = $this->request->getPost('finish');
+        $company = $this->request->getPost('s_company');
+        $goods = $this->request->getPost('s_goods_id');
+        $location = $this->request->getPost('s_location');
+        // dd($choosen, $start, $finish, $company, $goods, $location);
+        $data['rows'] = $this->report_model->sti_report($choosen, $start, $finish, $company, $goods, $location);
+        // $rows = $this->report_model->sti_report($choosen, $start, $finish, $company, $goods, $location);
+        $header = [
+            "sti_id" => "入库编号",
+            "company" => "公司",
+            "goods_id" => "物料代码",
+            "name_type" => "物料名称与规格型号",
+            "unit" => "单位",
+            "qty" => "入库量",
+            "location" => "库位",
+            "remark" => "备注"
+        ];
+        // dd($header);
+        $h = [];
+        $i = 0;
+        for ($i >= 0; $i < count($choosen); $i++) {
+            array_push($h, $header[$choosen[$i]]);
+        }
+
+        $data['header'] = $h;
+        $data['body'] = $choosen;
+        // dd($h, $choosen);
+        return view('tyck/report/v_sti_report_index', $data);
     }
 }
