@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class Report_model extends Model
 {
-    public function sti_report($choosen, $start, $finish, $company, $goods, $location)
+    public function sti_report_adv($choosen, $start, $finish, $company, $goods, $location)
     {
 
         $db      = \Config\Database::connect();
@@ -26,6 +26,15 @@ class Report_model extends Model
             // $l = explode(",", $location);
             $builder->whereIn('location', $location);
         }
+        return $builder->get()->getResultArray();
+    }
+
+    public function sti_report_basic($start, $finish)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_stock_in_report');
+        $builder->where('created_at >=', $start);
+        $builder->where('created_at <=', $finish);
         return $builder->get()->getResultArray();
     }
 

@@ -37,7 +37,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-6">
-                    <form action="<?= base_url('tyck/report/sti_report'); ?>" target="_blank" method="post" id="filterForm">
+                    <form action="<?= base_url('tyck/report/sti_report_adv'); ?>" target="_blank" method="post" id="filterForm">
                         <div class="card card-bbb card-outline">
                             <div class="card-body">
                                 <div class="row">
@@ -111,12 +111,7 @@
                                                         <input type="date" class="form-control" name="finish" id="finish" value="<?= date('Y-m-d'); ?>">
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#advanced" aria-expanded="false" aria-controls="advanced">
-                                                        Advanced
-                                                    </button>
-                                                </div>
-                                                <div class="collapse" id="advanced">
+                                                <div class="mt-2">
                                                     <label for="s_company">公司</label>
                                                     <div class="select2-primary">
                                                         <select class="select2-company" name="s_company[]" id="s_company" multiple="multiple" data-placeholder="公司筛选（放空等于全选）" data-dropdown-css-class="select2-primary" style="width: 100%;">
@@ -143,7 +138,7 @@
                                 </div>
                             </div>
                             <div class="card-footer bg-light">
-                                <button type="button" class="btn btn-primary float-right" id="savefilter"><i class="fas fa-save"></i> 保存</button>
+                                <button type="button" class="btn btn-primary float-right" id="advfilter"><i class="fas fa-save"></i> 保存</button>
                             </div>
                         </div>
                     </form>

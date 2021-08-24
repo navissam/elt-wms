@@ -17,7 +17,14 @@ class Report extends BaseController
     {
         $data['title'] = '入库报表';
         $data['active']['report']['sti_report'] = true;
-        return view('tyck/report/v_sti_filter_index', $data);
+        return view('tyck/sti_report/v_sti_basic_report_index', $data);
+    }
+
+    public function sti_advanced()
+    {
+        $data['title'] = '入库报表';
+        $data['active']['report']['sti_report'] = true;
+        return view('tyck/sti_report/v_sti_filter_index', $data);
     }
 
     public function getGoods()
@@ -35,19 +42,28 @@ class Report extends BaseController
         return json_encode($this->report_model->getCompany());
     }
 
-    // public function sti_report($choosen, $start, $finish, $company, $goods, $location)
-    public function sti_report()
+    public function sti_report_basic($start, $finish)
+    {
+        return json_encode($this->report_model->sti_report_basic($start, $finish));
+    }
+
+    public function sti_report_adv()
     {
         $data['title'] = '入库报表';
         // dd($this->request->getPost());
         $choosen = $this->request->getPost('choosen');
         $start = $this->request->getPost('start');
-        $finish = $this->request->getPost('finish');
+
+        $f = $this->request->getPost('finish');
+        $date = date_create($f);
+        date_modify($date, "+1 days");
+        $finish = date_format($date, "Y-m-d");
+
         $company = $this->request->getPost('s_company');
         $goods = $this->request->getPost('s_goods_id');
         $location = $this->request->getPost('s_location');
         // dd($choosen, $start, $finish, $company, $goods, $location);
-        $data['rows'] = $this->report_model->sti_report($choosen, $start, $finish, $company, $goods, $location);
+        $data['rows'] = $this->report_model->sti_report_adv($choosen, $start, $finish, $company, $goods, $location);
         // $rows = $this->report_model->sti_report($choosen, $start, $finish, $company, $goods, $location);
         $header = [
             "sti_id" => "入库编号",
@@ -69,6 +85,6 @@ class Report extends BaseController
         $data['header'] = $h;
         $data['body'] = $choosen;
         // dd($h, $choosen);
-        return view('tyck/report/v_sti_report_index', $data);
+        return view('tyck/sti_report/v_sti_report_index', $data);
     }
 }

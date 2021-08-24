@@ -4,8 +4,29 @@ $(document).ready(function () {
     selectg = $('.select2-goods_id').select2();
     selectl = $('.select2-location').select2();
 
+    $("#advanced").on("click", function () {
+        window.location.href = window.location.origin + "/tyck/report/sti_advanced";
+    });
+
     $("#chooseAll").on("change", function () {
         $(this).prop("checked") == true ? $(".choose").prop("checked", true) : $(".choose").prop("checked", false);
+    });
+
+    $(".choose").on("change", function () {
+        if ($("#sti_id").prop("checked") == true &&
+            $("#company").prop("checked") == true &&
+            $("#goods_id").prop("checked") == true &&
+            $("#name_type").prop("checked") == true &&
+            $("#unit").prop("checked") == true &&
+            $("#qty").prop("checked") == true &&
+            $("#location").prop("checked") == true &&
+            $("#remark").prop("checked") == true) 
+            {
+            $("#chooseAll").prop("checked", true)
+        } else {
+            $("#chooseAll").prop("checked", false)
+        }
+
     });
 
     var now = new Date();
@@ -57,77 +78,29 @@ $(document).ready(function () {
     });
 
     $("#alert").hide();
-    // $("#swapfilter").hide();
-    
-    $("#savefilter").on("click", function () {
+
+    $("#advfilter").on("click", function () {
         $("#alert").hide();
         var err = false;
-        choosen = [];
         c = 0;
-        if ($("#sti_id").prop("checked") == true) {
-            choosen.push($("#sti_id").val());
-        } else {
-            choosen.push(null);
-            c = c + 1;
-        }
-        if ($("#company").prop("checked") == true) {
-            choosen.push($("#company").val());
-        } else {
-            choosen.push(null);
-            c = c + 1;
-        }
-        if ($("#goods_id").prop("checked") == true) {
-            choosen.push($("#goods_id").val());
-        } else {
-            choosen.push(null);
-            c = c + 1;
-        }
-        if ($("#name_type").prop("checked") == true) {
-            choosen.push($("#name_type").val());
-        } else {
-            choosen.push(null);
-            c = c + 1;
-        }
-        if ($("#unit").prop("checked") == true) {
-            choosen.push($("#unit").val());
-        } else {
-            choosen.push(null);
-            c = c + 1;
-        }
-        if ($("#qty").prop("checked") == true) {
-            choosen.push($("#qty").val());
-        } else {
-            choosen.push(null);
-            c = c + 1;
-        }
-        if ($("#location").prop("checked") == true) {
-            choosen.push($("#location").val());
-        } else {
-            choosen.push(null);
-            c = c + 1;
-        }
-        if ($("#remark").prop("checked") == true) {
-            choosen.push($("#remark").val());
-        } else {
-            choosen.push(null);
-            c = c + 1;
-        }
+        ($("#sti_id").prop("checked") == false) ? c = c + 1: null;
+        ($("#company").prop("checked") == false) ? c = c + 1: null;
+        ($("#goods_id").prop("checked") == false) ? c = c + 1: null;
+        ($("#name_type").prop("checked") == false) ? c = c + 1: null;
+        ($("#unit").prop("checked") == false) ? c = c + 1: null;
+        ($("#qty").prop("checked") == false) ? c = c + 1: null;
+        ($("#location").prop("checked") == false) ? c = c + 1: null;
+        ($("#remark").prop("checked") == false) ? c = c + 1: null;
+
         if (c == 8) {
+            // console.log(c);
             $("#alert").show();
             err = true;
         }
         // console.log(choosen);
         if (!err) {
-            start = $("#start").val();
-            finish = $("#finish").val();
-            company = ($("#s_company").select2('val').length == 0) ? 'all' : $("#s_company").select2('val');
-            goods = ($("#s_goods_id").select2('val').length == 0) ? 'all' : $("#s_goods_id").select2('val');;
-            locate = ($("#s_location").select2('val').length == 0) ? 'all' : $("#s_location").select2('val');;
-            // console.log(choosen, start, finish, company, goods, locate);
-            // url = choosen + "/" + start + "/" + finish + "/" + company + "/" + goods + "/" + locate;
-
             $("#filterForm").submit();
-            window.location.href = window.location.origin + "/tyck/report/sti";
+            window.location.href = window.location.origin + "/tyck/report/sti_advanced";
         }
     });
 
@@ -139,7 +112,10 @@ $(document).ready(function () {
         },
         // searching: false,
         dom: '<"row"<"col-1"B><"col-11"f>>t<"row"<"col-3"i><"col-9"p>>',
-        lengthMenu: [[50],["50"]],
+        lengthMenu: [
+            [50],
+            ["50"]
+        ],
         buttons: [{
                 extend: 'copyHtml5',
                 // footer: true,
@@ -150,11 +126,97 @@ $(document).ready(function () {
                 extend: 'excelHtml5',
                 // footer: true,
                 text: '导出',
-                filename: function fred() { return "入库报表" + today; },
-                exportOptions: { orthogonal: "exportxls" },
+                filename: function fred() {
+                    return "入库报表" + today;
+                },
+                exportOptions: {
+                    orthogonal: "exportxls"
+                },
                 className: 'btn btn-success'
             }
         ],
     });
 
+    table2 = $("#table2").DataTable({
+        language: {
+            url: "/plugins/inner/datatables-lang.json",
+            // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
+        },
+    });
+
+    function createTable2(obj) {
+        table2.destroy();
+        table2 = $("#table2").DataTable({
+            responsive: true,
+            autoWidth: false,
+            language: {
+                url: "/plugins/inner/datatables-lang.json",
+                // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
+            },
+            dom: '<"row mb-3"<"col-12 float-right"B>><"row"<"col-2"l><"col-10"f>>t<"row"<"col-3"i><"col-9"p>>',
+            lengthMenu: [
+                [20,50,100],
+                ["20","50","100"]
+            ],
+            buttons: [{
+                    extend: 'copyHtml5',
+                    // footer: true,
+                    text: '复制',
+                    className: 'btn btn-warning'
+                },
+                {
+                    extend: 'excelHtml5',
+                    // footer: true,
+                    text: '导出',
+                    filename: function fred() {
+                        return "入库报表" + today;
+                    },
+                    exportOptions: {
+                        orthogonal: "exportxls"
+                    },
+                    className: 'btn btn-success'
+                }
+            ],
+            data: obj,
+            columns: [{
+                    data: 'sti_id'
+                },
+                {
+                    data: 'company'
+                },
+                {
+                    data: 'goods_id'
+                },
+                {
+                    data: 'name_type'
+                },
+                {
+                    data: 'unit'
+                },
+                {
+                    data: 'qty'
+                },
+                {
+                    data: 'location'
+                },
+                {
+                    data: 'remark'
+                },
+            ],
+        });
+    }
+
+    $("#basicfilter").on("click", function () {
+        start = $('#start').val();
+        f = $('#finish').val();
+        var date = new Date(f);
+        var day = ("0" + (date.getDate() + 1)).slice(-2);
+        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        var finish = date.getFullYear() + "-" + (month) + "-" + (day);
+        let url = "/tyck/report/sti_report_basic/" + start + "/" + finish;
+        $.get(url, function (data) {
+            let obj = JSON.parse(data);
+            createTable2(obj);
+        });
+    });
 });
