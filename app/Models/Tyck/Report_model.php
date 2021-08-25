@@ -129,6 +129,15 @@ class Report_model extends Model
         return $builder->get()->getResultArray();
     }
 
+    public function swc_report_basic($start, $finish)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_switch_report');
+        $builder->where('created_at >=', $start);
+        $builder->where('created_at <=', $finish);
+        return $builder->get()->getResultArray();
+    }
+
     // report advanced
     public function sti_report_adv($choosen, $start, $finish, $company, $goods, $location)
     {
@@ -230,6 +239,29 @@ class Report_model extends Model
         }
         if ($verify != null) {
             $builder->whereIn('verifyPIC', $verify);
+        }
+        return $builder->get()->getResultArray();
+    }
+
+    public function swc_report_adv($choosen, $start, $finish, $company, $goods, $old_location, $new_location)
+    {
+
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_switch_report');
+        $builder->select($choosen);
+        $builder->where('created_at >=', $start);
+        $builder->where('created_at <=', $finish);
+        if ($company != null) {
+            $builder->whereIn('company', $company);
+        }
+        if ($goods != null) {
+            $builder->whereIn('goods_id', $goods);
+        }
+        if ($old_location != null) {
+            $builder->whereIn('from_location', $old_location);
+        }
+        if ($new_location != null) {
+            $builder->whereIn('to_location', $new_location);
         }
         return $builder->get()->getResultArray();
     }

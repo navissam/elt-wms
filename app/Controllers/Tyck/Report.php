@@ -41,6 +41,13 @@ class Report extends BaseController
         return view('tyck/scr_report/v_scr_basic_report_index', $data);
     }
 
+    public function swc()
+    {
+        $data['title'] = '库位变更报表';
+        $data['active']['report']['swc_report'] = true;
+        return view('tyck/swc_report/v_swc_basic_report_index', $data);
+    }
+
     // filter advanced
     public function sti_advanced()
     {
@@ -68,6 +75,13 @@ class Report extends BaseController
         $data['title'] = '报废报表';
         $data['active']['report']['scr_report'] = true;
         return view('tyck/scr_report/v_scr_filter_index', $data);
+    }
+
+    public function swc_advanced()
+    {
+        $data['title'] = '库位变更报表';
+        $data['active']['report']['swc_report'] = true;
+        return view('tyck/swc_report/v_swc_filter_index', $data);
     }
 
     public function getGoods()
@@ -134,6 +148,11 @@ class Report extends BaseController
     public function scr_report_basic($start, $finish)
     {
         return json_encode($this->report_model->scr_report_basic($start, $finish));
+    }
+
+    public function swc_report_basic($start, $finish)
+    {
+        return json_encode($this->report_model->swc_report_basic($start, $finish));
     }
 
     // report advanced
@@ -313,5 +332,48 @@ class Report extends BaseController
         $data['body'] = $choosen;
         // dd($h, $choosen);
         return view('tyck/scr_report/v_scr_report_index', $data);
+    }
+
+    public function swc_report_adv()
+    {
+        $data['title'] = '库位变更报表';
+        $choosen = $this->request->getPost('choosen');
+        $start = $this->request->getPost('start');
+
+        $f = $this->request->getPost('finish');
+        $date = date_create($f);
+        date_modify($date, "+1 days");
+        $finish = date_format($date, "Y-m-d");
+
+        $company = $this->request->getPost('s_company');
+        $goods = $this->request->getPost('s_goods_id');
+        $old_location = $this->request->getPost('s_old_location');
+        $new_location = $this->request->getPost('s_new_location');
+
+        // dd($choosen, $start, $finish, $company, $goods, $location);
+        $data['rows'] = $this->report_model->swc_report_adv($choosen, $start, $finish, $company, $goods, $old_location, $new_location);
+        $header = [
+            "swc_date" => "变更日期",
+            "company" => "公司",
+            "goods_id" => "物料代码",
+            "name_type" => "物料名称与规格型号",
+            "unit" => "单位",
+            "qty" => "数量",
+            "from_location" => "原库位",
+            "to_location" => "现库位",
+            "old_stock" => "原库位数量",
+            "new_stock" => "现库位数量",
+            "remark" => "备注"
+        ];
+        $h = [];
+        $i = 0;
+        for ($i >= 0; $i < count($choosen); $i++) {
+            array_push($h, $header[$choosen[$i]]);
+        }
+
+        $data['header'] = $h;
+        $data['body'] = $choosen;
+        // dd($h, $choosen);
+        return view('tyck/swc_report/v_swc_report_index', $data);
     }
 }

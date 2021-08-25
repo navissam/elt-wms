@@ -13,6 +13,10 @@ $(document).ready(function () {
             "autoWidth": false,
             searching: false,
             paginate: false,
+            lengthMenu: [
+                [50],
+                ["50"]
+            ],
             info: false,
             data: obj,
             language: {
