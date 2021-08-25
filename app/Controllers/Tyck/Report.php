@@ -27,6 +27,13 @@ class Report extends BaseController
         return view('tyck/sto_report/v_sto_basic_report_index', $data);
     }
 
+    public function ret()
+    {
+        $data['title'] = '退库报表';
+        $data['active']['report']['ret_report'] = true;
+        return view('tyck/ret_report/v_ret_basic_report_index', $data);
+    }
+
     // filter advanced
     public function sti_advanced()
     {
@@ -40,6 +47,13 @@ class Report extends BaseController
         $data['title'] = '出库报表';
         $data['active']['report']['sto_report'] = true;
         return view('tyck/sto_report/v_sto_filter_index', $data);
+    }
+
+    public function ret_advanced()
+    {
+        $data['title'] = '退库报表';
+        $data['active']['report']['ret_report'] = true;
+        return view('tyck/ret_report/v_ret_filter_index', $data);
     }
 
     public function getGoods()
@@ -67,6 +81,16 @@ class Report extends BaseController
         return json_encode($this->report_model->getRName());
     }
 
+    public function getRetDept()
+    {
+        return json_encode($this->report_model->getRetDept());
+    }
+
+    public function getRetName()
+    {
+        return json_encode($this->report_model->getRetName());
+    }
+
     // report basic
     public function sti_report_basic($start, $finish)
     {
@@ -76,6 +100,11 @@ class Report extends BaseController
     public function sto_report_basic($start, $finish)
     {
         return json_encode($this->report_model->sto_report_basic($start, $finish));
+    }
+
+    public function ret_report_basic($start, $finish)
+    {
+        return json_encode($this->report_model->ret_report_basic($start, $finish));
     }
 
     // report advanced
@@ -164,5 +193,51 @@ class Report extends BaseController
         $data['body'] = $choosen;
         // dd($h, $choosen);
         return view('tyck/sto_report/v_sto_report_index', $data);
+    }
+
+    public function ret_report_adv()
+    {
+        $data['title'] = '退库报表';
+        $choosen = $this->request->getPost('choosen');
+        $start = $this->request->getPost('start');
+
+        $f = $this->request->getPost('finish');
+        $date = date_create($f);
+        date_modify($date, "+1 days");
+        $finish = date_format($date, "Y-m-d");
+
+        $company = $this->request->getPost('s_company');
+        $goods = $this->request->getPost('s_goods_id');
+        $location = $this->request->getPost('s_location');
+        $r_company = $this->request->getPost('s_ret_company');
+        $r_dept = $this->request->getPost('s_ret_dept');
+        $r_name = $this->request->getPost('s_ret_name');
+
+        // dd($choosen, $start, $finish, $company, $goods, $location);
+        $data['rows'] = $this->report_model->ret_report_adv($choosen, $start, $finish, $company, $goods, $location, $r_company, $r_dept, $r_name);
+        $header = [
+            "ret_id" => "退库编号",
+            "ret_date" => "退库日期",
+            "company" => "公司",
+            "goods_id" => "物料代码",
+            "name_type" => "物料名称与规格型号",
+            "unit" => "单位",
+            "qty" => "退库量",
+            "ret_location" => "库位",
+            "ret_company" => "领用公司",
+            "ret_dept" => "领用部门",
+            "ret_name" => "领用人",
+            "remark" => "备注",
+        ];
+        $h = [];
+        $i = 0;
+        for ($i >= 0; $i < count($choosen); $i++) {
+            array_push($h, $header[$choosen[$i]]);
+        }
+
+        $data['header'] = $h;
+        $data['body'] = $choosen;
+        // dd($h, $choosen);
+        return view('tyck/ret_report/v_ret_report_index', $data);
     }
 }
