@@ -72,6 +72,26 @@ class Report_model extends Model
         return $builder->get()->getResultArray();
     }
 
+    public function getApplyPIC()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_scrap');
+        $builder->select('applyPIC');
+        $builder->distinct('applyPIC');
+        $builder->where(['deleted_at' => null]);
+        return $builder->get()->getResultArray();
+    }
+
+    public function getVerifyPIC()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_scrap');
+        $builder->select('verifyPIC');
+        $builder->distinct('verifyPIC');
+        $builder->where(['deleted_at' => null]);
+        return $builder->get()->getResultArray();
+    }
+
     // report basic
     public function sti_report_basic($start, $finish)
     {
@@ -95,6 +115,15 @@ class Report_model extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('tyck_return_report');
+        $builder->where('created_at >=', $start);
+        $builder->where('created_at <=', $finish);
+        return $builder->get()->getResultArray();
+    }
+
+    public function scr_report_basic($start, $finish)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_scrap_report');
         $builder->where('created_at >=', $start);
         $builder->where('created_at <=', $finish);
         return $builder->get()->getResultArray();
@@ -175,6 +204,32 @@ class Report_model extends Model
         }
         if ($r_name != null) {
             $builder->whereIn('ret_name', $r_name);
+        }
+        return $builder->get()->getResultArray();
+    }
+
+    public function scr_report_adv($choosen, $start, $finish, $company, $goods, $location, $apply, $verify)
+    {
+
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_scrap_report');
+        $builder->select($choosen);
+        $builder->where('created_at >=', $start);
+        $builder->where('created_at <=', $finish);
+        if ($company != null) {
+            $builder->whereIn('company', $company);
+        }
+        if ($goods != null) {
+            $builder->whereIn('goods_id', $goods);
+        }
+        if ($location != null) {
+            $builder->whereIn('location', $location);
+        }
+        if ($apply != null) {
+            $builder->whereIn('applyPIC', $apply);
+        }
+        if ($verify != null) {
+            $builder->whereIn('verifyPIC', $verify);
         }
         return $builder->get()->getResultArray();
     }
