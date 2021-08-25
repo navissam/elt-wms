@@ -60,15 +60,19 @@
                             <table id="table2" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>入库编号</th>
+                                        <th>出库编号</th>
+                                        <th>出库日期</th>
                                         <th>公司</th>
                                         <th>物料代码</th>
                                         <th>物料名称与规格型号</th>
                                         <th>单位</th>
                                         <th>出库量</th>
                                         <th>库位</th>
-                                        <th>入库日期</th>
+                                        <th>领用公司</th>
+                                        <th>领用部门</th>
+                                        <th>领用人</th>
                                         <th>备注</th>
+                                        <th>出库后数量</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,5 +106,5 @@
 <script src="<?= base_url('/'); ?>/plugins/select2/js/select2.full.min.js"></script>
 <!-- Sweetalert2 -->
 <script src="<?= base_url('/'); ?>/plugins/sweetalert2/sweetalert2.min.js"></script>
-<script src="<?= base_url('/'); ?>/plugins/inner/tyck/sti_report_index.js"></script>
+<script src="<?= base_url('/'); ?>/plugins/inner/tyck/sto_report_index.js"></script>
 <?php $this->endSection(); ?>

@@ -1,13 +1,16 @@
 $(document).ready(function () {
-
+    
     $("#alert").hide();
 
     selectc = $('.select2-company').select2();
     selectg = $('.select2-goods_id').select2();
     selectl = $('.select2-location').select2();
+    selectrc = $('.select2-r_company').select2();
+    selectrd = $('.select2-r_dept').select2();
+    selectrn = $('.select2-r_name').select2();
 
     $("#advanced").on("click", function () {
-        window.location.href = window.location.origin + "/tyck/report/sti_advanced";
+        window.location.href = window.location.origin + "/tyck/report/sto_advanced";
     });
 
     $("#chooseAll").on("change", function () {
@@ -15,15 +18,19 @@ $(document).ready(function () {
     });
 
     $(".choose").on("change", function () {
-        if ($("#sti_id").prop("checked") == true &&
+        if ($("#sto_id").prop("checked") == true &&
+            $("#sto_date").prop("checked") == true &&
             $("#company").prop("checked") == true &&
             $("#goods_id").prop("checked") == true &&
             $("#name_type").prop("checked") == true &&
             $("#unit").prop("checked") == true &&
             $("#qty").prop("checked") == true &&
             $("#location").prop("checked") == true &&
-            $("#sti_date").prop("checked") == true &&
-            $("#remark").prop("checked") == true) 
+            $("#recipient_company").prop("checked") == true &&
+            $("#recipient_dept").prop("checked") == true &&
+            $("#recipient_name").prop("checked") == true &&
+            $("#remark").prop("checked") == true &&
+            $("#stock_left").prop("checked") == true) 
         {
             $("#chooseAll").prop("checked", true)
         } else {
@@ -50,6 +57,10 @@ $(document).ready(function () {
         });
         selectc.empty();
         selectc.select2({
+            data: company,
+        });
+        selectrc.empty();
+        selectrc.select2({
             data: company,
         });
     });
@@ -80,21 +91,52 @@ $(document).ready(function () {
         });
     });
 
+    $.get('/tyck/report/getRDept/', function (data) {
+        let object = JSON.parse(data);
+        r_dept = $.map(object, function (obj) {
+            obj.id = obj.id || obj.recipient_dept;
+            obj.text = obj.text || obj.recipient_dept;
+            return obj;
+        });
+        selectrd.empty();
+        selectrd.select2({
+            data: r_dept,
+        });
+    });
+
+    $.get('/tyck/report/getRName/', function (data) {
+        let object = JSON.parse(data);
+        r_name = $.map(object, function (obj) {
+            obj.id = obj.id || obj.recipient_name;
+            obj.text = obj.text || obj.recipient_name;
+            return obj;
+        });
+        selectrn.empty();
+        selectrn.select2({
+            data: r_name,
+        });
+    });
+
+
     $("#advfilter").on("click", function () {
         $("#alert").hide();
         var err = false;
         c = 0;
-        ($("#sti_id").prop("checked") == false) ? c = c + 1: null;
+        ($("#sto_id").prop("checked") == false) ? c = c + 1: null;
+        ($("#sto_date").prop("checked") == false) ? c = c + 1: null;
         ($("#company").prop("checked") == false) ? c = c + 1: null;
         ($("#goods_id").prop("checked") == false) ? c = c + 1: null;
         ($("#name_type").prop("checked") == false) ? c = c + 1: null;
         ($("#unit").prop("checked") == false) ? c = c + 1: null;
         ($("#qty").prop("checked") == false) ? c = c + 1: null;
         ($("#location").prop("checked") == false) ? c = c + 1: null;
-        ($("#sti_date").prop("checked") == false) ? c = c + 1: null;
+        ($("#recipient_company").prop("checked") == false) ? c = c + 1: null;
+        ($("#recipient_dept").prop("checked") == false) ? c = c + 1: null;
+        ($("#recipient_name").prop("checked") == false) ? c = c + 1: null;
         ($("#remark").prop("checked") == false) ? c = c + 1: null;
+        ($("#stock_left").prop("checked") == false) ? c = c + 1: null;
 
-        if (c == 9) {
+        if (c == 13) {
             // console.log(c);
             $("#alert").show();
             err = true;
@@ -102,7 +144,7 @@ $(document).ready(function () {
         // console.log(choosen);
         if (!err) {
             $("#filterForm").submit();
-            window.location.href = window.location.origin + "/tyck/report/sti_advanced";
+            window.location.href = window.location.origin + "/tyck/report/sto_advanced";
         }
     });
 
@@ -129,7 +171,7 @@ $(document).ready(function () {
                 // footer: true,
                 text: '导出',
                 filename: function fred() {
-                    return "入库报表" + today;
+                    return "出库报表" + today;
                 },
                 exportOptions: {
                     orthogonal: "exportxls"
@@ -171,7 +213,7 @@ $(document).ready(function () {
                     // footer: true,
                     text: '导出',
                     filename: function fred() {
-                        return "入库报表" + today;
+                        return "出库报表" + today;
                     },
                     exportOptions: {
                         orthogonal: "exportxls"
@@ -181,7 +223,10 @@ $(document).ready(function () {
             ],
             data: obj,
             columns: [{
-                    data: 'sti_id'
+                    data: 'sto_id'
+                },
+                {
+                    data: 'sto_date'
                 },
                 {
                     data: 'company'
@@ -202,14 +247,19 @@ $(document).ready(function () {
                     data: 'location'
                 },
                 {
-                    data: 'created_at',
-                    render: function(data) {
-                    data = data.split(" ");
-                    return data[0];
-                    }
+                    data: 'recipient_company'
+                },
+                {
+                    data: 'recipient_dept'
+                },
+                {
+                    data: 'recipient_name'
                 },
                 {
                     data: 'remark'
+                },
+                {
+                    data: 'stock_left'
                 },
             ],
         });
@@ -222,7 +272,7 @@ $(document).ready(function () {
         var day = ("0" + (date.getDate() + 1)).slice(-2);
         var month = ("0" + (date.getMonth() + 1)).slice(-2);
         var finish = date.getFullYear() + "-" + (month) + "-" + (day);
-        let url = "/tyck/report/sti_report_basic/" + start + "/" + finish;
+        let url = "/tyck/report/sto_report_basic/" + start + "/" + finish;
         $.get(url, function (data) {
             let obj = JSON.parse(data);
             createTable2(obj);

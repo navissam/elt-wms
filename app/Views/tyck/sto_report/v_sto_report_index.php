@@ -1,4 +1,4 @@
-<?= $this->extend('templates/index'); ?>
+<?= $this->extend('templates/index') ?>
 
 <?= $this->section('style') ?>
 <!-- DataTables -->
@@ -12,14 +12,14 @@
 <link rel="stylesheet" href="<?= base_url('/'); ?>/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 
 <style>
-    #table1 tbody tr.selected {
+    #table2 tbody tr.selected {
         background-color: #82B6D9;
         color: white;
     }
 </style>
 <?= $this->endSection() ?>
 
-<?= $this->section('content'); ?>
+<?= $this->section('content') ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -27,10 +27,11 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0"><?= $title; ?></h1>
-                </div>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
     <!-- Main content -->
     <div class="content">
@@ -38,51 +39,49 @@
             <div class="row">
                 <div class="col">
                     <div class="card card-bbb card-outline">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-2">
-                                    <label for="start">开始日期</label>
-                                    <input type="date" class="form-control" name="start" id="start" value="<?= date('Y-m-d'); ?>">
-                                </div>
-                                <div class="col-2">
-                                    <label for="finish">结束日期</label>
-                                    <input type="date" class="form-control" name="finish" id="finish" value="<?= date('Y-m-d'); ?>">
-                                </div>
-                                <div class="col-2 mt-auto">
-                                    <button type="button" class="btn btn-primary" id="basicfilter"><i class="fas fa-save"></i> 保存</button>
-                                </div>
-                                <div class="col-6 mt-auto">
-                                    <button type="button" class="btn btn-secondary float-right" id="advanced"><i class="fas fa-filter"></i> 高级</button>
-                                </div>
-                            </div>
-                        </div>
                         <div class="card-body">
-                            <table id="table2" class="table table-bordered table-striped">
+                            <table id="table1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>入库编号</th>
-                                        <th>公司</th>
-                                        <th>物料代码</th>
-                                        <th>物料名称与规格型号</th>
-                                        <th>单位</th>
-                                        <th>出库量</th>
-                                        <th>库位</th>
-                                        <th>入库日期</th>
-                                        <th>备注</th>
+                                        <?php
+                                        foreach ($header as $h) :
+                                        ?>
+                                            <th><?= $h ?></th>
+
+                                        <?php
+                                        endforeach;
+                                        ?>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                    foreach ($rows as $row) :
+                                    ?>
+                                        <tr>
+                                            <?php
+                                            $i = 0;
+                                            for ($i >= 0; $i < count($body); $i++) {
+                                            ?>
+                                                <td><?= $row[$body[$i]]; ?></td>
+                                            <?php
+                                            }
+                                            ?>
+                                        </tr>
+                                    <?php
+                                    endforeach;
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content -->
 </div>
-<!-- /.card-body -->
-<?php $this->endSection(); ?>
+<?= $this->endSection() ?>
 
 <?= $this->section('script') ?>
 <!-- DataTables  & Plugins -->
@@ -103,4 +102,5 @@
 <!-- Sweetalert2 -->
 <script src="<?= base_url('/'); ?>/plugins/sweetalert2/sweetalert2.min.js"></script>
 <script src="<?= base_url('/'); ?>/plugins/inner/tyck/sti_report_index.js"></script>
-<?php $this->endSection(); ?>
+
+<?= $this->endSection() ?>

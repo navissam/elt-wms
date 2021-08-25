@@ -37,7 +37,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-6">
-                    <form action="<?= base_url('tyck/report/sti_report_adv'); ?>" target="_blank" method="post" id="filterForm">
+                    <form action="<?= base_url('tyck/report/sto_report_adv'); ?>" target="_blank" method="post" id="filterForm">
                         <div class="card card-bbb card-outline">
                             <div class="card-body">
                                 <div class="row">
@@ -61,8 +61,12 @@
                                                     必须选择要显示的内容
                                                 </div>
                                                 <div class="custom-control custom-checkbox mt-1">
-                                                    <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="sti_id" value="sti_id">
-                                                    <label for="sti_id" class="custom-control-label">入库编号</label>
+                                                    <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="sto_date" value="sto_id">
+                                                    <label for="sto_id" class="custom-control-label">出库编号</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox mt-1">
+                                                    <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="sto_date" value="sto_date">
+                                                    <label for="sto_date" class="custom-control-label">出库日期</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox mt-1">
                                                     <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="company" value="company">
@@ -82,19 +86,31 @@
                                                 </div>
                                                 <div class="custom-control custom-checkbox mt-1">
                                                     <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="qty" value="qty">
-                                                    <label for="qty" class="custom-control-label">入库量</label>
+                                                    <label for="qty" class="custom-control-label">出库量</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox mt-1">
                                                     <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="location" value="location">
                                                     <label for="location" class="custom-control-label">库位</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox mt-1">
-                                                    <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="sti_date" value="created_at">
-                                                    <label for="sti_date" class="custom-control-label">入库日期</label>
+                                                    <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="recipient_company" value="recipient_company">
+                                                    <label for="recipient_company" class="custom-control-label">领用公司</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox mt-1">
+                                                    <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="recipient_dept" value="recipient_dept">
+                                                    <label for="recipient_dept" class="custom-control-label">领用部门</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox mt-1">
+                                                    <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="recipient_name" value="recipient_name">
+                                                    <label for="recipient_name" class="custom-control-label">领用人</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox my-1">
                                                     <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="remark" value="remark">
                                                     <label for="remark" class="custom-control-label">备注</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox my-1">
+                                                    <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="stock_left" value="stock_left">
+                                                    <label for="stock_left" class="custom-control-label">出库后数量</label>
                                                 </div>
                                             </li>
                                         </ul>
@@ -121,19 +137,40 @@
                                                         <select class="select2-company" name="s_company[]" id="s_company" multiple="multiple" data-placeholder="公司筛选（放空等于全选）" data-dropdown-css-class="select2-primary" style="width: 100%;">
                                                         </select>
                                                     </div>
-                                                    <div class="mt-2">
-                                                        <label for="s_goods_id">物料代码</label>
-                                                        <div class="select2-primary">
-                                                            <select class="select2-goods_id" name="s_goods_id[]" id="s_goods_id" multiple="multiple" data-placeholder="物料筛选（放空等于全选）" data-dropdown-css-class="select2-primary" style="width: 100%;">
-                                                            </select>
-                                                        </div>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <label for="s_goods_id">物料代码</label>
+                                                    <div class="select2-primary">
+                                                        <select class="select2-goods_id" name="s_goods_id[]" id="s_goods_id" multiple="multiple" data-placeholder="物料筛选（放空等于全选）" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                                        </select>
                                                     </div>
-                                                    <div class="my-2">
-                                                        <label for="s_location">库位</label>
-                                                        <div class="select2-primary">
-                                                            <select class="select2-location" name="s_location[]" id="s_location" multiple="multiple" data-placeholder="库位筛选（放空等于全选）" data-dropdown-css-class="select2-primary" style="width: 100%;">
-                                                            </select>
-                                                        </div>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <label for="s_location">库位</label>
+                                                    <div class="select2-primary">
+                                                        <select class="select2-location" name="s_location[]" id="s_location" multiple="multiple" data-placeholder="库位筛选（放空等于全选）" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <label for="s_r_company">领用公司</label>
+                                                    <div class="select2-primary">
+                                                        <select class="select2-r_company" name="s_r_company[]" id="s_r_company" multiple="multiple" data-placeholder="领用公司筛选（放空等于全选）" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <label for="s_r_dept">领用部门</label>
+                                                    <div class="select2-primary">
+                                                        <select class="select2-r_dept" name="s_r_dept[]" id="s_r_dept" multiple="multiple" data-placeholder="领用部门筛选（放空等于全选）" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="my-2">
+                                                    <label for="s_r_name">领用人</label>
+                                                    <div class="select2-primary">
+                                                        <select class="select2-r_name" name="s_r_name[]" id="s_r_name" multiple="multiple" data-placeholder="领用人筛选（放空等于全选）" data-dropdown-css-class="select2-primary" style="width: 100%;">
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </li>
@@ -172,5 +209,5 @@
 <script src="<?= base_url('/'); ?>/plugins/select2/js/select2.full.min.js"></script>
 <!-- Sweetalert2 -->
 <script src="<?= base_url('/'); ?>/plugins/sweetalert2/sweetalert2.min.js"></script>
-<script src="<?= base_url('/'); ?>/plugins/inner/tyck/sti_report_index.js"></script>
+<script src="<?= base_url('/'); ?>/plugins/inner/tyck/sto_report_index.js"></script>
 <?php $this->endSection(); ?>
