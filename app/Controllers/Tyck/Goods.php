@@ -20,9 +20,26 @@ class Goods extends BaseController
         return view('tyck/goods/v_goods_index', $data);
     }
 
+    public function history()
+    {
+        $data['title'] = '物料库存历史';
+        $data['active']['history']['history'] = true;
+        return view('tyck/goods/v_goods_history_index', $data);
+    }
+
     public function getAll()
     {
         return json_encode($this->goodsModel->getAll());
+    }
+
+    public function getHistory()
+    {
+        return json_encode($this->goodsModel->getHistory());
+    }
+
+    public function record($goods_id)
+    {
+        return json_encode($this->goodsModel->record($goods_id));
     }
 
     public function update()

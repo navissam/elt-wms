@@ -5,6 +5,7 @@ $(document).ready(function () {
     var goods_id;
 
     table1 = $("#table1").DataTable();
+    table2 = $("#table2").DataTable();
 
     // function for rebuild datatables (main table)
     function createTable1(obj) {

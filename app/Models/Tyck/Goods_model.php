@@ -32,4 +32,19 @@ class Goods_model extends Model
         $builder->where(['deleted_at' => null]);
         return $builder->get()->getResultArray();
     }
+
+    public function getHistory()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_goods_history');
+        return $builder->get()->getResultArray();
+    }
+
+    public function record($goods_id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_goods_record');
+        $builder->where('goods_id', $goods_id);
+        return $builder->get()->getResultArray();
+    }
 }

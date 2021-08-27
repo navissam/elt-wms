@@ -407,7 +407,7 @@ $(document).ready(function () {
         $.get(url, function (data) {
             let obj = JSON.parse(data);
             createTable3(obj);
-            console.log(obj);
+            // console.log(obj);
             if (obj.length > 0) {
                 $("#print").attr("type", "button");
                 $("#print").addClass("btn btn-success float-right");
