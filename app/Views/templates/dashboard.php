@@ -21,6 +21,7 @@
             font-weight: 700;
             margin: 10px 0 10px;
             text-align: center;
+            cursor: default;
         }
 
         .icon {
@@ -34,6 +35,7 @@
             font-weight: 700;
             margin: 10px 0 10px;
             text-align: center;
+            cursor: default;
         }
 
         .icon {
@@ -46,6 +48,7 @@
             font-size: 1.6rem;
             font-weight: 700;
             margin: 40px 0 10px;
+            cursor: default;
         }
     }
 
@@ -54,6 +57,7 @@
             font-size: 2.2rem;
             font-weight: 700;
             margin: 40px 0 10px;
+            cursor: default;
         }
     }
 </style>
@@ -79,22 +83,12 @@
                             <h2>库存</h2>
                         </div>
                     </div>
-                    <div class="small-box bg-teal" id="ret">
+                    <div class="small-box bg-success mt-2" id="sto">
                         <div class="icon">
-                            <i class="fas fa-undo-alt"></i>
+                            <i class="fas fa-sign-out-alt"></i>
                         </div>
                         <div class="inner">
-                            <h2>退库</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-1">
-                    <div class="small-box bg-primary mt-2" id="sti">
-                        <div class="icon">
-                            <i class="fas fa-sign-in-alt"></i>
-                        </div>
-                        <div class="inner">
-                            <h2>入库</h2>
+                            <h2>出库</h2>
                         </div>
                     </div>
                     <div class="small-box bg-danger" id="scr">
@@ -107,18 +101,25 @@
                     </div>
                 </div>
                 <div class="col-lg-1">
-                    <div class="small-box bg-success mt-2" id="sto">
+                    <div class="small-box bg-primary mt-2" id="sti">
                         <div class="icon">
-                            <i class="fas fa-sign-out-alt"></i>
+                            <i class="fas fa-sign-in-alt"></i>
                         </div>
                         <div class="inner">
-                            <h2>出库</h2>
+                            <h2>入库</h2>
+                        </div>
+                    </div>
+                    <div class="small-box bg-teal" id="ret">
+                        <div class="icon">
+                            <i class="fas fa-undo-alt"></i>
+                        </div>
+                        <div class="inner">
+                            <h2>退库</h2>
                         </div>
                     </div>
                     <div class="small-box bg-secondary" id="report">
                         <div class="icon">
                             <i class="fas fa-clipboard-check"></i>
-                            <!-- <i class="fas fa-file-export"></i> -->
                         </div>
                         <div class="inner">
                             <h2>报表</h2>
@@ -134,6 +135,14 @@
                             <h2>物料库存历史</h2>
                         </div>
                     </div>
+                    <div class="small-box bg-maroon" id="print">
+                        <div class="icon">
+                            <i class="fas fa-clipboard"></i>
+                        </div>
+                        <div class="inner">
+                            <h2>单据交接</h2>
+                        </div>
+                    </div>
                     <div class="small-box bg-olive" id="goods">
                         <div class="icon">
                             <i class="fas fa-boxes"></i>
@@ -143,7 +152,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-1"></div>
+                <div class="col-lg-2"></div>
                 <div class="col-lg-6">
                     <!-- safety stock -->
                     <?php if ($x) : ?>
@@ -180,7 +189,69 @@
                 <!-- /.col -->
             </div>
         </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+        <!-- Modal -->
+        <div class="modal fade" id="reportModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <div class="small-box bg-primary" id="sti_report">
+                                    <div class="icon">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                    </div>
+                                    <div class="inner">
+                                        <h2>入库报表</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="small-box bg-success" id="sto_report">
+                                    <div class="icon">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </div>
+                                    <div class="inner">
+                                        <h2>出库报表</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="small-box bg-teal" id="ret_report">
+                                    <div class="icon">
+                                        <i class="fas fa-undo-alt"></i>
+                                    </div>
+                                    <div class="inner">
+                                        <h2>退库报表</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="small-box bg-danger" id="scr_report">
+                                    <div class="icon">
+                                        <i class="fas fa-times-circle"></i>
+                                    </div>
+                                    <div class="inner">
+                                        <h2>报废报表</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-box bg-info" id="swc_report">
+                            <div class="icon">
+                                <i class="fas fa-random"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>库位变更报表</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /.container-fluid -->
 </div>
 <!-- /.content-header -->
 <?= $this->endSection() ?>

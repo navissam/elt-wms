@@ -115,26 +115,16 @@ $(document).ready(function () {
     $("#advfilter").on("click", function () {
         $("#alert").hide();
         var err = false;
-        c = 0;
-        ($("#scr_id").prop("checked") == false) ? c = c + 1: null;
-        ($("#scr_date").prop("checked") == false) ? c = c + 1: null;
-        ($("#company").prop("checked") == false) ? c = c + 1: null;
-        ($("#goods_id").prop("checked") == false) ? c = c + 1: null;
-        ($("#name_type").prop("checked") == false) ? c = c + 1: null;
-        ($("#unit").prop("checked") == false) ? c = c + 1: null;
-        ($("#qty").prop("checked") == false) ? c = c + 1: null;
-        ($("#location").prop("checked") == false) ? c = c + 1: null;
-        ($("#reason").prop("checked") == false) ? c = c + 1: null;
-        ($("#applyPIC").prop("checked") == false) ? c = c + 1: null;
-        ($("#verifyPIC").prop("checked") == false) ? c = c + 1: null;
-        ($("#remark").prop("checked") == false) ? c = c + 1: null;
+        c = [];
+        $(".choose[type=checkbox]:checked").each(function () {
+            c.push($(this).val());
+        });
 
-        if (c == 12) {
-            // console.log(c);
+        if (c.length <= 0) {
             $("#alert").show();
             err = true;
         }
-        // console.log(choosen);
+
         if (!err) {
             $("#filterForm").submit();
             window.location.href = window.location.origin + "/tyck/report/scr_advanced";

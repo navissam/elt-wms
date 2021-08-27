@@ -171,7 +171,6 @@ class Report extends BaseController
         $goods = $this->request->getPost('s_goods_id');
         $location = $this->request->getPost('s_location');
 
-        // dd($choosen, $start, $finish, $company, $goods, $location);
         $data['rows'] = $this->report_model->sti_report_adv($choosen, $start, $finish, $company, $goods, $location);
         $header = [
             "sti_id" => "入库编号",
@@ -214,7 +213,6 @@ class Report extends BaseController
         $r_dept = $this->request->getPost('s_r_dept');
         $r_name = $this->request->getPost('s_r_name');
 
-        // dd($choosen, $start, $finish, $company, $goods, $location);
         $data['rows'] = $this->report_model->sto_report_adv($choosen, $start, $finish, $company, $goods, $location, $r_company, $r_dept, $r_name);
         $header = [
             "sto_id" => "出库编号",
@@ -239,7 +237,6 @@ class Report extends BaseController
 
         $data['header'] = $h;
         $data['body'] = $choosen;
-        // dd($h, $choosen);
         return view('tyck/sto_report/v_sto_report_index', $data);
     }
 
@@ -261,7 +258,6 @@ class Report extends BaseController
         $r_dept = $this->request->getPost('s_ret_dept');
         $r_name = $this->request->getPost('s_ret_name');
 
-        // dd($choosen, $start, $finish, $company, $goods, $location);
         $data['rows'] = $this->report_model->ret_report_adv($choosen, $start, $finish, $company, $goods, $location, $r_company, $r_dept, $r_name);
         $header = [
             "ret_id" => "退库编号",
@@ -285,7 +281,6 @@ class Report extends BaseController
 
         $data['header'] = $h;
         $data['body'] = $choosen;
-        // dd($h, $choosen);
         return view('tyck/ret_report/v_ret_report_index', $data);
     }
 
@@ -306,7 +301,6 @@ class Report extends BaseController
         $apply = $this->request->getPost('s_apply');
         $verify = $this->request->getPost('s_verify');
 
-        // dd($choosen, $start, $finish, $company, $goods, $location);
         $data['rows'] = $this->report_model->scr_report_adv($choosen, $start, $finish, $company, $goods, $location, $apply, $verify);
         $header = [
             "scr_id" => "报废编号",
@@ -330,7 +324,6 @@ class Report extends BaseController
 
         $data['header'] = $h;
         $data['body'] = $choosen;
-        // dd($h, $choosen);
         return view('tyck/scr_report/v_scr_report_index', $data);
     }
 
@@ -350,7 +343,6 @@ class Report extends BaseController
         $old_location = $this->request->getPost('s_old_location');
         $new_location = $this->request->getPost('s_new_location');
 
-        // dd($choosen, $start, $finish, $company, $goods, $location);
         $data['rows'] = $this->report_model->swc_report_adv($choosen, $start, $finish, $company, $goods, $old_location, $new_location);
         $header = [
             "swc_date" => "变更日期",
@@ -373,7 +365,6 @@ class Report extends BaseController
 
         $data['header'] = $h;
         $data['body'] = $choosen;
-        // dd($h, $choosen);
         return view('tyck/swc_report/v_swc_report_index', $data);
     }
 }

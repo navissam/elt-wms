@@ -37,47 +37,45 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <div class="card card-bbb card-outline">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-2">
-                                    <label for="start">开始日期</label>
-                                    <input type="date" class="form-control" name="start" id="start" value="<?= date('Y-m-d'); ?>">
-                                </div>
-                                <div class="col-2">
-                                    <label for="finish">结束日期</label>
-                                    <input type="date" class="form-control" name="finish" id="finish" value="<?= date('Y-m-d'); ?>">
-                                </div>
-                                <div class="col-2 mt-auto">
-                                    <button type="button" class="btn btn-primary" id="basicfilter"><i class="fas fa-search"></i> 查询</button>
-                                </div>
-                                <div class="col-6 mt-auto">
-                                    <button type="button" class="btn btn-secondary float-right" id="advanced"><i class="fas fa-filter"></i> 高级</button>
+                    <form action="<?= base_url('tyck/stock_out/sto_print_array'); ?>" target="_blank" method="post" id="printForm">
+                        <div class="card card-bbb card-outline">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <label for="start">日期</label>
+                                        <input type="date" class="form-control" name="datefilter" id="datefilter" value="<?= date('Y-m-d'); ?>">
+                                    </div>
+                                    <div class="col-2 mt-auto">
+                                        <button type="button" class="btn btn-primary" id="printfilter"><i class="fas fa-search"></i> 查询</button>
+                                    </div>
+                                    <div class="col-8 mt-auto">
+                                        <div id="print"></div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="card-body">
+                                <table id="table_print" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>出库日期</th>
+                                            <th>公司</th>
+                                            <th>物料代码</th>
+                                            <th>物料名称与规格型号</th>
+                                            <th>单位</th>
+                                            <th>出库量</th>
+                                            <th>库位</th>
+                                            <th>领用公司</th>
+                                            <th>领用部门</th>
+                                            <th>领用人</th>
+                                            <th>出库编号</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <table id="table2" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>变更日期</th>
-                                        <th>公司</th>
-                                        <th>物料代码</th>
-                                        <th>物料名称与规格型号</th>
-                                        <th>单位</th>
-                                        <th>数量</th>
-                                        <th>原库位</th>
-                                        <th>现库位</th>
-                                        <th>原库位数量</th>
-                                        <th>现库位数量</th>
-                                        <th>备注</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -104,5 +102,5 @@
 <script src="<?= base_url('/'); ?>/plugins/select2/js/select2.full.min.js"></script>
 <!-- Sweetalert2 -->
 <script src="<?= base_url('/'); ?>/plugins/sweetalert2/sweetalert2.min.js"></script>
-<script src="<?= base_url('/'); ?>/plugins/inner/tyck/swc_report_index.js"></script>
+<script src="<?= base_url('/'); ?>/plugins/inner/tyck/stock_out_index.js"></script>
 <?php $this->endSection(); ?>

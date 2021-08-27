@@ -72,7 +72,10 @@ $(document).ready(function () {
         table2.destroy();
         table2 = $("#table2").DataTable({
             pageLength: 5,
-            lengthMenu: [[5, 10, 20], [5, 10, 20]],
+            lengthMenu: [
+                [5, 10, 20],
+                [5, 10, 20]
+            ],
             responsive: true,
             autoWidth: false,
             language: {
@@ -80,46 +83,45 @@ $(document).ready(function () {
                 // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
             },
             data: obj,
-            columns: [
-            {
-                data: 'company'
-            },
-            {
-                data: 'location'
-            },
-            {
-                data: 'goods_id'
-            },
-            {
-                data: 'goods_name'
-            },
-            {
-                data: 'unit'
-            },
-            {
-                data: 'qty',
-                render: function (data) {
-                    if (data % 1 == 0)
-                        return parseInt(data);
-                    return data;
-                }
-            },
-            {
-                data: 'updated_at'
-            },
+            columns: [{
+                    data: 'company'
+                },
+                {
+                    data: 'location'
+                },
+                {
+                    data: 'goods_id'
+                },
+                {
+                    data: 'goods_name'
+                },
+                {
+                    data: 'unit'
+                },
+                {
+                    data: 'qty',
+                    render: function (data) {
+                        if (data % 1 == 0)
+                            return parseInt(data);
+                        return data;
+                    }
+                },
+                {
+                    data: 'updated_at'
+                },
             ],
         });
     }
 
-        // reload datasource from ajax
-        // function reloadTable1() {
-        //     let url = "/stock_in/getAll";
-        //     $.get(url, function (data, status) {
-        //         let obj = JSON.parse(data);
-        //         createTable1(obj);
-        //         role = obj;
-        //     });
-        // }
+    // reload datasource from ajax
+    // function reloadTable1() {
+    //     let url = "/stock_in/getAll";
+    //     $.get(url, function (data, status) {
+    //         let obj = JSON.parse(data);
+    //         createTable1(obj);
+    //         role = obj;
+    //     });
+    // }
 
     // reload datasource from ajax
     function reloadTable2() {
@@ -186,7 +188,7 @@ $(document).ready(function () {
                     location: inv.location,
                     qty: $("#qty").val(),
                     remark: $("#remark").val(),
-                    };
+                };
                 table1.row.add(sto_item).draw();
                 $("#addModal").modal("hide");
             }
@@ -265,7 +267,7 @@ $(document).ready(function () {
             );
             err = true;
         }
-        
+
         if (!err) {
             $.post('/tyck/stock_out/save', {
                 recipient_company: $.trim($('#recipient_company').val()),
@@ -289,10 +291,10 @@ $(document).ready(function () {
                         'success'
                     );
                     setTimeout(function () {
-                    //     window.open(window.location.origin + "/inventory/sto_print/", '_blank');
+                        //     window.open(window.location.origin + "/inventory/sto_print/", '_blank');
                         // window.location.href = window.location.origin + "/tyck/inventory/";
                         window.location.href = "/tyck/inventory/";
-                        }, 2000);
+                    }, 2000);
                 }
             });
         }
@@ -315,5 +317,114 @@ $(document).ready(function () {
             .row($(this).parents('tr'))
             .remove()
             .draw();
+    });
+
+    table_print = $("#table_print").DataTable({
+        language: {
+            url: "/plugins/inner/datatables-lang.json",
+            // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
+        },
+    });
+
+    $('.c_print').on('change', function () {
+        var val = $(this).val();
+        console.log(val);
+        var parent = $(this);
+        $("input[value='" + val + "']").each(function () {
+            $(this).not(parent).attr('disabled', parent.is(':checked'));
+        });
+
+        // // cache the elements
+        // var $chk = $("[name='c_print[]']");
+        // // bind change event handler
+        // $chk.change(function () {
+        //     $chk
+        //         // remove current element
+        //         .not(this)
+        //         // filter out element with same value
+        //         .filter('[value="' + this.value + '"]')
+        //         // update disabled property based on the checked property
+        //         .prop('disabled', this.checked);
+        // })
+
+    })
+
+
+    function createTable3(obj) {
+        table_print.destroy();
+        table_print = $("#table_print").DataTable({
+            responsive: true,
+            autoWidth: false,
+            language: {
+                url: "/plugins/inner/datatables-lang.json",
+                // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
+            },
+            data: obj,
+            columns: [
+                {
+                    data: 'sto_date'
+                },
+                {
+                    data: 'company'
+                },
+                {
+                    data: 'goods_id'
+                },
+                {
+                    data: 'name_type'
+                },
+                {
+                    data: 'unit'
+                },
+                {
+                    data: 'qty'
+                },
+                {
+                    data: 'location'
+                },
+                {
+                    data: 'recipient_company'
+                },
+                {
+                    data: 'recipient_dept'
+                },
+                {
+                    data: 'recipient_name'
+                },
+                {
+                    data: 'sto_id',
+                },
+            ],
+        });
+    }
+
+    $("#printfilter").on("click", function () {
+        tgl = $('#datefilter').val();
+        var date = new Date(tgl);
+        var day = ("0" + date.getDate()).slice(-2);
+        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        var finish = date.getFullYear() + "-" + (month) + "-" + (day);
+        let url = "/tyck/stock_out/sto_print_data/" + finish;
+        $.get(url, function (data) {
+            let obj = JSON.parse(data);
+            createTable3(obj);
+            $("#print").attr("type", "button");
+            $("#print").addClass("btn btn-success float-right");
+            document.getElementById("print").innerHTML = '<i class="fas fa-print"></i> 打印';
+            // $("#checkB").addClass("custom-control custom-checkbox");
+            // x = '<input class="custom-control-input custom-control-input-danger" type="checkbox" id="chooseAll">';
+            // x += '<label for="chooseAll" class="custom-control-label float-right">全选<label>';
+            // document.getElementById("checkB").innerHTML = x;
+        });
+    });
+
+    $("#print").on("click", function () {
+            Swal.fire(
+                '打印成功!',
+                '',
+                'success'
+            );
+            $("#printForm").submit();
+            window.location.href = window.location.origin + "/tyck/stock_out/sto_print/";
     });
 });

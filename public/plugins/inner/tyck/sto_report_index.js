@@ -121,27 +121,17 @@ $(document).ready(function () {
     $("#advfilter").on("click", function () {
         $("#alert").hide();
         var err = false;
-        c = 0;
-        ($("#sto_id").prop("checked") == false) ? c = c + 1: null;
-        ($("#sto_date").prop("checked") == false) ? c = c + 1: null;
-        ($("#company").prop("checked") == false) ? c = c + 1: null;
-        ($("#goods_id").prop("checked") == false) ? c = c + 1: null;
-        ($("#name_type").prop("checked") == false) ? c = c + 1: null;
-        ($("#unit").prop("checked") == false) ? c = c + 1: null;
-        ($("#qty").prop("checked") == false) ? c = c + 1: null;
-        ($("#location").prop("checked") == false) ? c = c + 1: null;
-        ($("#recipient_company").prop("checked") == false) ? c = c + 1: null;
-        ($("#recipient_dept").prop("checked") == false) ? c = c + 1: null;
-        ($("#recipient_name").prop("checked") == false) ? c = c + 1: null;
-        ($("#remark").prop("checked") == false) ? c = c + 1: null;
-        ($("#stock_left").prop("checked") == false) ? c = c + 1: null;
 
-        if (c == 13) {
-            // console.log(c);
+        c = [];
+        $(".choose[type=checkbox]:checked").each(function () {
+            c.push($(this).val());
+        });
+
+        if (c.length <= 0) {
             $("#alert").show();
             err = true;
         }
-        // console.log(choosen);
+
         if (!err) {
             $("#filterForm").submit();
             window.location.href = window.location.origin + "/tyck/report/sto_advanced";

@@ -21,6 +21,9 @@ $(document).ready(function() {
             },
             columns: [{
                     data: 'routeID',
+                    render: function(data) {
+                        return Number(data);
+                    }
                 },
                 {
                     data: 'httpMethod'

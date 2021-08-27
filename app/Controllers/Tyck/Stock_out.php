@@ -20,6 +20,13 @@ class Stock_out extends BaseController
         return view('tyck/stock_out/v_stock_out_index', $data);
     }
 
+    public function sto_print()
+    {
+        $data['title'] = '单据交接';
+        $data['active']['sto_print']['print'] = true;
+        return view('tyck/stock_out/v_sto_print_index', $data);
+    }
+
     public function getAll()
     {
         return json_encode($this->sto_model->getAll());
@@ -93,5 +100,17 @@ class Stock_out extends BaseController
         return json_encode([
             'status' => 'success',
         ]);
+    }
+
+    public function sto_print_data($tgl)
+    {
+        return json_encode($this->sto_model->sto_print_data($tgl));
+    }
+
+    public function sto_print_array()
+    {
+        $tgl = $this->request->getPost("datefilter");
+        $data['rows'] = $this->sto_model->sto_print_data($tgl);
+        return view('tyck/stock_out/p_sto_print', $data);
     }
 }

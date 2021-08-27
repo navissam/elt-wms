@@ -49,7 +49,7 @@
                                     <input type="date" class="form-control" name="finish" id="finish" value="<?= date('Y-m-d'); ?>">
                                 </div>
                                 <div class="col-2 mt-auto">
-                                    <button type="button" class="btn btn-primary" id="basicfilter"><i class="fas fa-save"></i> 保存</button>
+                                    <button type="button" class="btn btn-primary" id="basicfilter"><i class="fas fa-search"></i> 查询</button>
                                 </div>
                                 <div class="col-6 mt-auto">
                                     <button type="button" class="btn btn-secondary float-right" id="advanced"><i class="fas fa-filter"></i> 高级</button>

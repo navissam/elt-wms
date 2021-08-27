@@ -79,4 +79,12 @@ class Stock_out_model extends Model
             return true;
         }
     }
+
+    public function sto_print_data($tgl)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_stock_out_report');
+        $builder->where('sto_date', $tgl);
+        return $builder->get()->getResultArray();
+    }
 }

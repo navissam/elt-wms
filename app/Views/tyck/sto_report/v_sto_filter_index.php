@@ -179,7 +179,7 @@
                                 </div>
                             </div>
                             <div class="card-footer bg-light">
-                                <button type="button" class="btn btn-primary float-right" id="advfilter"><i class="fas fa-save"></i> 保存</button>
+                                <button type="button" class="btn btn-primary float-right" id="advfilter"><i class="fas fa-search"></i> 查询</button>
                             </div>
                         </div>
                     </form>

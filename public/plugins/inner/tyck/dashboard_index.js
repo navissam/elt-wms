@@ -88,16 +88,40 @@ $(document).ready(function () {
         window.location.href = "/tyck/scrap";
     });
 
-    // $('#report').on('click', function () {
-    //     window.location.href = "/tyck/report";
-    // });
-
     $('#history').on('click', function () {
         window.location.href = "/tyck/history";
     });
 
     $('#goods').on('click', function () {
         window.location.href = "/tyck/goods";
+    });
+
+    $('#print').on('click', function () {
+        window.location.href = "/tyck/stock_out/sto_print";
+    });
+
+    $('#report').on('click', function () {
+        $("#reportModal").modal("show");
+    });
+
+    $('#sti_report').on('click', function () {
+        window.location.href = "/tyck/report/sti";
+    });
+
+    $('#sto_report').on('click', function () {
+        window.location.href = "/tyck/report/sto";
+    });
+
+    $('#ret_report').on('click', function () {
+        window.location.href = "/tyck/report/ret";
+    });
+
+    $('#scr_report').on('click', function () {
+        window.location.href = "/tyck/report/scr";
+    });
+
+    $('#swc_report').on('click', function () {
+        window.location.href = "/tyck/report/swc";
     });
 
 });
