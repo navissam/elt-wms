@@ -360,8 +360,7 @@ $(document).ready(function () {
                 // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
             },
             data: obj,
-            columns: [
-                {
+            columns: [{
                     data: 'sto_date'
                 },
                 {
@@ -408,23 +407,26 @@ $(document).ready(function () {
         $.get(url, function (data) {
             let obj = JSON.parse(data);
             createTable3(obj);
-            $("#print").attr("type", "button");
-            $("#print").addClass("btn btn-success float-right");
-            document.getElementById("print").innerHTML = '<i class="fas fa-print"></i> 打印';
-            // $("#checkB").addClass("custom-control custom-checkbox");
-            // x = '<input class="custom-control-input custom-control-input-danger" type="checkbox" id="chooseAll">';
-            // x += '<label for="chooseAll" class="custom-control-label float-right">全选<label>';
-            // document.getElementById("checkB").innerHTML = x;
+            console.log(obj);
+            if (obj.length > 0) {
+                $("#print").attr("type", "button");
+                $("#print").addClass("btn btn-success float-right");
+                document.getElementById("print").innerHTML = '<i class="fas fa-print"></i> 打印';
+            } else {
+                $("#print").removeAttr("type", "button");
+                $("#print").removeClass("btn btn-success float-right");
+                document.getElementById("print").innerHTML = '';
+            }
         });
     });
 
     $("#print").on("click", function () {
-            Swal.fire(
-                '打印成功!',
-                '',
-                'success'
-            );
-            $("#printForm").submit();
-            window.location.href = window.location.origin + "/tyck/stock_out/sto_print/";
+        Swal.fire(
+            '打印成功!',
+            '',
+            'success'
+        );
+        $("#printForm").submit();
+        window.location.href = window.location.origin + "/tyck/stock_out/sto_print/";
     });
 });
