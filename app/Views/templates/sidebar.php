@@ -16,28 +16,31 @@ if ($roleID != 0) {
     }
     // dd($permIDs);
     // $permIDs = [4, 0];
-    $b1 = $db->table(['menu as a', 'menu as b']);
-    $b1->select('a.*');
-    $b1->distinct();
-    $b1->where('a.code = b.parentCode');
-    $b1->where('a.status', 1);
-    $b1->where(['a.deleted_at' => null]);
-    $b1->whereIn('b.permID', $permIDs);
-    $b1->orderBy('a.ord', 'ASC');
-    $query1 = $b1->getCompiledSelect();
+    if (count($permIDs) > 0) {
+        $b1 = $db->table(['menu as a', 'menu as b']);
+        $b1->select('a.*');
+        $b1->distinct();
+        $b1->where('a.code = b.parentCode');
+        $b1->where('a.status', 1);
+        $b1->where(['a.deleted_at' => null]);
+        $b1->whereIn('b.permID', $permIDs);
+        $b1->orderBy('a.ord', 'ASC');
+        $query1 = $b1->getCompiledSelect();
+        // dd($query1);
+        $b2 = $db->table('menu');
+        $b2->where('status', 1);
+        $b2->where(['deleted_at' => null]);
+        $b2->whereIn('permID', $permIDs);
+        $b2->orderBy('ord', 'ASC');
+        $query2 = $b2->getCompiledSelect();
 
-    $b2 = $db->table('menu');
-    $b2->where('status', 1);
-    $b2->where(['deleted_at' => null]);
-    $b2->whereIn('permID', $permIDs);
-    $b2->orderBy('ord', 'ASC');
-    $query2 = $b2->getCompiledSelect();
-
-    $builder = $db->query('SELECT * FROM ((' . $query1 . ') UNION (' . $query2 . ')) AS uni ORDER BY uni.ord, uni.menuID ASC');
-    // dd($query2);
-    // $builder = $db->query($query1);
-    // dd($builder);
-    $result = $builder->getResultArray();
+        $builder = $db->query('SELECT * FROM ((' . $query1 . ') UNION (' . $query2 . ')) AS uni ORDER BY uni.ord, uni.menuID ASC');
+        // dd($query2);
+        // $builder = $db->query($query1);
+        // dd($builder);
+        $result = $builder->getResultArray();
+    } else
+        $result = [];
     // dd($result);
 } else {
     $result = [];
