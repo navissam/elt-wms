@@ -15,6 +15,8 @@ class Safety extends BaseController
 
     public function getAllTyck()
     {
-        return json_encode($this->safetyModel->getAllTyck());
+        return json_encode([
+            'data' => $this->safetyModel->getAllTyck()
+        ]);
     }
 }

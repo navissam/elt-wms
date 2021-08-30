@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<?= base_url(); ?>/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url(); ?>/dist/css/adminlte.min.css">
-    <!-- <link rel="stylesheet" href="<?= base_url('/'); ?>/fonts/font.css"> -->
+    <link rel="stylesheet" href="<?= base_url('/'); ?>/fonts/font.css">
     <?= $this->renderSection('style') ?>
     <style>
         .page-break {
@@ -26,25 +26,37 @@
 
         .table-print thead tr {
             border-style: solid;
+            text-align: center;
+            font-size: 15px;
+            background-color: #DAEEF3;
         }
 
         .table-print td {
             border-style: solid;
             border-color: gray;
-        }
-
-        td {
-            text-align: center;
-            font-size: 15px;
-        }
-
-        .column {
             text-align: center;
             font-size: 15px;
         }
 
         .header {
             text-align: center;
+            color: #31869B;
+        }
+
+        @media print {
+
+            .header {
+                text-align: center;
+                color: #31869B;
+            }
+
+            .table-print thead tr {
+                text-align: center;
+                font-size: 15px;
+                background-color: #DAEEF3 !important;
+                -webkit-print-color-adjust: exact;
+            }
+
         }
 
         @page {
@@ -55,7 +67,7 @@
     </style>
 </head>
 
-<body style="width: 11.0in;">
+<body style="width: 11.0in;" class="report">
     <div class="wrapper m-0">
         <?php
         $row_count = count($rows);
@@ -73,7 +85,7 @@
                                 <div class="col">
                                     <p></p>
                                     <p class="brand-text h3 font-weight-bold header">BUKTI SERAH TERIMA NOTA GUDANG UMUM ELEKTRIK</p>
-                                    <p class="brand-text h5 font-weight-bold header">电气通用仓库单据交接单</p>
+                                    <p class="brand-text h4 font-weight-bold header">电气通用仓库单据交接单</p>
                                     <button class="btn btn-primary d-print-none float-right" onclick="window.print()">
                                         <i class="fas fa-print"></i>
                                         打印
@@ -91,18 +103,18 @@
                             <table class="table table-sm table-print">
                                 <thead>
                                     <tr>
-                                        <td class="font-weight-bold column">No.<br>库号</td>
-                                        <td class="font-weight-bold column">Tanggal Terima<br>交接日期</td>
-                                        <td class="font-weight-bold column">Perusahaan<br>公司</td>
-                                        <td class="font-weight-bold column">Kode Barang<br>物料代码</td>
-                                        <td class="font-weight-bold column">Nama Barang dan Spesifikasi<br>物料名称与规格型号</td>
-                                        <td class="font-weight-bold column">Satuan<br>单位</td>
-                                        <td class="font-weight-bold column">Jumlah<br>出库量</td>
-                                        <td class="font-weight-bold column">Lokasi Barang<br>库位</td>
-                                        <td class="font-weight-bold column">Perusahaan<br>领用公司</td>
-                                        <td class="font-weight-bold column">Dept. Pengambilan<br>领用部门</td>
-                                        <td class="font-weight-bold column">Diminta Oleh<br>领用人</td>
-                                        <td class="font-weight-bold column">No. Nota<br>单据编号</td>
+                                        <td class="font-weight-bold">No.<br>库号</td>
+                                        <td class="font-weight-bold">Tanggal Terima<br>交接日期</td>
+                                        <td class="font-weight-bold">Perusahaan<br>公司</td>
+                                        <td class="font-weight-bold">Kode Barang<br>物料代码</td>
+                                        <td class="font-weight-bold">Nama Barang dan Spesifikasi<br>物料名称与规格型号</td>
+                                        <td class="font-weight-bold">Satuan<br>单位</td>
+                                        <td class="font-weight-bold">Jumlah<br>出库量</td>
+                                        <td class="font-weight-bold">Lokasi Barang<br>库位</td>
+                                        <td class="font-weight-bold">Perusahaan<br>领用公司</td>
+                                        <td class="font-weight-bold">Dept. Pengambilan<br>领用部门</td>
+                                        <td class="font-weight-bold">Diminta Oleh<br>领用人</td>
+                                        <td class="font-weight-bold">No. Nota<br>单据编号</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -134,18 +146,18 @@
                         <table class="table table-sm table-print">
                             <thead>
                                 <tr>
-                                    <td class="font-weight-bold column">No<br>库号</td>
-                                    <td class="font-weight-bold column">Tanggal Terima<br>交接日期</td>
-                                    <td class="font-weight-bold column">Perusahaan<br>公司</td>
-                                    <td class="font-weight-bold column">Kode Barang<br>物料代码</td>
-                                    <td class="font-weight-bold column">Nama Barang dan Spesifikasi<br>物料名称与规格型号</td>
-                                    <td class="font-weight-bold column">Satuan<br>单位</td>
-                                    <td class="font-weight-bold column">Jumlah<br>出库量</td>
-                                    <td class="font-weight-bold column">Lokasi Barang<br>库位</td>
-                                    <td class="font-weight-bold column">Perusahaan<br>领用公司</td>
-                                    <td class="font-weight-bold column">Dept. Pengambilan<br>领用部门</td>
-                                    <td class="font-weight-bold column">Diminta Oleh<br>领用人</td>
-                                    <td class="font-weight-bold column">No. Nota<br>单据编号</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important; white-space: nowrap;">No<br>库号</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Tanggal Terima<br>交接日期</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Perusahaan<br>公司</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Kode Barang<br>物料代码</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Nama Barang dan Spesifikasi<br>物料名称与规格型号</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Satuan<br>单位</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Jumlah<br>出库量</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Lokasi Barang<br>库位</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Perusahaan<br>领用公司</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Dept. Pengambilan<br>领用部门</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Diminta Oleh<br>领用人</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">No. Nota<br>单据编号</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -153,7 +165,7 @@
                                 $l = 1;
                                 for ($j = 0; $j < ($page_num == $i ? (($row_count % $max_row == 0) ? $max_row : $row_count % $max_row) : $max_row); $j++) : ?>
                                     <tr>
-                                        <td><?= $l++; ?></td>
+                                        <td><?= $l++ + (($i - 1) * $max_row); ?></td>
                                         <td><?= $rows[$j + (($i - 1) * $max_row)]['sto_date']; ?></td>
                                         <td><?= $rows[$j + (($i - 1) * $max_row)]['company']; ?></td>
                                         <td><?= $rows[$j + (($i - 1) * $max_row)]['goods_id']; ?></td>

@@ -3,6 +3,7 @@
 //
 
 @media print {
+
   //Add to elements that you do not want to show when printing
   .no-print {
     display: none !important;
@@ -44,8 +45,8 @@
   .table-responsive {
     overflow: auto;
 
-    > .table tr th,
-    > .table tr td {
+    >.table tr th,
+    >.table tr td {
       white-space: normal !important;
     }
   }

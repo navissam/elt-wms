@@ -4,81 +4,83 @@ $(document).ready(function () {
     var inv, location, location_select;
 
     // initialize plugins
-    table1 = $("#table1").DataTable();
     table2 = $("#table2").DataTable();
     select2 = $('.select2').select2();
 
     // function for rebuild datatables (main table)
-    function createTable1(obj) {
-        table1.destroy();
-        table1 = $("#table1").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-            data: obj,
-            language: {
-                url: '/plugins/inner/datatables-lang.json'
-                // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
+    table1 = $("#table1").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        language: {
+            url: '/plugins/inner/datatables-lang.json'
+            // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
+        },
+        ajax: '/tyck/inventory/getAll',
+        columns: [{
+                data: 'inv_id',
+                render: function (data) {
+                    return Number(data);
+                }
             },
-            columns: [{
-                    data: 'inv_id',
-                    render: function (data) {
-                        return Number(data);
-                    }
-                },
-                {
-                    data: 'company'
-                },
-                {
-                    data: 'goods_id'
-                },
-                {
-                    data: 'concate',
-                    render: function (data) {
-                        data = data.split('-');
-                        warn = data[0] - data[1];
-                        if (data[0] < data[1] || data[0] == 0) {
+            {
+                data: 'company'
+            },
+            {
+                data: 'goods_id'
+            },
+            {
+                data: 'concate',
+                render: function (data) {
+                    data = data.split('-');
+                    let qty = parseFloat(data[0]);
+                    let safety = parseFloat(data[1]);
+                    if (safety != 0) {
+                        if (qty < safety || qty == 0) {
                             dt = '<span class="text-danger">'
-                        } else if (warn <= 20) {
+                        } else if ((qty - safety) <= 20) {
                             dt = '<span class="text-warning">'
                         } else {
                             dt = '<span class="text-success">'
                         }
-                        dt += (data[0] % 1 == 0) ? parseInt(data[0]) + '</span>' : data[0] + '</span>';
-                        return dt;
+                        dt += (qty % 1 == 0) ? parseInt(qty) + '</span>' : qty + '</span>';
+                    } else {
+                        dt = (qty % 1 == 0) ? parseInt(qty) : qty;
                     }
-                },
-                {
-                    data: 'location'
-                },
-                {
-                    data: 'safety',
-                    render: function (data) {
-                        if (data % 1 == 0)
-                            return parseInt(data);
-                        return data;
-                    }
-                },
-                {
-                    data: 'created_at'
-                },
-                {
-                    data: 'updated_at'
-                },
-                {
-                    data: 'remark'
-                },
-                {
-                    data: 'inv_id',
-                    render: function (data) {
-                        let btn = '<button type="button" class="btn btn-primary btn-sm btn-switch" data-toggle="tooltip" title="库位转储" data-inv_id="' + data + '">';
-                        btn += '<i class="fas fa-sync-alt" aria-hidden="true"></i>';
-                        btn += '</button> ';
-                        return btn;
-                    }
-                },
-            ],
-        });
-    }
+                    return dt;
+                }
+            },
+            {
+                data: 'location'
+            },
+            {
+                data: 'safety',
+                render: function (data) {
+                    if (data % 1 == 0)
+                        return parseInt(data);
+                    return data;
+                }
+            },
+            {
+                data: 'created_at'
+            },
+            {
+                data: 'updated_at'
+            },
+            {
+                data: 'remark'
+            },
+            {
+                data: 'inv_id',
+                render: function (data) {
+                    let btn = '<button type="button" class="btn btn-primary btn-sm btn-switch" data-inv_id="' + data + '">';
+                    btn += '<i class="fas fa-sync-alt" aria-hidden="true"></i>';
+                    btn += '</button> ';
+                    return btn;
+                }
+            },
+        ],
+    });
+
 
     var safety_edit = false;
     $('#table1').on('dblclick', 'tbody td:nth-child(6)', function (e) {
@@ -130,7 +132,7 @@ $(document).ready(function () {
                             table1.cell($('#edit-safety').parents('td')).data(val).draw();
                             $('#edit-safety').remove();
                             safety_edit = false;
-                            reloadTable1();
+                            table1.ajax.reload();
                         }
                     });
 
@@ -139,19 +141,17 @@ $(document).ready(function () {
         }
     });
 
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-
+    reloadTable1();
     // reload datasource from ajax
     function reloadTable1() {
         getInvLocation();
-        let url = '/tyck/inventory/getAll';
-        $.get(url, function (data) {
-            let obj = JSON.parse(data);
-            createTable1(obj);
-            inv = obj;
-        });
+        table1.ajax.reload();
+        // let url = '/tyck/inventory/getAll';
+        // $.get(url, function (data) {
+        //     let obj = JSON.parse(data);
+        //     createTable1(obj);
+        //     inv = obj;
+        // });
     }
 
     function getInvLocation() {
@@ -171,14 +171,11 @@ $(document).ready(function () {
         });
     }
 
-
-    // reload on web document first loading
-    reloadTable1();
-
     // switch button on each row
     $("body").on("click", ".btn-switch", function (e) {
         inv_id = $(this).data('inv_id');
-        let i = inv.find(x => x.inv_id == inv_id);
+        let i = table1.row($(this).parents('tr')).data();
+        // let i = inv.find(x => x.inv_id == inv_id);
         // console.log(i);
         let company = i.company;
         let goods_id = i.goods_id;
@@ -290,7 +287,7 @@ $(document).ready(function () {
                     $(".is-invalid").removeClass("is-invalid");
                     $('.form-control').val('');
                     $('#switchModal').modal('toggle');
-                    reloadTable1();
+                    table1.ajax.reload();
                 }
             });
         }

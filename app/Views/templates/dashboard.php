@@ -62,7 +62,25 @@
     }
 </style>
 <?= $this->endSection() ?>
+<?php
+$db      = \Config\Database::connect();
 
+$roleID = session()->get('roleID') ?? 0;
+if ($roleID != 0) {
+    $rp = $db->table('role_permission');
+    $rp->select('role_permission.permID');
+    $rp->join('permission', 'permission.permID = role_permission.permID', 'inner');
+    $rp->where('permission.deleted_at', null);
+    $rp->where('permission.status', 1);
+    $rp->where('roleID', $roleID);
+    $rp_ = $rp->get()->getResultArray();
+    $permIDs = [];
+    foreach ($rp_ as $value) {
+        array_push($permIDs, intval($value['permID']));
+    }
+    // dd($permIDs);
+}
+?>
 <?= $this->section('content') ?>
 <div class="content-wrapper bg">
     <!-- Content Header (Page header) -->
@@ -75,32 +93,47 @@
             </div>
             <div class="row mb-2">
                 <div class="col-lg-1">
-                    <div class="small-box bg-info mt-2" id="inv">
-                        <div class="icon">
-                            <i class="fas fa-cubes"></i>
+                    <?php
+                    if (in_array(20, $permIDs)) :
+                    ?>
+                        <div class="small-box bg-info mt-2" id="inv">
+                            <div class="icon">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>库存</h2>
+                            </div>
                         </div>
-                        <div class="inner">
-                            <h2>库存</h2>
+                    <?php
+                    endif;
+                    if (in_array(22, $permIDs)) :
+                    ?>
+                        <div class="small-box bg-success mt-2" id="sto">
+                            <div class="icon">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>出库</h2>
+                            </div>
                         </div>
-                    </div>
-                    <div class="small-box bg-success mt-2" id="sto">
-                        <div class="icon">
-                            <i class="fas fa-sign-out-alt"></i>
+                    <?php
+                    endif;
+                    if (in_array(24, $permIDs)) :
+                    ?>
+                        <div class="small-box bg-danger" id="scr">
+                            <div class="icon">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>报废</h2>
+                            </div>
                         </div>
-                        <div class="inner">
-                            <h2>出库</h2>
-                        </div>
-                    </div>
-                    <div class="small-box bg-danger" id="scr">
-                        <div class="icon">
-                            <i class="fas fa-times-circle"></i>
-                        </div>
-                        <div class="inner">
-                            <h2>报废</h2>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-lg-1">
+                <?php
+                    endif;
+                    if (in_array(21, $permIDs)) :
+                ?>
                     <div class="small-box bg-primary mt-2" id="sti">
                         <div class="icon">
                             <i class="fas fa-sign-in-alt"></i>
@@ -109,6 +142,10 @@
                             <h2>入库</h2>
                         </div>
                     </div>
+                <?php
+                    endif;
+                    if (in_array(23, $permIDs)) :
+                ?>
                     <div class="small-box bg-teal" id="ret">
                         <div class="icon">
                             <i class="fas fa-undo-alt"></i>
@@ -117,6 +154,10 @@
                             <h2>退库</h2>
                         </div>
                     </div>
+                <?php
+                    endif;
+                    if (in_array(26, $permIDs)) :
+                ?>
                     <div class="small-box bg-secondary" id="report">
                         <div class="icon">
                             <i class="fas fa-clipboard-check"></i>
@@ -127,6 +168,10 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
+                <?php
+                    endif;
+                    if (in_array(28, $permIDs)) :
+                ?>
                     <div class="small-box bg-lightblue mt-2" id="history">
                         <div class="icon">
                             <i class="fas fa-history"></i>
@@ -135,6 +180,10 @@
                             <h2>物料库存历史</h2>
                         </div>
                     </div>
+                <?php
+                    endif;
+                    if (in_array(27, $permIDs)) :
+                ?>
                     <div class="small-box bg-maroon" id="print">
                         <div class="icon">
                             <i class="fas fa-clipboard"></i>
@@ -143,6 +192,10 @@
                             <h2>单据交接</h2>
                         </div>
                     </div>
+                <?php
+                    endif;
+                    if (in_array(19, $permIDs)) :
+                ?>
                     <div class="small-box bg-olive" id="goods">
                         <div class="icon">
                             <i class="fas fa-boxes"></i>
@@ -151,6 +204,9 @@
                             <h2>物料管理</h2>
                         </div>
                     </div>
+                <?php
+                    endif;
+                ?>
                 </div>
                 <div class="col-lg-2"></div>
                 <div class="col-lg-6">

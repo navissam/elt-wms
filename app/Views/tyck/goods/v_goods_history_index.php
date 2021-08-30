@@ -70,16 +70,16 @@
                             <div class="col-6">
                                 <table class="table table-sm table-borderless">
                                     <tr>
-                                        <td class="font-weight-bold">物料代码</td>
-                                        <td>: <span class="goods_id"></span></td>
+                                        <td>物料代码</td>
+                                        <td>: <span class="font-weight-bold goods_id"></span></td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-bold">物料名称与规格型号</td>
-                                        <td>: <span class="name_type"></span></td>
+                                        <td>物料名称与规格型号</td>
+                                        <td>: <span class="font-weight-bold name_type"></span></td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-bold">单位</td>
-                                        <td>: <span class="unit"></span></td>
+                                        <td>单位</td>
+                                        <td>: <span class="font-weight-bold unit"></span></td>
                                     </tr>
                                 </table>
                             </div>

@@ -81,39 +81,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <?= $this->renderSection('script') ?>
 
-    <script>
-        function previewImg() {
-            const logo = document.querySelector('#add-logo');
-            const logoLabel = document.querySelector('.custom-file-label');
-            const imgPreview = document.querySelector('.img-preview');
-
-            logoLabel.textContent = logo.files[0].name;
-
-            const fileLogo = new FileReader();
-            fileLogo.readAsDataURL(logo.files[0]);
-
-            fileLogo.onload = function(e) {
-                imgPreview.src = e.target.result;
-            }
-        }
-
-        function previewImgEdit() {
-            const logo = document.querySelector('#edit-logo');
-            const logoLabel = document.querySelector('.custom-file-label.edit');
-            const imgPreview = document.querySelector('.img-preview.edit');
-
-            logoLabel.textContent = logo.files[0].name;
-            console.log(logoLabel.textContent);
-
-            const fileLogo = new FileReader();
-            fileLogo.readAsDataURL(logo.files[0]);
-
-            fileLogo.onload = function(e) {
-                imgPreview.src = e.target.result;
-            }
-        }
-    </script>
-
 </body>
 
 </html>

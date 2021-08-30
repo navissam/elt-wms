@@ -20,7 +20,9 @@ class Inventory extends BaseController
 
     public function getAll()
     {
-        return json_encode($this->inventoryModel->getAll());
+        return json_encode([
+            'data' => $this->inventoryModel->getAll()
+        ]);
     }
 
     public function getLocation()

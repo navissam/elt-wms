@@ -1,13 +1,6 @@
 $(document).ready(function () {
 
-    // declare global variable
-
-    // initialize plugins
-    table1 = $("#table1").DataTable();
-
     // function for rebuild datatables (main table)
-    function createTable1(obj) {
-        table1.destroy();
         table1 = $("#table1").DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -18,7 +11,7 @@ $(document).ready(function () {
                 ["50"]
             ],
             info: false,
-            data: obj,
+            ajax: '/tyck/safety/getAllTyck',
             language: {
                 url: '/plugins/inner/datatables-lang.json'
                 // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
@@ -48,26 +41,8 @@ $(document).ready(function () {
                 },
             ],
         });
-    }
 
-    // reload datasource from ajax
-    function reloadTable1() {
-        let url = '/tyck/safety/getAllTyck';
-        $.get(url, function (data) {
-            let obj = JSON.parse(data);
-            check = obj.length;
-            // console.log(check);
-            // if (check == 0) {
-            //     $('#safety').hide('slow');
-            // } else {
-                createTable1(obj);
-            // }
-        });
-    }
-
-    // reload on web document first loading
-    reloadTable1();
-
+        
     $('#inv').on('click', function () {
         window.location.href = "/tyck/inventory";
     });
