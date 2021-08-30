@@ -29,48 +29,6 @@ class Inventory extends BaseController
     {
         return json_encode($this->inventoryModel->getLocation());
     }
-    // public function sto_print($id = null)
-    // {
-    //     if (is_null($id)) {
-    //         $data['sto'] = $this->inventoryModel->last_sto();
-    //     } else {
-    //         $data['sto'] = $this->inventoryModel->sto($id);
-    //     }
-    //     $data['record'] = $this->inventoryModel->record($data['sto']['recordID']);
-    //     // dd($data);
-    //     // return $data;
-    //     return view('inventory/p_sto', $data);
-    // }
-    // public function scr_print($id = null)
-    // {
-    //     if (is_null($id)) {
-    //         $data['scr'] = $this->inventoryModel->last_scr();
-    //     } else {
-    //         $data['scr'] = $this->inventoryModel->scr($id);
-    //     }
-    //     $data['record'] = $this->inventoryModel->record($data['scr']['recordID']);
-    //     // dd($data);
-    //     // return $data;
-    //     return view('inventory/p_scr', $data);
-    // }
-    // public function ret_print($id = null)
-    // {
-    //     if (is_null($id)) {
-    //         $data['ret'] = $this->inventoryModel->last_ret();
-    //     } else {
-    //         $data['ret'] = $this->inventoryModel->ret($id);
-    //     }
-    //     $data['record'] = $this->inventoryModel->record($data['ret']['recordID']);
-    //     // dd($data);
-    //     // return $data;
-    //     return view('inventory/p_ret', $data);
-    // }
-
-    // public function record($goodsID, $locationID, $ownerID)
-    // {
-    //     $records = $this->inventoryModel->records($goodsID, $locationID, $ownerID);
-    //     return json_encode($records);
-    // }
 
     public function update()
     {
