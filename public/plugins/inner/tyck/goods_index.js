@@ -75,11 +75,17 @@ $(document).ready(function () {
         }
     });
 
-    $('#table1').on('keypress', 'tbody td:nth-child(4) input#edit-safety', function (e) {
+    $('#table1').on('keyup', 'tbody td:nth-child(4) input#edit-safety', function (e) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
+        var val = Number($(this).val());
+        if (keycode == '27') {
+            table1.cell($(this).parents('td')).data(val).draw();
+            $(this).remove();
+            safety_edit = false;
+            reloadTable1();
+        }
         if (keycode == '13') {
             if (safety_edit) {
-                var val = Number($(this).val());
                 var row = table1.row($(this).parents('tr')).data();
                 var old = row.safety;
                 var id = row.goods_id;
