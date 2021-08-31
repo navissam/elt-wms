@@ -28,9 +28,7 @@ class Inventory_model extends Model
     public function getAll()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table($this->table);
-        $builder->select(['*', 'concat(qty,\'-\',safety) as concate']);
-        $builder->where(['deleted_at' => null]);
+        $builder = $db->table('tyck_inventory_all');
         return $builder->get()->getResultArray();
     }
 

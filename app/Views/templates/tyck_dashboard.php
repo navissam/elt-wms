@@ -120,7 +120,7 @@ if ($roleID != 0) {
                     endif;
                     if (in_array(24, $permIDs)) :
                     ?>
-                        <div class="small-box bg-danger" id="scr">
+                        <div class="small-box bg-danger mt-2" id="scr">
                             <div class="icon">
                                 <i class="fas fa-times-circle"></i>
                             </div>
@@ -146,7 +146,7 @@ if ($roleID != 0) {
                     endif;
                     if (in_array(23, $permIDs)) :
                 ?>
-                    <div class="small-box bg-teal" id="ret">
+                    <div class="small-box bg-teal mt-2" id="ret">
                         <div class="icon">
                             <i class="fas fa-undo-alt"></i>
                         </div>
@@ -158,7 +158,7 @@ if ($roleID != 0) {
                     endif;
                     if (in_array(26, $permIDs)) :
                 ?>
-                    <div class="small-box bg-secondary" id="report">
+                    <div class="small-box bg-secondary mt-2" id="report">
                         <div class="icon">
                             <i class="fas fa-clipboard-check"></i>
                         </div>
@@ -184,7 +184,7 @@ if ($roleID != 0) {
                     endif;
                     if (in_array(27, $permIDs)) :
                 ?>
-                    <div class="small-box bg-maroon" id="print">
+                    <div class="small-box bg-maroon mt-2" id="print">
                         <div class="icon">
                             <i class="fas fa-clipboard"></i>
                         </div>
@@ -196,7 +196,7 @@ if ($roleID != 0) {
                     endif;
                     if (in_array(19, $permIDs)) :
                 ?>
-                    <div class="small-box bg-olive" id="goods">
+                    <div class="small-box bg-olive mt-2" id="goods">
                         <div class="icon">
                             <i class="fas fa-boxes"></i>
                         </div>

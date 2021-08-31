@@ -42,6 +42,7 @@ $(document).ready(function () {
             ],
         });
 
+        table1.ajax.reload();
         
     $('#inv').on('click', function () {
         window.location.href = "/tyck/inventory";

@@ -130,28 +130,43 @@ class Report extends BaseController
     }
 
     // report basic
-    public function sti_report_basic($start, $finish)
+    public function sti_report_basic($start, $f)
     {
+        $date = date_create($f);
+        date_modify($date, "+1 days");
+        $finish = date_format($date, "Y-m-d");
         return json_encode($this->report_model->sti_report_basic($start, $finish));
     }
 
-    public function sto_report_basic($start, $finish)
+    public function sto_report_basic($start, $f)
     {
+        $date = date_create($f);
+        date_modify($date, "+1 days");
+        $finish = date_format($date, "Y-m-d");
         return json_encode($this->report_model->sto_report_basic($start, $finish));
     }
 
-    public function ret_report_basic($start, $finish)
+    public function ret_report_basic($start, $f)
     {
+        $date = date_create($f);
+        date_modify($date, "+1 days");
+        $finish = date_format($date, "Y-m-d");
         return json_encode($this->report_model->ret_report_basic($start, $finish));
     }
 
-    public function scr_report_basic($start, $finish)
+    public function scr_report_basic($start, $f)
     {
+        $date = date_create($f);
+        date_modify($date, "+1 days");
+        $finish = date_format($date, "Y-m-d");
         return json_encode($this->report_model->scr_report_basic($start, $finish));
     }
 
-    public function swc_report_basic($start, $finish)
+    public function swc_report_basic($start, $f)
     {
+        $date = date_create($f);
+        date_modify($date, "+1 days");
+        $finish = date_format($date, "Y-m-d");
         return json_encode($this->report_model->swc_report_basic($start, $finish));
     }
 

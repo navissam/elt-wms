@@ -106,8 +106,8 @@ class Report_model extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('tyck_stock_out_report');
-        $builder->where('created_at >=', $start);
-        $builder->where('created_at <=', $finish);
+        $builder->where('sto_date >=', $start);
+        $builder->where('sto_date <=', $finish);
         return $builder->get()->getResultArray();
     }
 
@@ -115,8 +115,8 @@ class Report_model extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('tyck_return_report');
-        $builder->where('created_at >=', $start);
-        $builder->where('created_at <=', $finish);
+        $builder->where('ret_date >=', $start);
+        $builder->where('ret_date <=', $finish);
         return $builder->get()->getResultArray();
     }
 
@@ -124,8 +124,8 @@ class Report_model extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('tyck_scrap_report');
-        $builder->where('created_at >=', $start);
-        $builder->where('created_at <=', $finish);
+        $builder->where('scr_date >=', $start);
+        $builder->where('scr_date <=', $finish);
         return $builder->get()->getResultArray();
     }
 
@@ -133,8 +133,8 @@ class Report_model extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('tyck_switch_report');
-        $builder->where('created_at >=', $start);
-        $builder->where('created_at <=', $finish);
+        $builder->where('swc_date >=', $start);
+        $builder->where('swc_date <=', $finish);
         return $builder->get()->getResultArray();
     }
 

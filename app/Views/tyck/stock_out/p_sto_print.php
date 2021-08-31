@@ -103,7 +103,7 @@
                             <table class="table table-sm table-print">
                                 <thead>
                                     <tr>
-                                        <td class="font-weight-bold">No.<br>库号</td>
+                                        <td class="font-weight-bold">No.<br>序号</td>
                                         <td class="font-weight-bold">Tanggal Terima<br>交接日期</td>
                                         <td class="font-weight-bold">Perusahaan<br>公司</td>
                                         <td class="font-weight-bold">Kode Barang<br>物料代码</td>
@@ -146,7 +146,7 @@
                         <table class="table table-sm table-print">
                             <thead>
                                 <tr>
-                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important; white-space: nowrap;">No<br>库号</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important; white-space: nowrap;">No<br>序号</td>
                                     <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Tanggal Terima<br>交接日期</td>
                                     <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Perusahaan<br>公司</td>
                                     <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Kode Barang<br>物料代码</td>

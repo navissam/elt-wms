@@ -15,6 +15,21 @@ $(document).ready(function () {
             url: '/plugins/inner/datatables-lang.json'
             // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
         },
+        dom: '<"row mb-3"<"col-12"B>><"row"<"col-2"l><"col-10"f>>t<"row"<"col-3"i><"col-9"p>>',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    text: '复制',
+                    className: 'btn btn-warning'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: '导出',
+                    exportOptions: {
+                        orthogonal: "exportxls"
+                    },
+                    className: 'btn btn-success'
+                }
+            ],
         ajax: '/tyck/inventory/getAll',
         columns: [{
                 data: 'inv_id',
@@ -27,6 +42,12 @@ $(document).ready(function () {
             },
             {
                 data: 'goods_id'
+            },
+            {
+                data: 'name_type'
+            },
+            {
+                data: 'unit'
             },
             {
                 data: 'concate',
@@ -61,12 +82,6 @@ $(document).ready(function () {
                 }
             },
             {
-                data: 'created_at'
-            },
-            {
-                data: 'updated_at'
-            },
-            {
                 data: 'remark'
             },
             {
@@ -81,9 +96,12 @@ $(document).ready(function () {
         ],
     });
 
+    getInvLocation();
 
     var safety_edit = false;
-    $('#table1').on('dblclick', 'tbody td:nth-child(6)', function (e) {
+    var remark_edit = false;
+
+    $('#table1').on('dblclick', 'tbody td:nth-child(8)', function (e) {
         if (!safety_edit) {
             var safety = $(this);
             var val = safety.text();
@@ -93,11 +111,18 @@ $(document).ready(function () {
         }
     });
 
-    $('#table1').on('keypress', 'tbody td:nth-child(6) input#edit-safety', function (e) {
+    $('#table1').on('keyup', 'tbody td:nth-child(8) input#edit-safety', function (e) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
+        var val = Number($(this).val());
+        if (keycode == '27') {
+            table1.cell($(this).parents('td')).data(val).draw();
+            $(this).remove();
+            remark_edit = false;
+            safety_edit = false;
+            table1.ajax.reload();
+        }
         if (keycode == '13') {
             if (safety_edit) {
-                var val = Number($(this).val());
                 var row = table1.row($(this).parents('tr')).data();
                 var old = row.safety;
                 var id = row.inv_id;
@@ -132,6 +157,7 @@ $(document).ready(function () {
                             table1.cell($('#edit-safety').parents('td')).data(val).draw();
                             $('#edit-safety').remove();
                             safety_edit = false;
+                            remark_edit = false;
                             table1.ajax.reload();
                         }
                     });
@@ -141,18 +167,66 @@ $(document).ready(function () {
         }
     });
 
-    reloadTable1();
-    // reload datasource from ajax
-    function reloadTable1() {
-        getInvLocation();
-        table1.ajax.reload();
-        // let url = '/tyck/inventory/getAll';
-        // $.get(url, function (data) {
-        //     let obj = JSON.parse(data);
-        //     createTable1(obj);
-        //     inv = obj;
-        // });
-    }
+    $('#table1').on('dblclick', 'tbody td:nth-child(9)', function (e) {
+        if (!remark_edit) {
+            var remark = $(this);
+            var val = remark.text();
+            var input = "<input class=\"form-control\" id=\"edit-remark\" type=\"text\" value=\"" + val + "\">";
+            remark.html(input);
+            remark_edit = true;
+        }
+    });
+
+    $('#table1').on('keyup', 'tbody td:nth-child(9) input#edit-remark', function (e) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        var val = $(this).val();
+        if (keycode == '27') {
+            table1.cell($(this).parents('td')).data(val).draw();
+            $(this).remove();
+            remark_edit = false;
+            safety_edit = false;
+            table1.ajax.reload();
+        }
+        if (keycode == '13') {
+            if (remark_edit) {
+                var row = table1.row($(this).parents('tr')).data();
+                var old = row.remark;
+                var id = row.inv_id;
+                if (val == old) {
+                    table1.cell($(this).parents('td')).data(val).draw();
+                    $(this).remove();
+                    remark_edit = false;
+                } else {
+                    // console.log('ok');
+                    $.post('/tyck/inventory/update', {
+                        inv_id: id,
+                        remark: $('#edit-remark').val(),
+                    }, function (response) {
+                        let i = JSON.parse(response);
+                        if (i.status == 'error') {
+                            Swal.fire(
+                                '保存失败!',
+                                i.msg,
+                                'error'
+                            );
+                        } else if (i.status == 'success') {
+                            Swal.fire(
+                                '保存成功!',
+                                '',
+                                'success'
+                            );
+                            table1.cell($('#edit-remark').parents('td')).data(val).draw();
+                            $('#edit-remark').remove();
+                            remark_edit = false;
+                            safety_edit = false;
+                            table1.ajax.reload();
+                        }
+                    });
+
+                }
+            }
+        }
+    });
 
     function getInvLocation() {
         // get data location for switch
@@ -287,6 +361,7 @@ $(document).ready(function () {
                     $(".is-invalid").removeClass("is-invalid");
                     $('.form-control').val('');
                     $('#switchModal').modal('toggle');
+                    getInvLocation();
                     table1.ajax.reload();
                 }
             });

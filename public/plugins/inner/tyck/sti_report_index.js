@@ -210,12 +210,13 @@ $(document).ready(function () {
 
     $("#basicfilter").on("click", function () {
         start = $('#start').val();
-        f = $('#finish').val();
-        var date = new Date(f);
-        var day = ("0" + (date.getDate() + 1)).slice(-2);
-        var month = ("0" + (date.getMonth() + 1)).slice(-2);
-        var finish = date.getFullYear() + "-" + (month) + "-" + (day);
+        finish = $('#finish').val();
+        // var date = new Date(f);
+        // var day = ("0" + (date.getDate() + 1)).slice(-2);
+        // var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        // var finish = date.getFullYear() + "-" + (month) + "-" + (day);
         let url = "/tyck/report/sti_report_basic/" + start + "/" + finish;
+        // console.log(url);
         $.get(url, function (data) {
             let obj = JSON.parse(data);
             createTable2(obj);
