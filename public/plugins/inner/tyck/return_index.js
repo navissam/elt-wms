@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     // declare global variable
-    var  goods, goods_select, location, location_select, company, company_select;
+    var goods, goods_select, location, location_select, company, company_select;
 
 
     $.get("/tyck/return_/getGoods", function (data) {
@@ -127,7 +127,7 @@ $(document).ready(function () {
             err = true;
             field.push('qty');
         }
-        
+
         if (!err) {
             $.post('/tyck/return_/save', {
                 ret_company: $.trim($('#ret_company').val()),
@@ -154,11 +154,11 @@ $(document).ready(function () {
                         '',
                         'success'
                     );
-                    setTimeout(function () {
-                    //     window.open(window.location.origin + "/inventory/sto_print/", '_blank');
-                        // window.location.href = window.location.origin + "/tyck/inventory/";
-                        window.location.href = "/tyck/inventory/";
-                        }, 2000);
+                    $(".is-invalid").removeClass("is-invalid");
+                    $('.form-control').val('');
+                    $("#ret_date").val(today);
+                    $("#ret_date").attr("max", today);
+                    swap();
                 }
             });
         }

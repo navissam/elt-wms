@@ -290,11 +290,14 @@ $(document).ready(function () {
                         '',
                         'success'
                     );
-                    setTimeout(function () {
-                        //     window.open(window.location.origin + "/inventory/sto_print/", '_blank');
-                        // window.location.href = window.location.origin + "/tyck/inventory/";
-                        window.location.href = "/tyck/inventory/";
-                    }, 2000);
+                    $(".is-invalid").removeClass("is-invalid");
+                    $('.form-control').val('');
+                    table1
+                        .clear()
+                        .draw();
+                    $("#sto_date").val(today);
+                    $("#sto_date").attr("max", today);
+                    reloadTable2();
                 }
             });
         }
