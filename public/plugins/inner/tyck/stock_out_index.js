@@ -55,18 +55,38 @@ $(document).ready(function () {
 
     $.get("/tyck/stock_out/getCompany", function (data) {
         let object = JSON.parse(data);
-        dept = $.map(object, function (obj) {
+        company = $.map(object, function (obj) {
             obj.id = obj.id || obj.companyID;
             obj.text = obj.text || obj.nameInd + ' - ' + obj.nameMan;
             return obj;
         });
         company_select = $(".select2-recipient_company").select2({
-            data: dept,
+            data: company,
             theme: 'bootstrap4',
         });
 
     });
+    $('#recipient_dept').prop('disabled', true);
+    $('#recipient_company').on('change', function() {
+        $('#recipient_dept').prop('disabled', false);
+        company = $(this).val();
+        $.get("/tyck/stock_out/getDept/" + company, function (data) {
+            let object = JSON.parse(data);
+            dept = $.map(object, function (obj) {
+                obj.id = obj.id || obj.deptID;
+                obj.text = obj.text || obj.deptName;
+                return obj;
+            });
+            dept_select = $(".select2-recipient_dept").select2({
+                data: dept,
+                theme: 'bootstrap4',
+            });
+    
+        });
+    
+    })
 
+    
     // function for rebuild datatables (restore table)
     function createTable2(obj) {
         table2.destroy();
@@ -297,6 +317,8 @@ $(document).ready(function () {
                         .draw();
                     $("#sto_date").val(today);
                     $("#sto_date").attr("max", today);
+                    $('#recipient_dept').prop('disabled', true);
+                    $('#recipient_dept').trigger('change');
                     reloadTable2();
                 }
             });

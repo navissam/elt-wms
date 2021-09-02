@@ -17,7 +17,7 @@ class Report_model extends Model
     public function getCompany()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('company');
+        $builder = $db->table('tyck_company');
         $builder->where(['deleted_at' => null]);
         return $builder->get()->getResultArray();
     }

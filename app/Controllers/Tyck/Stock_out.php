@@ -37,6 +37,11 @@ class Stock_out extends BaseController
         return json_encode($this->sto_model->getCompany());
     }
 
+    public function getDept($company)
+    {
+        return json_encode($this->sto_model->getDept($company));
+    }
+
     public function getInv()
     {
         return json_encode($this->sto_model->getInv());

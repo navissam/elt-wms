@@ -34,18 +34,39 @@ $(document).ready(function () {
 
     $.get("/tyck/return_/getCompany", function (data) {
         let object = JSON.parse(data);
-        dept = $.map(object, function (obj) {
+        company = $.map(object, function (obj) {
             obj.id = obj.id || obj.companyID;
             obj.text = obj.text || obj.nameInd + ' - ' + obj.nameMan;
             return obj;
         });
         company_select = $(".select2-ret_company").select2({
-            data: dept,
+            data: company,
             theme: 'bootstrap4',
         });
         company_select = $(".select2-company").select2({
-            data: dept,
+            data: company,
             theme: 'bootstrap4',
+        });
+    });
+    $('#ret_dept').prop('disabled', true);
+    $('#ret_company').on('change', function () {
+        $('#ret_dept').prop('disabled', false);
+        company = $(this).val();
+        $.get("/tyck/return_/getDept/" + company, function (data) {
+            let object = JSON.parse(data);
+            dept = $.map(object, function (obj) {
+                obj.id = obj.id || obj.deptID;
+                obj.text = obj.text || obj.deptName;
+                return obj;
+            });
+            dept_select = $(".select2-ret_dept").select2({
+                data: dept,
+                theme: 'bootstrap4',
+            });
+            dept_select = $(".select2-dept").select2({
+                data: dept,
+                theme: 'bootstrap4',
+            });
         });
     });
 
@@ -158,7 +179,8 @@ $(document).ready(function () {
                     $('.form-control').val('');
                     $("#ret_date").val(today);
                     $("#ret_date").attr("max", today);
-                    swap();
+                    $('#ret_dept').prop('disabled', true);
+                    $('#ret_dept').trigger('change');
                 }
             });
         }

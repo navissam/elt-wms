@@ -40,7 +40,8 @@
                                 </div>
                                 <div class="form-group col">
                                     <label class="" for="ret_dept">退库部门</label>
-                                    <input type="text" class="form-control" id="ret_dept" placeholder="输入退库部门" maxlength="30">
+                                    <select id="ret_dept" class="select2-ret_dept form-control" style="width: 100%;">
+                                    </select>
                                     <div class="invalid-feedback ret_dept-invalid">
                                     </div>
                                 </div>

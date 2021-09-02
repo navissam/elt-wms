@@ -48,7 +48,8 @@
                                 </div>
                                 <div class="form-group col">
                                     <label class="" for="recipient_dept">领用部门</label>
-                                    <input type="text" class="form-control" id="recipient_dept" placeholder="输入领用部门" maxlength="255">
+                                    <select id="recipient_dept" class="select2-recipient_dept form-control" style="width: 100%;">
+                                    </select>
                                     <div class="invalid-feedback recipient_dept-invalid">
                                     </div>
                                 </div>

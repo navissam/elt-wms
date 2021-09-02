@@ -35,6 +35,11 @@ class Return_ extends BaseController
         return json_encode($this->ret_model->getCompany());
     }
 
+    public function getDept($company)
+    {
+        return json_encode($this->ret_model->getDept($company));
+    }
+
     public function save()
     {
         $id = $this->request->getPost('ret_id');

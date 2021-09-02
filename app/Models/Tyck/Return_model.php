@@ -46,7 +46,16 @@ class Return_model extends Model
     public function getCompany()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('company');
+        $builder = $db->table('tyck_company');
+        $builder->where(['deleted_at' => null]);
+        return $builder->get()->getResultArray();
+    }
+
+    public function getDept($company)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_dept');
+        $builder->where(['companyID' => $company]);
         $builder->where(['deleted_at' => null]);
         return $builder->get()->getResultArray();
     }
