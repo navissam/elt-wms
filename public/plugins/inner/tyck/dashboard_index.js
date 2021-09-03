@@ -65,11 +65,7 @@ $(document).ready(function () {
     });
 
     $('#history').on('click', function () {
-        window.location.href = "/tyck/history";
-    });
-
-    $('#goods').on('click', function () {
-        window.location.href = "/tyck/goods";
+        window.location.href = "/tyck/goods/history";
     });
 
     $('#print').on('click', function () {
@@ -99,5 +95,21 @@ $(document).ready(function () {
     $('#swc_report').on('click', function () {
         window.location.href = "/tyck/report/swc";
     });
+    
+    $('#basic').on('click', function () {
+        $("#basicModal").modal("show");
+    });
 
+    $('#company').on('click', function () {
+        window.location.href = "/tyck/company";
+    });
+
+    $('#dept').on('click', function () {
+        window.location.href = "/tyck/dept";
+    });
+
+    $('#goods').on('click', function () {
+        window.location.href = "/tyck/goods";
+    });
+    
 });

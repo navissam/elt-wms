@@ -170,7 +170,7 @@ if ($roleID != 0) {
                 <div class="col-lg-2">
                 <?php
                     endif;
-                    if (in_array(28, $permIDs)) :
+                    if (in_array(19, $permIDs)) :
                 ?>
                     <div class="small-box bg-lightblue mt-2" id="history">
                         <div class="icon">
@@ -194,19 +194,15 @@ if ($roleID != 0) {
                     </div>
                 <?php
                     endif;
-                    if (in_array(19, $permIDs)) :
                 ?>
-                    <div class="small-box bg-olive mt-2" id="goods">
-                        <div class="icon">
-                            <i class="fas fa-boxes"></i>
-                        </div>
-                        <div class="inner">
-                            <h2>物料管理</h2>
-                        </div>
+                <div class="small-box bg-olive mt-2" id="basic">
+                    <div class="icon">
+                        <i class="fas fa-database"></i>
                     </div>
-                <?php
-                    endif;
-                ?>
+                    <div class="inner">
+                        <h2>基础管理</h2>
+                    </div>
+                </div>
                 </div>
                 <div class="col-lg-2"></div>
                 <div class="col-lg-6">
@@ -245,7 +241,7 @@ if ($roleID != 0) {
                 <!-- /.col -->
             </div>
         </div><!-- /.row -->
-        <!-- Modal -->
+        <!-- reportModal -->
         <div class="modal fade" id="reportModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -306,8 +302,54 @@ if ($roleID != 0) {
                 </div>
             </div>
         </div>
-    </div>
-</div><!-- /.container-fluid -->
+        <!-- basicModal -->
+        <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <?php
+                        if (in_array(25, $permIDs)) :
+                        ?>
+                            <div class="small-box bg-info mt-3" id="company">
+                                <div class="icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <div class="inner">
+                                    <h2>公司管理</h2>
+                                </div>
+                            </div>
+                        <?php
+                        endif;
+                        if (in_array(29, $permIDs)) :
+                        ?>
+                            <div class="small-box bg-teal mt-3" id="dept">
+                                <div class="icon">
+                                    <i class="fas fa-sitemap"></i>
+                                </div>
+                                <div class="inner">
+                                    <h2>部门管理</h2>
+                                </div>
+                            </div>
+                        <?php
+                        endif;
+                        if (in_array(19, $permIDs)) :
+                        ?>
+                            <div class="small-box bg-olive mt-3" id="goods">
+                                <div class="icon">
+                                    <i class="fas fa-boxes"></i>
+                                </div>
+                                <div class="inner">
+                                    <h2>物料管理</h2>
+                                </div>
+                            </div>
+                        <?php
+                        endif;
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
 </div>
 <!-- /.content-header -->
 <?= $this->endSection() ?>
