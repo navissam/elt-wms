@@ -51,7 +51,9 @@ $(document).ready(function () {
     $('#ret_dept').prop('disabled', true);
     $('#ret_company').on('change', function () {
         $('#ret_dept').prop('disabled', false);
+        $('#ret_dept').empty();
         company = $(this).val();
+        console.log(company);
         $.get("/tyck/return_/getDept/" + company, function (data) {
             let object = JSON.parse(data);
             dept = $.map(object, function (obj) {

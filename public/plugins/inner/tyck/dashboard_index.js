@@ -64,12 +64,20 @@ $(document).ready(function () {
         window.location.href = "/tyck/scrap";
     });
 
+    $('#swc').on('click', function () {
+        window.location.href = "/tyck/switch_";
+    });
+
     $('#history').on('click', function () {
         window.location.href = "/tyck/goods/history";
     });
 
     $('#print').on('click', function () {
         window.location.href = "/tyck/stock_out/sto_print";
+    });
+
+    $('#claim').on('click', function () {
+        window.location.href = "/tyck/claim";
     });
 
     $('#report').on('click', function () {

@@ -86,13 +86,13 @@ if ($roleID != 0) {
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row mb-2" style="padding: 0;">
                 <div class="col-lg-6">
                     <h1 class="m-0 welcome">欢迎，<?= session()->get('name') ?></h1>
                 </div><!-- /.col -->
             </div>
             <div class="row mb-2">
-                <div class="col-lg-1">
+                <div class="col-lg-1" style="padding: 0 7.5px 0 7.5px;">
                     <?php
                     if (in_array(20, $permIDs)) :
                     ?>
@@ -128,83 +128,112 @@ if ($roleID != 0) {
                                 <h2>报废</h2>
                             </div>
                         </div>
+                    <?php
+                    endif;
+                    ?>
                 </div>
                 <div class="col-lg-1">
-                <?php
-                    endif;
+                    <?php
                     if (in_array(21, $permIDs)) :
-                ?>
-                    <div class="small-box bg-primary mt-2" id="sti">
-                        <div class="icon">
-                            <i class="fas fa-sign-in-alt"></i>
+                    ?>
+                        <div class="small-box bg-primary mt-2" id="sti">
+                            <div class="icon">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>入库</h2>
+                            </div>
                         </div>
-                        <div class="inner">
-                            <h2>入库</h2>
-                        </div>
-                    </div>
-                <?php
+                    <?php
                     endif;
                     if (in_array(23, $permIDs)) :
-                ?>
-                    <div class="small-box bg-teal mt-2" id="ret">
-                        <div class="icon">
-                            <i class="fas fa-undo-alt"></i>
+                    ?>
+                        <div class="small-box bg-teal mt-2" id="ret">
+                            <div class="icon">
+                                <i class="fas fa-undo-alt"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>退库</h2>
+                            </div>
                         </div>
-                        <div class="inner">
-                            <h2>退库</h2>
-                        </div>
-                    </div>
-                <?php
+                    <?php
                     endif;
                     if (in_array(26, $permIDs)) :
-                ?>
-                    <div class="small-box bg-secondary mt-2" id="report">
-                        <div class="icon">
-                            <i class="fas fa-clipboard-check"></i>
+                    ?>
+                        <div class="small-box bg-secondary mt-2" id="report">
+                            <div class="icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>报表</h2>
+                            </div>
                         </div>
-                        <div class="inner">
-                            <h2>报表</h2>
-                        </div>
-                    </div>
+                    <?php
+                    endif;
+                    ?>
                 </div>
                 <div class="col-lg-2">
-                <?php
+                    <?php
+                    if (in_array(28, $permIDs)) :
+                    ?>
+                        <div class="small-box bg-lightblue mt-2" id="swc">
+                            <div class="icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>库位变更</h2>
+                            </div>
+                        </div>
+                    <?php
                     endif;
                     if (in_array(19, $permIDs)) :
-                ?>
-                    <div class="small-box bg-lightblue mt-2" id="history">
-                        <div class="icon">
-                            <i class="fas fa-history"></i>
+                    ?>
+                        <div class="small-box bg-maroon mt-2" id="history">
+                            <div class="icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>物料库存历史</h2>
+                            </div>
                         </div>
-                        <div class="inner">
-                            <h2>物料库存历史</h2>
+                    <?php
+                    endif;
+                    if (in_array(19, $permIDs) || in_array(25, $permIDs) || in_array(29, $permIDs)) :
+                    ?>
+                        <div class="small-box bg-olive mt-2" id="basic">
+                            <div class="icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>基础管理</h2>
+                            </div>
                         </div>
-                    </div>
+                </div>
+                <div class="col-lg-2" style="padding: 0 7.5px 0 7.5px;">
                 <?php
                     endif;
                     if (in_array(27, $permIDs)) :
                 ?>
-                    <div class="small-box bg-maroon mt-2" id="print">
+                    <div class="small-box bg-info mt-2" id="print">
                         <div class="icon">
-                            <i class="fas fa-clipboard"></i>
+                            <i class="fas fa-clipboard-list"></i>
                         </div>
                         <div class="inner">
                             <h2>单据交接</h2>
                         </div>
                     </div>
+                    <div class="small-box bg-teal mt-2" id="claim">
+                        <div class="icon">
+                            <i class="fas fa-print"></i>
+                        </div>
+                        <div class="inner">
+                            <h2>领用单打印</h2>
+                        </div>
+                    </div>
                 <?php
                     endif;
                 ?>
-                <div class="small-box bg-olive mt-2" id="basic">
-                    <div class="icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <div class="inner">
-                        <h2>基础管理</h2>
-                    </div>
                 </div>
-                </div>
-                <div class="col-lg-2"></div>
                 <div class="col-lg-6">
                     <!-- safety stock -->
                     <?php if ($x) : ?>
@@ -241,115 +270,116 @@ if ($roleID != 0) {
                 <!-- /.col -->
             </div>
         </div><!-- /.row -->
-        <!-- reportModal -->
-        <div class="modal fade" id="reportModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="row mt-3">
-                            <div class="col-6">
-                                <div class="small-box bg-primary" id="sti_report">
-                                    <div class="icon">
-                                        <i class="fas fa-sign-in-alt"></i>
-                                    </div>
-                                    <div class="inner">
-                                        <h2>入库报表</h2>
-                                    </div>
+    </div>
+    <!-- reportModal -->
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <div class="small-box bg-primary" id="sti_report">
+                                <div class="icon">
+                                    <i class="fas fa-sign-in-alt"></i>
                                 </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="small-box bg-success" id="sto_report">
-                                    <div class="icon">
-                                        <i class="fas fa-sign-out-alt"></i>
-                                    </div>
-                                    <div class="inner">
-                                        <h2>出库报表</h2>
-                                    </div>
+                                <div class="inner">
+                                    <h2>入库报表</h2>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="small-box bg-teal" id="ret_report">
-                                    <div class="icon">
-                                        <i class="fas fa-undo-alt"></i>
-                                    </div>
-                                    <div class="inner">
-                                        <h2>退库报表</h2>
-                                    </div>
+                        <div class="col-6">
+                            <div class="small-box bg-success" id="sto_report">
+                                <div class="icon">
+                                    <i class="fas fa-sign-out-alt"></i>
                                 </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="small-box bg-danger" id="scr_report">
-                                    <div class="icon">
-                                        <i class="fas fa-times-circle"></i>
-                                    </div>
-                                    <div class="inner">
-                                        <h2>报废报表</h2>
-                                    </div>
+                                <div class="inner">
+                                    <h2>出库报表</h2>
                                 </div>
                             </div>
                         </div>
-                        <div class="small-box bg-info" id="swc_report">
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="small-box bg-teal" id="ret_report">
+                                <div class="icon">
+                                    <i class="fas fa-undo-alt"></i>
+                                </div>
+                                <div class="inner">
+                                    <h2>退库报表</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="small-box bg-danger" id="scr_report">
+                                <div class="icon">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <div class="inner">
+                                    <h2>报废报表</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="small-box bg-info" id="swc_report">
+                        <div class="icon">
+                            <i class="fas fa-random"></i>
+                        </div>
+                        <div class="inner">
+                            <h2>库位变更报表</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- basicModal -->
+    <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <?php
+                    if (in_array(25, $permIDs)) :
+                    ?>
+                        <div class="small-box bg-info mt-3" id="company">
                             <div class="icon">
-                                <i class="fas fa-random"></i>
+                                <i class="fas fa-building"></i>
                             </div>
                             <div class="inner">
-                                <h2>库位变更报表</h2>
+                                <h2>公司管理</h2>
                             </div>
                         </div>
-                    </div>
+                    <?php
+                    endif;
+                    if (in_array(29, $permIDs)) :
+                    ?>
+                        <div class="small-box bg-teal mt-3" id="dept">
+                            <div class="icon">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>部门管理</h2>
+                            </div>
+                        </div>
+                    <?php
+                    endif;
+                    if (in_array(19, $permIDs)) :
+                    ?>
+                        <div class="small-box bg-olive mt-3" id="goods">
+                            <div class="icon">
+                                <i class="fas fa-boxes"></i>
+                            </div>
+                            <div class="inner">
+                                <h2>物料管理</h2>
+                            </div>
+                        </div>
+                    <?php
+                    endif;
+                    ?>
                 </div>
             </div>
         </div>
-        <!-- basicModal -->
-        <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-sm modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <?php
-                        if (in_array(25, $permIDs)) :
-                        ?>
-                            <div class="small-box bg-info mt-3" id="company">
-                                <div class="icon">
-                                    <i class="fas fa-building"></i>
-                                </div>
-                                <div class="inner">
-                                    <h2>公司管理</h2>
-                                </div>
-                            </div>
-                        <?php
-                        endif;
-                        if (in_array(29, $permIDs)) :
-                        ?>
-                            <div class="small-box bg-teal mt-3" id="dept">
-                                <div class="icon">
-                                    <i class="fas fa-sitemap"></i>
-                                </div>
-                                <div class="inner">
-                                    <h2>部门管理</h2>
-                                </div>
-                            </div>
-                        <?php
-                        endif;
-                        if (in_array(19, $permIDs)) :
-                        ?>
-                            <div class="small-box bg-olive mt-3" id="goods">
-                                <div class="icon">
-                                    <i class="fas fa-boxes"></i>
-                                </div>
-                                <div class="inner">
-                                    <h2>物料管理</h2>
-                                </div>
-                            </div>
-                        <?php
-                        endif;
-                        ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
+    </div>
+</div><!-- /.container-fluid -->
 </div>
 <!-- /.content-header -->
 <?= $this->endSection() ?>

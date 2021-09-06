@@ -69,6 +69,7 @@ $(document).ready(function () {
     $('#recipient_dept').prop('disabled', true);
     $('#recipient_company').on('change', function() {
         $('#recipient_dept').prop('disabled', false);
+        $('#recipient_dept').empty();
         company = $(this).val();
         $.get("/tyck/stock_out/getDept/" + company, function (data) {
             let object = JSON.parse(data);
