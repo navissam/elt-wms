@@ -165,6 +165,9 @@ $(document).ready(function () {
         columns: [
             {
                 data: 'goods_id',
+                render: function (data) {
+                    return '<span class="text-danger">' + data + '</span>';
+                }
             },
             {
                 data: 'name_type'

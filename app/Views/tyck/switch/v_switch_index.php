@@ -80,7 +80,7 @@
                                                 <span class="badge badge-danger"></span>
                                             </div>
                                             <div id="analysis-inventory_null" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center">
-                                                <span>发现不存在的<b>库存</b>数据</span>
+                                                <span>发现<b>无效库存</b>数据</span>
                                                 <span class="badge badge-danger"></span>
                                             </div>
                                             <div id="analysis-new_company" class="list-group-item list-group-item-action list-group-item-danger d-flex justify-content-between align-items-center">
@@ -330,7 +330,7 @@
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="inventoryNullModalLabel">不存在库存</h5>
+                    <h5 class="modal-title" id="inventoryNullModalLabel">无效库存</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

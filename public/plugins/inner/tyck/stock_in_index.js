@@ -78,7 +78,7 @@ $(document).ready(function () {
     });
     table_duplicate = $("#table-duplicate").DataTable({
         "responsive": true,
-        "autoWidth": true,
+        "autoWidth": false,
         language: {
             url: '/plugins/inner/datatables-lang.json'
         },
