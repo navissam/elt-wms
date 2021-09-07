@@ -37,7 +37,7 @@ $(document).ready(function () {
         // },
         ajax: '/tyck/switch_/temp',
         columns: [{
-            data: 'swc_id',
+            data: 'num',
             type: 'num'
         },
         {
@@ -94,7 +94,7 @@ $(document).ready(function () {
         ajax: '/tyck/switch_/duplicate',
         columns: [
             {
-                data: 'swc_id',
+                data: 'num',
                 render: function (data) {
                     return '<span class="text-danger">' + data + '</span>';
                 }
@@ -129,7 +129,7 @@ $(document).ready(function () {
         ajax: '/tyck/switch_/new_company',
         columns: [
             {
-                data: 'swc_id',
+                data: 'num',
             },
             {
                 data: 'company',
@@ -176,7 +176,7 @@ $(document).ready(function () {
                 data: 'unit'
             },
             {
-                data: 'swc_id'
+                data: 'num'
             },
         ],
     });
@@ -192,7 +192,7 @@ $(document).ready(function () {
                 data: 'to_location'
             },
             {
-                data: 'swc_id'
+                data: 'num'
             },
         ],
     });
@@ -205,7 +205,7 @@ $(document).ready(function () {
         ajax: '/tyck/switch_/inventory_null',
         columns: [
             {
-                data: 'swc_id'
+                data: 'num'
             },
             {
                 data: 'company'
@@ -233,7 +233,7 @@ $(document).ready(function () {
         ajax: '/tyck/switch_/min_qty',
         columns: [
             {
-                data: 'swc_id'
+                data: 'num'
             },
             {
                 data: 'company'

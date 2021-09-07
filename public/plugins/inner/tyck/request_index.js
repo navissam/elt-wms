@@ -29,6 +29,9 @@ $(document).ready(function () {
                 data: "location",
             },
             {
+                data: "useFor",
+            },
+            {
                 data: "remark",
             },
             {
@@ -49,45 +52,45 @@ $(document).ready(function () {
     var day = ("0" + now.getDate()).slice(-2);
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
     var today = now.getFullYear() + "-" + (month) + "-" + (day);
-    $("#sto_date").val(today);
-    $("#sto_date").attr("max", today);
+    $("#req_date").val(today);
+    $("#req_date").attr("max", today);
     $("#qty").prop("disabled", true);
 
-    $.get("/tyck/stock_out/getCompany", function (data) {
+    $.get("/tyck/request/getCompany", function (data) {
         let object = JSON.parse(data);
         company = $.map(object, function (obj) {
             obj.id = obj.id || obj.companyID;
             obj.text = obj.text || obj.nameInd + ' - ' + obj.nameMan;
             return obj;
         });
-        company_select = $(".select2-recipient_company").select2({
+        company_select = $(".select2-req_company").select2({
             data: company,
             theme: 'bootstrap4',
         });
 
     });
-    $('#recipient_dept').prop('disabled', true);
-    $('#recipient_company').on('change', function() {
-        $('#recipient_dept').prop('disabled', false);
-        $('#recipient_dept').empty();
+    $('#req_dept').prop('disabled', true);
+    $('#req_company').on('change', function () {
+        $('#req_dept').prop('disabled', false);
+        $('#req_dept').empty();
         company = $(this).val();
-        $.get("/tyck/stock_out/getDept/" + company, function (data) {
+        $.get("/tyck/request/getDept/" + company, function (data) {
             let object = JSON.parse(data);
             dept = $.map(object, function (obj) {
                 obj.id = obj.id || obj.deptID;
                 obj.text = obj.text || obj.deptName;
                 return obj;
             });
-            dept_select = $(".select2-recipient_dept").select2({
+            dept_select = $(".select2-req_dept").select2({
                 data: dept,
                 theme: 'bootstrap4',
             });
-    
+
         });
-    
+
     })
 
-    
+
     // function for rebuild datatables (restore table)
     function createTable2(obj) {
         table2.destroy();
@@ -146,7 +149,7 @@ $(document).ready(function () {
 
     // reload datasource from ajax
     function reloadTable2() {
-        let url = "/tyck/stock_out/getInv";
+        let url = "/tyck/request/getInv";
         $.get(url, function (data) {
             let obj = JSON.parse(data);
             createTable2(obj);
@@ -193,14 +196,14 @@ $(document).ready(function () {
             $(".qty-invalid").html("数量不可以超过库存数量");
         } else {
             $(".is-invalid").removeClass("is-invalid");
-            let sto_detail = table1.rows().data().toArray();
-            // console.log(sto_detail);
-            if (check(sto_detail, inv)) {
+            let req_detail = table1.rows().data().toArray();
+            // console.log(req_detail);
+            if (check(req_detail, inv)) {
                 Swal.fire(
                     "失误!", "物料已经选过了", "error"
                 );
             } else {
-                sto_item = {
+                req_item = {
                     inv_id: inv.inv_id,
                     company: inv.company,
                     goods_id: inv.goods_id,
@@ -208,9 +211,12 @@ $(document).ready(function () {
                     unit: inv.unit,
                     location: inv.location,
                     qty: $("#qty").val(),
+                    useFor: $("#useFor").val(),
                     remark: $("#remark").val(),
                 };
-                table1.row.add(sto_item).draw();
+                table1.row.add(req_item).draw();
+                $('.choose').val('');
+                $("#qty").prop("disabled", true);
                 $("#addModal").modal("hide");
             }
         }
@@ -232,7 +238,9 @@ $(document).ready(function () {
     //     if (keycode == '13') {
     //         if (qty_edit) {
     //             var val = Number($(this).val());
+    //             var id = inv.inv_id;
     //             var stock = inv.qty;
+    //             console.log(id);
     //             if (val > stock) {
     //                 Swal.fire(
     //                     "失误", "数量不可以超过库存数量", "error"
@@ -247,42 +255,37 @@ $(document).ready(function () {
     //                 table1.cell($(this).parents('td')).data(val).draw();
     //                 $(this).remove();
     //                 qty_edit = false;
+    //                 $("#qty").prop("disabled", true);
     //             }
     //         }
     //     }
     // });
 
-    $("#save").on("click", function () {
+    $("#print").on("click", function () {
         $(".is-invalid").removeClass("is-invalid");
         var err = false;
         var field = [];
-        // if ($("#recipient_company").val() == '' || $("#recipient_company").val() == null) {
-        //     $("#recipient_company").addClass("is-invalid");
-        //     $(".recipient_company-invalid").html("领用公司不可以空");
-        //     err = true;
-        //     field.push('recipient_company');
-        // }
-        if ($("#recipient_dept").val() == '' || $("#recipient_dept").val() == null) {
-            $("#recipient_dept").addClass("is-invalid");
-            $(".recipient_dept-invalid").html("领用部门不可以空");
+        if ($("#req_dept").val() == '' || $("#req_dept").val() == null) {
+            $("#req_dept").addClass("is-invalid");
+            $(".req_dept-invalid").html("领用部门不可以空");
             err = true;
-            field.push('recipient_dept');
+            field.push('req_dept');
         }
-        if ($("#recipient_name").val() == '' || $("#recipient_name").val() == null) {
-            $("#recipient_name").addClass("is-invalid");
-            $(".recipient_name-invalid").html("领用人不可以空");
+        if ($("#req_name").val() == '' || $("#req_name").val() == null) {
+            $("#req_name").addClass("is-invalid");
+            $(".req_name-invalid").html("领用人不可以空");
             err = true;
-            field.push('recipient_name');
+            field.push('req_name');
         }
-        if ($("#sto_date").val() == '' || $("#sto_date").val() == null) {
-            $("#sto_date").addClass("is-invalid");
-            $(".sto_date-invalid").html("出库日期不可以空");
+        if ($("#req_date").val() == '' || $("#req_date").val() == null) {
+            $("#req_date").addClass("is-invalid");
+            $(".req_date-invalid").html("领用日期不可以空");
             err = true;
-            field.push('sto_date');
+            field.push('req_date');
         }
 
-        let sto_detail = table1.rows().data().toArray();
-        if (sto_detail.length == 0) {
+        let req_detail = table1.rows().data().toArray();
+        if (req_detail.length == 0) {
             Swal.fire(
                 "失误!", "请添加物料", "warning"
             );
@@ -290,44 +293,34 @@ $(document).ready(function () {
         }
 
         if (!err) {
-            $.post('/tyck/stock_out/save', {
-                recipient_company: $.trim($('#recipient_company').val()),
-                recipient_dept: $.trim($('#recipient_dept').val()),
-                recipient_name: $.trim($('#recipient_name').val()),
-                sto_date: $('#sto_date').val(),
-                items: JSON.stringify(sto_detail),
+            $.post('/tyck/request/save', {
+                items: JSON.stringify(req_detail),
             }, function (response) {
                 let r = JSON.parse(response);
 
                 if (r.status == 'error') {
                     Swal.fire(
-                        '保存失败!',
+                        '打印失败!',
                         r.msg,
                         'error'
                     );
                 } else if (r.status == 'success') {
                     Swal.fire(
-                        '保存成功!',
+                        '打印成功!',
                         '',
                         'success'
                     );
-                    $(".is-invalid").removeClass("is-invalid");
-                    $('.form-control').val('');
-                    table1
-                        .clear()
-                        .draw();
-                    $("#sto_date").val(today);
-                    $("#sto_date").attr("max", today);
-                    $('#recipient_dept').prop('disabled', true);
-                    $('#recipient_dept').trigger('change');
-                    reloadTable2();
+                    setTimeout(function () {
+                        $("#printReq").submit();
+                        window.location.href = window.location.origin + "/tyck/request";
+                    }, 1800);
                 }
-            });
+            })
         }
     });
 
-    function check(sto_detail, inv) {
-        return !sto_detail.every(element => {
+    function check(req_detail, inv) {
+        return !req_detail.every(element => {
             // console.log(element);
             // console.log(inv);
             // console.log(element.inv_id == inv.inv_id);
@@ -345,114 +338,4 @@ $(document).ready(function () {
             .draw();
     });
 
-    table_print = $("#table_print").DataTable({
-        language: {
-            url: "/plugins/inner/datatables-lang.json",
-            // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
-        },
-    });
-
-    $('.c_print').on('change', function () {
-        var val = $(this).val();
-        console.log(val);
-        var parent = $(this);
-        $("input[value='" + val + "']").each(function () {
-            $(this).not(parent).attr('disabled', parent.is(':checked'));
-        });
-
-        // // cache the elements
-        // var $chk = $("[name='c_print[]']");
-        // // bind change event handler
-        // $chk.change(function () {
-        //     $chk
-        //         // remove current element
-        //         .not(this)
-        //         // filter out element with same value
-        //         .filter('[value="' + this.value + '"]')
-        //         // update disabled property based on the checked property
-        //         .prop('disabled', this.checked);
-        // })
-
-    })
-
-
-    function createTable3(obj) {
-        table_print.destroy();
-        table_print = $("#table_print").DataTable({
-            responsive: true,
-            autoWidth: false,
-            language: {
-                url: "/plugins/inner/datatables-lang.json",
-                // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
-            },
-            data: obj,
-            columns: [{
-                    data: 'sto_date'
-                },
-                {
-                    data: 'company'
-                },
-                {
-                    data: 'goods_id'
-                },
-                {
-                    data: 'name_type'
-                },
-                {
-                    data: 'unit'
-                },
-                {
-                    data: 'qty'
-                },
-                {
-                    data: 'location'
-                },
-                {
-                    data: 'recipient_company'
-                },
-                {
-                    data: 'recipient_dept'
-                },
-                {
-                    data: 'recipient_name'
-                },
-                {
-                    data: 'sto_id',
-                },
-            ],
-        });
-    }
-
-    $("#printfilter").on("click", function () {
-        tgl = $('#datefilter').val();
-        var date = new Date(tgl);
-        var day = ("0" + date.getDate()).slice(-2);
-        var month = ("0" + (date.getMonth() + 1)).slice(-2);
-        var finish = date.getFullYear() + "-" + (month) + "-" + (day);
-        let url = "/tyck/stock_out/sto_print_data/" + finish;
-        $.get(url, function (data) {
-            let obj = JSON.parse(data);
-            createTable3(obj);
-            // console.log(obj);
-            if (obj.length > 0) {
-                $("#print").attr("type", "button");
-                $("#print").addClass("btn btn-success float-right");
-                document.getElementById("print").innerHTML = '<i class="fas fa-print"></i> 打印';
-            } else {
-                $("#print").removeAttr("type", "button");
-                $("#print").removeClass("btn btn-success float-right");
-                document.getElementById("print").innerHTML = '';
-            }
-        });
-    });
-
-    $("#print").on("click", function () {
-        Swal.fire(
-            '打印成功!',
-            '',
-            'success'
-        );
-        $("#printForm").submit();
-        window.location.href = window.location.origin + "/tyck/stock_out/sto_print/";
-    });
 });
