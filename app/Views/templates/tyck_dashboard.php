@@ -322,7 +322,7 @@ if ($roleID != 0) {
                     </div>
                     <div class="small-box bg-info" id="swc_report">
                         <div class="icon">
-                            <i class="fas fa-random"></i>
+                            <i class="fas fa-sync-alt"></i>
                         </div>
                         <div class="inner">
                             <h2>库位变更报表</h2>
