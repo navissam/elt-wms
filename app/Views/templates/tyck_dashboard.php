@@ -130,89 +130,85 @@ if ($roleID != 0) {
                         </div>
                     <?php
                     endif;
+                    if (in_array(21, $permIDs)) :
                     ?>
                 </div>
                 <div class="col-lg-1">
-                    <?php
-                    if (in_array(21, $permIDs)) :
-                    ?>
-                        <div class="small-box bg-primary mt-2" id="sti">
-                            <div class="icon">
-                                <i class="fas fa-sign-in-alt"></i>
-                            </div>
-                            <div class="inner">
-                                <h2>入库</h2>
-                            </div>
+                    <div class="small-box bg-primary mt-2" id="sti">
+                        <div class="icon">
+                            <i class="fas fa-sign-in-alt"></i>
                         </div>
-                    <?php
+                        <div class="inner">
+                            <h2>入库</h2>
+                        </div>
+                    </div>
+                <?php
                     endif;
                     if (in_array(23, $permIDs)) :
-                    ?>
-                        <div class="small-box bg-teal mt-2" id="ret">
-                            <div class="icon">
-                                <i class="fas fa-undo-alt"></i>
-                            </div>
-                            <div class="inner">
-                                <h2>退库</h2>
-                            </div>
+                ?>
+                    <div class="small-box bg-teal mt-2" id="ret">
+                        <div class="icon">
+                            <i class="fas fa-undo-alt"></i>
                         </div>
-                    <?php
+                        <div class="inner">
+                            <h2>退库</h2>
+                        </div>
+                    </div>
+                <?php
                     endif;
                     if (in_array(26, $permIDs)) :
-                    ?>
-                        <div class="small-box bg-secondary mt-2" id="report">
-                            <div class="icon">
-                                <i class="fas fa-clipboard-check"></i>
-                            </div>
-                            <div class="inner">
-                                <h2>报表</h2>
-                            </div>
+                ?>
+                    <div class="small-box bg-secondary mt-2" id="report">
+                        <div class="icon">
+                            <i class="fas fa-clipboard-check"></i>
                         </div>
-                    <?php
+                        <div class="inner">
+                            <h2>报表</h2>
+                        </div>
+                    </div>
+                <?php
                     endif;
-                    ?>
+                    if (in_array(28, $permIDs)) :
+                ?>
                 </div>
                 <div class="col-lg-2">
-                    <?php
-                    if (in_array(28, $permIDs)) :
-                    ?>
-                        <div class="small-box bg-lightblue mt-2" id="swc">
-                            <div class="icon">
-                                <i class="fas fa-sync-alt"></i>
-                            </div>
-                            <div class="inner">
-                                <h2>库位变更</h2>
-                            </div>
+                    <div class="small-box bg-lightblue mt-2" id="swc">
+                        <div class="icon">
+                            <i class="fas fa-sync-alt"></i>
                         </div>
-                    <?php
+                        <div class="inner">
+                            <h2>库位变更</h2>
+                        </div>
+                    </div>
+                <?php
                     endif;
                     if (in_array(19, $permIDs)) :
-                    ?>
-                        <div class="small-box bg-maroon mt-2" id="history">
-                            <div class="icon">
-                                <i class="fas fa-history"></i>
-                            </div>
-                            <div class="inner">
-                                <h2>物料库存历史</h2>
-                            </div>
+                ?>
+                    <div class="small-box bg-maroon mt-2" id="history">
+                        <div class="icon">
+                            <i class="fas fa-history"></i>
                         </div>
-                    <?php
+                        <div class="inner">
+                            <h2>物料库存历史</h2>
+                        </div>
+                    </div>
+                <?php
                     endif;
                     if (in_array(19, $permIDs) || in_array(25, $permIDs) || in_array(29, $permIDs)) :
-                    ?>
-                        <div class="small-box bg-olive mt-2" id="basic">
-                            <div class="icon">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <div class="inner">
-                                <h2>基础管理</h2>
-                            </div>
+                ?>
+                    <div class="small-box bg-olive mt-2" id="basic">
+                        <div class="icon">
+                            <i class="fas fa-database"></i>
                         </div>
+                        <div class="inner">
+                            <h2>基础管理</h2>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-2" style="padding: 0 7.5px 0 7.5px;">
                 <?php
                     endif;
-                    if (in_array(27, $permIDs)) :
+                    if (in_array(22, $permIDs)) :
                 ?>
                     <div class="small-box bg-info mt-2" id="print">
                         <div class="icon">
@@ -222,12 +218,16 @@ if ($roleID != 0) {
                             <h2>单据交接</h2>
                         </div>
                     </div>
-                    <div class="small-box bg-teal mt-2" id="claim">
+                <?php
+                    endif;
+                    if (in_array(27, $permIDs)) :
+                ?>
+                    <div class="small-box bg-teal mt-2" id="req">
                         <div class="icon">
                             <i class="fas fa-print"></i>
                         </div>
                         <div class="inner">
-                            <h2>领用单打印</h2>
+                            <h2>领用申请</h2>
                         </div>
                     </div>
                 <?php

@@ -20,18 +20,6 @@ class Request extends BaseController
         return view('tyck/request/v_request_index', $data);
     }
 
-    public function sto_print()
-    {
-        $data['title'] = '';
-        $data['active']['sto_print']['print'] = true;
-        return view('tyck/request/v_sto_print_index', $data);
-    }
-
-    public function getAll()
-    {
-        return json_encode($this->req_model->getAll());
-    }
-
     public function getCompany()
     {
         return json_encode($this->req_model->getCompany());

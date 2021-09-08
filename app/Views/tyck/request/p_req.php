@@ -44,6 +44,10 @@
             white-space: nowrap;
         }
 
+        .footer {
+            font-size: 14px;
+        }
+
         @media print {
 
             .report {
@@ -198,10 +202,10 @@
                         </div>
                     </div>
                 </div>
-                <div style="position: fixed; height:52px; bottom: 0;">
-                    Note：Warehouse Dept(white copy);Requester Dept(red copy);Finance Dept (yellow copy) 备注：
-                    <br>
-                    <div class="kolom"> 一式三份，统计（白联），领用部门（红联），仓库（黄联）
+                <div style="position: fixed; height:40px; bottom: 0;">
+                    <div class="footer">Note：Warehouse Dept(white copy);Requester Dept(red copy);Finance Dept (yellow copy) 备注：
+                        <br>
+                        一式三份，统计（白联），领用部门（红联），仓库（黄联）
                     </div>
                 </div>
             <?php endfor; ?>

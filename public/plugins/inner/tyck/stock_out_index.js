@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // declare global variable
-    var inv, company, company_select;
+    var inv, row, company, company_select;
     // initialize plugins
     let table1 = $("#table1").DataTable({
         searching: false,
@@ -32,13 +32,13 @@ $(document).ready(function () {
                 data: "remark",
             },
             {
-                data: "goods_id",
-                render: function () {
+                data: "stock",
+                render: function (data) {
                     let btn =
                         '<button type="button" class="btn btn-danger btn-sm btn-delete">';
                     btn += '<i class="fas fa-times" aria-hidden="true"></i>';
                     btn += "</button> ";
-                    return btn;
+                    return btn + '<input type="hidden" class="form-control" id="stock" value="' + data + '">';
                 },
             },
         ],
@@ -207,6 +207,7 @@ $(document).ready(function () {
                     name_type: inv.goods_name,
                     unit: inv.unit,
                     location: inv.location,
+                    stock: inv.qty,
                     qty: $("#qty").val(),
                     remark: $("#remark").val(),
                 };
@@ -216,41 +217,42 @@ $(document).ready(function () {
         }
     });
 
-    // var qty_edit = false;
-    // $('#table1').on('dblclick', 'tbody td:nth-child(5)', function (e) {
-    //     if (!qty_edit) {
-    //         var qty = $(this);
-    //         var val = qty.text();
-    //         var input = "<input min=\"0\" class=\"form-control\" id=\"edit-qty\" type=\"number\" value=\"" + val + "\">";
-    //         qty.html(input);
-    //         qty_edit = true;
-    //     }
-    // });
+    var qty_edit = false;
+    $('#table1').on('dblclick', 'tbody td:nth-child(5)', function (e) {
+        if (!qty_edit) {
+            row = table1.row(this).data();
+            var qty = $(this);
+            var val = qty.text();
+            var input = "<input min=\"0\" class=\"form-control\" id=\"edit-qty\" type=\"number\" value=\"" + val + "\">";
+            qty.html(input);
+            qty_edit = true;
+        }
+    });
 
-    // $('#table1').on('keypress', 'tbody td:nth-child(5) input#edit-qty', function (e) {
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if (keycode == '13') {
-    //         if (qty_edit) {
-    //             var val = Number($(this).val());
-    //             var stock = inv.qty;
-    //             if (val > stock) {
-    //                 Swal.fire(
-    //                     "失误", "数量不可以超过库存数量", "error"
-    //                 );
-    //                 $(this).val(stock);
-    //             } else if (val <= 0) {
-    //                 Swal.fire(
-    //                     "失误", "数量必须多于零", "error"
-    //                 );
-    //                 $(this).val(1);
-    //             } else {
-    //                 table1.cell($(this).parents('td')).data(val).draw();
-    //                 $(this).remove();
-    //                 qty_edit = false;
-    //             }
-    //         }
-    //     }
-    // });
+    $('#table1').on('keyup', 'tbody td:nth-child(5) input#edit-qty', function (e) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '27' || keycode == '13') {
+            if (qty_edit) {
+                var val = Number($(this).val());
+                var stock = Number(row.stock);
+                if (val > stock) {
+                    Swal.fire(
+                        "失误", "数量不可以超过库存数量", "error"
+                    );
+                    $(this).val(stock);
+                } else if (val <= 0) {
+                    Swal.fire(
+                        "失误", "数量必须多于零", "error"
+                    );
+                    $(this).val(1);
+                } else {
+                    table1.cell($(this).parents('td')).data(val).draw();
+                    $(this).remove();
+                    qty_edit = false;
+                }
+            }
+        }
+    });
 
     $("#save").on("click", function () {
         $(".is-invalid").removeClass("is-invalid");

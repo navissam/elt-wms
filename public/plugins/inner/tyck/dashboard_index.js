@@ -75,8 +75,8 @@ $(document).ready(function () {
         window.location.href = "/tyck/stock_out/sto_print";
     });
 
-    $('#claim').on('click', function () {
-        window.location.href = "/tyck/claim";
+    $('#req').on('click', function () {
+        window.location.href = "/tyck/request";
     });
 
     $('#report').on('click', function () {

@@ -7,6 +7,15 @@ use CodeIgniter\Model;
 class Request_model extends Model
 {
 
+    public function getQty($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_inventory');
+        $builder->select('qty');
+        $builder->where('inv_id', $id);
+        return $builder->get()->getResultArray();
+    }
+
     public function getCompany()
     {
         $db      = \Config\Database::connect();
