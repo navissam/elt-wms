@@ -19,7 +19,7 @@
             page-break-before: always;
         }
 
-        .report {
+        .report-req {
             font-size: 14px;
         }
 
@@ -50,7 +50,7 @@
 
         @media print {
 
-            .report {
+            .report-req {
                 font-size: 18px;
             }
         }
@@ -71,7 +71,7 @@
         $page_num = ceil($row_count / $max_row);
         ?>
 
-        <section class="invoice report">
+        <section class="invoice report-req">
             <!-- title row -->
             <?php for ($i = 1; $i <= $page_num; $i++) : ?>
                 <div class="font-weight-bold">
@@ -80,9 +80,9 @@
                             <div class="col-12 ">
                                 <h2 class="row">
                                     <div class="col-auto">
-                                        <img src="<?= base_url('/img') . '/' . $cmp[0]['logo']; ?>" alt="logo" class="brand-image" width="80">
+                                        <img src="<?= base_url('/img') . '/' . $cmp[0]['logo']; ?>" alt="logo" class="brand-image" width="120">
                                     </div>
-                                    <div class="col">
+                                    <div class="col-10">
                                         <p class="brand-text h2 font-weight-bold header"><?= $cmp[0]['nameInd'] . ' ' . $cmp[0]['nameMan']; ?></p>
                                         <p class="brand-text h4 font-weight-bold header">Surat Permintaan Pengambilan Barang</p>
                                         <p class="brand-text h4 font-weight-bold header">领用申请单</p>
@@ -203,7 +203,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div style="position: fixed; height:45px; bottom: 0;">
                     <div class="footer">Note：Warehouse Dept(white copy);Requester Dept(red copy);Finance Dept (yellow copy) 备注：

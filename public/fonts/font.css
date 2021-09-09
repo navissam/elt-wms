@@ -19,6 +19,11 @@
     font-family: "Source Sans Pro", "kaiti", Helvetica, Arial, sans-serif !important;
     -webkit-print-color-adjust: exact;
   }
+
+  .report-req {
+    font-family: "songti", "Source Sans Pro", Helvetica, Arial, sans-serif !important;
+    -webkit-print-color-adjust: exact;
+  }
 }
 
 .invoice-order {
