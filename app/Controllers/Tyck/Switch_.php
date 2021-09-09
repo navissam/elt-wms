@@ -23,7 +23,7 @@ class Switch_ extends BaseController
         '备注'
     ];
     protected $field_header = [
-        'swc_id',
+        'num',
         'company',
         'goods_id',
         'name_type',

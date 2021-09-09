@@ -15,6 +15,7 @@ class Swc_temp_model extends Model
     protected $useSoftDeletes = true;
 
     protected $allowedFields = [
+        'num',
         'company',
         'goods_id',
         'name_type',
