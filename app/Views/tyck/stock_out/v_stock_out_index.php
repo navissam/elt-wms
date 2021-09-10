@@ -59,7 +59,7 @@
                                         </div>
                                     </div>
                                     <div class="swaptext">
-                                        <input type="text" class="form-control text-recipient_dept" placeholder="输入新库位" maxlength="30">
+                                        <input type="text" class="form-control text-recipient_dept" placeholder="输入领用部门" maxlength="30">
                                         <div class="invalid-feedback recipient_dept-invalid">
                                         </div>
                                     </div>
