@@ -62,12 +62,12 @@ $(document).ready(function () {
         {
             data: 'to_location'
         },
-        {
-            data: 'old_stock'
-        },
-        {
-            data: 'new_stock'
-        },
+        // {
+        //     data: 'old_stock'
+        // },
+        // {
+        //     data: 'new_stock'
+        // },
         {
             data: 'remark'
         },

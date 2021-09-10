@@ -48,7 +48,6 @@
                             <table id="table1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>部门ID</th>
                                         <th>部门名称</th>
                                         <th>公司</th>
                                         <th>创建时间</th>
@@ -79,12 +78,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="add-deptID">部门ID</label>
-                        <input type="text" class="form-control" id="add-deptID" placeholder="输入部门ID" maxlength="40">
-                        <div class="invalid-feedback deptID-invalid">
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label for="add-deptName">名称</label>
                         <input type="text" class="form-control" id="add-deptName" placeholder="输入名称" maxlength="255">
@@ -148,7 +141,6 @@
                     <table id="table2" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>部门ID</th>
                                 <th>部门名称</th>
                                 <th>公司</th>
                                 <th>已删时间</th>

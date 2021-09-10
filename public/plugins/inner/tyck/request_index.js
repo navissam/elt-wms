@@ -69,10 +69,11 @@ $(document).ready(function () {
         });
 
     });
-    $('#req_dept').prop('disabled', true);
+    $('.select2-req_dept').prop('disabled', true);
     $('#req_company').on('change', function () {
-        $('#req_dept').prop('disabled', false);
-        $('#req_dept').empty();
+        $('.select2-req_dept').prop('disabled', false);
+        $('.select2-req_dept').empty();
+        $('.select2-req_dept').append('<option value="0">空值</option>');
         company = $(this).val();
         $.get("/tyck/request/getDept/" + company, function (data) {
             let object = JSON.parse(data);
@@ -158,6 +159,43 @@ $(document).ready(function () {
 
     // reload on web document first loading
     reloadTable2();
+    swap();
+
+    function swap() {
+        $('#swapt').hide();
+        $(".swaptext").hide();
+        $(".text-req_dept").removeAttr("id");
+        $(".text-req_dept").removeAttr("name");
+
+        $("#swaps").show();
+        $(".swapselect").show();
+        $(".select2-req_dept").attr("id", "req_dept");
+        $(".select2-req_dept").attr("name", "req_dept");
+    }
+
+    $('#swaps').on('click', function () {
+        $("#swapt").show();
+        $(".swaptext").show();
+        $(".text-req_dept").attr("id", "req_dept");
+        $(".text-req_dept").attr("name", "req_dept");
+
+        $(this).hide();
+        $(".swapselect").hide();
+        $(".select2-req_dept").removeAttr("id");
+        $(".select2-req_dept").removeAttr("name");
+    });
+
+    $('#swapt').on('click', function () {
+        $(this).hide();
+        $(".swaptext").hide();
+        $(".text-req_dept").removeAttr("id");
+        $(".text-req_dept").removeAttr("name");
+
+        $("#swaps").show();
+        $(".swapselect").show();
+        $(".select2-req_dept").attr("id", "req_dept");
+        $(".select2-req_dept").attr("name", "req_dept");
+    });
 
     // add item button click event (for new data)
     $("#add").on("click", function () {
@@ -264,18 +302,18 @@ $(document).ready(function () {
         $(".is-invalid").removeClass("is-invalid");
         var err = false;
         var field = [];
-        if ($("#req_dept").val() == '' || $("#req_dept").val() == null) {
-            $("#req_dept").addClass("is-invalid");
-            $(".req_dept-invalid").html("领用部门不可以空");
-            err = true;
-            field.push('req_dept');
-        }
-        if ($("#req_name").val() == '' || $("#req_name").val() == null) {
-            $("#req_name").addClass("is-invalid");
-            $(".req_name-invalid").html("领用人不可以空");
-            err = true;
-            field.push('req_name');
-        }
+        // if ($("#req_dept").val() == '' || $("#req_dept").val() == null) {
+        //     $("#req_dept").addClass("is-invalid");
+        //     $(".req_dept-invalid").html("领用部门不可以空");
+        //     err = true;
+        //     field.push('req_dept');
+        // }
+        // if ($("#req_name").val() == '' || $("#req_name").val() == null) {
+        //     $("#req_name").addClass("is-invalid");
+        //     $(".req_name-invalid").html("领用人不可以空");
+        //     err = true;
+        //     field.push('req_name');
+        // }
         if ($("#req_date").val() == '' || $("#req_date").val() == null) {
             $("#req_date").addClass("is-invalid");
             $(".req_date-invalid").html("领用日期不可以空");

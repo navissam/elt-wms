@@ -138,8 +138,6 @@
                                             <td>变更数量</td>
                                             <td>原库位</td>
                                             <td>现库位</td>
-                                            <td>原库位数量</td>
-                                            <td>现库位数量</td>
                                             <td>备注</td>
                                             <td></td>
                                         </tr>
@@ -168,13 +166,13 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="edit-company">公司</label>
-                        <input type="text" class="form-control" id="edit-company" placeholder="输入公司" maxlength="255">
+                        <input type="text" class="form-control" id="edit-company" placeholder="输入公司" maxlength="10">
                         <div class="invalid-feedback company-invalid">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="edit-goods_id">物料代码</label>
-                        <input type="text" class="form-control" id="edit-goods_id" placeholder="输入物料代码" maxlength="255">
+                        <input type="text" class="form-control" id="edit-goods_id" placeholder="输入物料代码" maxlength="10">
                         <div class="invalid-feedback goods_id-invalid">
                         </div>
                     </div>
@@ -186,13 +184,13 @@
                     </div>
                     <div class="form-group">
                         <label for="edit-from_location">原库位</label>
-                        <input type="text" class="form-control" id="edit-from_location" placeholder="输入原库位" maxlength="255">
+                        <input type="text" class="form-control" id="edit-from_location" placeholder="输入原库位" maxlength="30">
                         <div class="invalid-feedback from_location-invalid">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="edit-to_location">现库位</label>
-                        <input type="text" class="form-control" id="edit-to_location" placeholder="输入现库位" maxlength="255">
+                        <input type="text" class="form-control" id="edit-to_location" placeholder="输入现库位" maxlength="30">
                         <div class="invalid-feedback to_location-invalid">
                         </div>
                     </div>

@@ -9,12 +9,12 @@ class Dept_model extends Model
     protected $table      = 'tyck_dept';
     protected $primaryKey = 'deptID';
 
-    protected $useAutoIncrement = false;
+    protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['deptID', 'deptName', 'parentID', 'companyID'];
+    protected $allowedFields = ['deptName', 'parentID', 'companyID'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

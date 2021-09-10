@@ -40,18 +40,33 @@
                 <div class="col">
                     <div class="card card-bbb card-outline">
                         <div class="card-header ">
-                            <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1">
-                                <div class="form-group col">
+                            <div class="row">
+                                <div class=" form-group col-3">
                                     <label class="" for="recipient_company">领用公司</label>
                                     <select id="recipient_company" class="select2-recipient_company form-control" style="width: 100%;">
                                     </select>
                                 </div>
-                                <div class="form-group col">
+                                <div class="form-group col" style="padding: 0 0 0 7.5px;">
+                                    <!-- <select id="recipient_dept" class="select2-recipient_dept form-control" style="width: 100%;">
+                                        </select>
+                                        <div class="invalid-feedback recipient_dept-invalid">
+                                            </div> -->
                                     <label class="" for="recipient_dept">领用部门</label>
-                                    <select id="recipient_dept" class="select2-recipient_dept form-control" style="width: 100%;">
-                                    </select>
-                                    <div class="invalid-feedback recipient_dept-invalid">
+                                    <div class="swapselect">
+                                        <select class="form-control select2-recipient_dept" style="width: 100%;">
+                                        </select>
+                                        <div class="invalid-feedback recipient_dept-invalid">
+                                        </div>
                                     </div>
+                                    <div class="swaptext">
+                                        <input type="text" class="form-control text-recipient_dept" placeholder="输入新库位" maxlength="30">
+                                        <div class="invalid-feedback recipient_dept-invalid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-4" style="padding: 0 7.5px 0 0;">
+                                    <button type="button" class="btn btn-outline-secondary float-right" style="margin: 8px 0 0;" id="swaps"><i class="fas fa-plus" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary float-right" style="margin: 8px 0 0;" id="swapt"><i class="fas fa-chevron-circle-down" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="form-group col">
                                     <label class="" for="recipient_name">领用人</label>

@@ -51,13 +51,6 @@ class Dept extends BaseController
         $validation =  \Config\Services::validation();
 
         $valid = [
-            'deptID' => [
-                'rules' => 'required|is_unique[tyck_dept.deptID]',
-                'errors' => [
-                    'required' => '不允许为空',
-                    'is_unique' => '编码已用过'
-                ]
-            ],
             'deptName' => [
                 'rules' => 'required',
                 'errors' => [
@@ -76,7 +69,6 @@ class Dept extends BaseController
 
         try {
             $this->deptModel->insert([
-                'deptID' => $this->request->getPost('deptID'),
                 'deptName' => $this->request->getPost('deptName'),
                 'companyID' => $this->request->getPost('companyID'),
             ]);

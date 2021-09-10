@@ -29,9 +29,7 @@ $(document).ready(function() {
                 url: '/plugins/inner/datatables-lang.json'
                 // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
             },
-            columns: [{
-                    data: 'deptID',
-                },
+            columns: [
                 {
                     data: 'deptName'
                 },
@@ -71,9 +69,7 @@ $(document).ready(function() {
                 // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
             },
             data: obj,
-            columns: [{
-                    data: 'deptID',
-                },
+            columns: [
                 {
                     data: 'deptName'
                 },
@@ -154,7 +150,6 @@ $(document).ready(function() {
         $(".is-invalid").removeClass("is-invalid");
         
         $.post('/tyck/dept/save', {
-            deptID: $('#add-deptID').val(),
             deptName: $('#add-deptName').val(),
             companyID: $('#add-companyID').val()
         }, 

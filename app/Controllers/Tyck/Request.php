@@ -85,11 +85,20 @@ class Request extends BaseController
     {
         $company = $this->request->getPost('req_company');
         $d = $this->request->getPost('req_dept');
-        $dept = $this->req_model->req_dept($d);
+        $dep = $this->req_model->req_dept($d);
+        if ($d == null || $d == '' || $d == 0) {
+            $dept = null;
+        } elseif ($dep == null) {
+            $dept = $d;
+        } else {
+            $dept = $dep[0]['deptName'];
+        }
         $data['header'] = [
             'req_company' => $this->request->getPost('req_company'),
-            'req_dept' => $dept[0]['deptName'],
-            'req_name' => $this->request->getPost('req_name'),
+            // 'req_dept' => $dept[0]['deptName'],
+            // 'req_name' => $this->request->getPost('req_name'),
+            'req_dept' => $dept,
+            'req_name' => ($company == null || $company == '') ? null : $this->request->getPost('req_name'),
             'req_date' => $this->request->getPost('req_date'),
         ];
         $data['cmp'] = $this->req_model->req_company($company);

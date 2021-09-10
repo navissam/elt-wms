@@ -18,8 +18,8 @@ class Switch_ extends BaseController
         '变更数量',
         '原库位',
         '现库位',
-        '原库位数量',
-        '现库位数量',
+        // '原库位数量',
+        // '现库位数量',
         '备注'
     ];
     protected $field_header = [
@@ -31,8 +31,8 @@ class Switch_ extends BaseController
         'qty',
         'from_location',
         'to_location',
-        'old_stock',
-        'new_stock',
+        // 'old_stock',
+        // 'new_stock',
         'remark'
     ];
     public function __construct()
@@ -173,7 +173,7 @@ class Switch_ extends BaseController
 
             $blank = false;
             foreach ($row as $index => $cell) {
-                if ($index != 10)
+                if ($index != 8)
                     $blank = $blank || (trim($cell) === '');
             }
             if ($blank) continue;

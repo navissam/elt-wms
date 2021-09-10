@@ -66,10 +66,10 @@ $(document).ready(function () {
         });
 
     });
-    $('#recipient_dept').prop('disabled', true);
+    $('.select2-recipient_dept').prop('disabled', true);
     $('#recipient_company').on('change', function() {
-        $('#recipient_dept').prop('disabled', false);
-        $('#recipient_dept').empty();
+        $('.select2-recipient_dept').prop('disabled', false);
+        $('.select2-recipient_dept').empty();
         company = $(this).val();
         $.get("/tyck/stock_out/getDept/" + company, function (data) {
             let object = JSON.parse(data);
@@ -155,7 +155,43 @@ $(document).ready(function () {
 
     // reload on web document first loading
     reloadTable2();
+    swap();
 
+    function swap() {
+        $('#swapt').hide();
+        $(".swaptext").hide();
+        $(".text-recipient_dept").removeAttr("id");
+        $(".text-recipient_dept").removeAttr("name");
+
+        $("#swaps").show();
+        $(".swapselect").show();
+        $(".select2-recipient_dept").attr("id", "recipient_dept");
+        $(".select2-recipient_dept").attr("name", "recipient_dept");
+    }
+
+    $('#swaps').on('click', function () {
+        $("#swapt").show();
+        $(".swaptext").show();
+        $(".text-recipient_dept").attr("id", "recipient_dept");
+        $(".text-recipient_dept").attr("name", "recipient_dept");
+
+        $(this).hide();
+        $(".swapselect").hide();
+        $(".select2-recipient_dept").removeAttr("id");
+        $(".select2-recipient_dept").removeAttr("name");
+    });
+
+    $('#swapt').on('click', function () {
+        $(this).hide();
+        $(".swaptext").hide();
+        $(".text-recipient_dept").removeAttr("id");
+        $(".text-recipient_dept").removeAttr("name");
+
+        $("#swaps").show();
+        $(".swapselect").show();
+        $(".select2-recipient_dept").attr("id", "recipient_dept");
+        $(".select2-recipient_dept").attr("name", "recipient_dept");
+    });
     // add item button click event (for new data)
     $("#add").on("click", function () {
         // reloadTable2();

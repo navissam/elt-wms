@@ -41,24 +41,37 @@
                     <form action="<?= base_url('tyck/request/req_print_array'); ?>" target="_blank" method="post" id="printReq">
                         <div class="card card-bbb card-outline">
                             <div class="card-header ">
-                                <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1">
-                                    <div class="form-group col">
+                                <div class="row">
+                                    <!-- <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1"> -->
+                                    <div class="form-group col-3">
                                         <label class="" for="req_company">领用公司</label>
                                         <select id="req_company" name="req_company" class="select2-req_company form-control" style="width: 100%;">
                                         </select>
                                     </div>
-                                    <div class="form-group col">
-                                        <label class="" for="req_dept">领用部门</label>
+                                    <div class="form-group col" style="padding: 0 0 0 7.5px;">
+                                        <!-- <label class="" for="req_dept">领用部门</label>
                                         <select id="req_dept" name="req_dept" class="select2-req_dept form-control" style="width: 100%;">
                                         </select>
                                         <div class="invalid-feedback req_dept-invalid">
                                         </div>
                                     </div>
+                                <div class="col-5" style="padding: 0 0 0 7.5px;"> -->
+                                        <label for="req_dept">领用部门</label>
+                                        <div class="swapselect">
+                                            <select class="form-control select2-req_dept" style="width: 100%;">
+                                            </select>
+                                        </div>
+                                        <div class="swaptext">
+                                            <input type="text" class="form-control text-req_dept" placeholder="输入领用部门" maxlength="255">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-4" style="padding: 0 7.5px 0 0;">
+                                        <button type="button" class="btn btn-outline-secondary" style="margin: 8px 0 0;" id="swaps"><i class="fas fa-plus" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-outline-secondary" style="margin: 8px 0 0;" id="swapt"><i class="fas fa-chevron-circle-down" aria-hidden="true"></i></button>
+                                    </div>
                                     <div class="form-group col">
                                         <label class="" for="req_name">领用人</label>
                                         <input type="text" class="form-control" id="req_name" name="req_name" placeholder="输入领用人" maxlength="40">
-                                        <div class="invalid-feedback req_name-invalid">
-                                        </div>
                                     </div>
                                     <div class="form-group col">
                                         <label class="" for="req_date">领用日期</label>

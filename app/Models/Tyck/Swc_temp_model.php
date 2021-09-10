@@ -23,8 +23,8 @@ class Swc_temp_model extends Model
         'qty',
         'from_location',
         'to_location',
-        'old_stock',
-        'new_stock',
+        // 'old_stock',
+        // 'new_stock',
         'remark'
     ];
 
@@ -90,8 +90,8 @@ class Swc_temp_model extends Model
         // $this->db->transBegin();
         $db->transBegin();
 
-        $db->query('INSERT `tyck_switch` (`company`, `goods_id`, `qty`, `from_location`, `to_location`, `old_stock`, `new_stock`, `remark`)
-        SELECT `company`, `goods_id`, `qty`, `from_location`, `to_location`, `old_stock`, `new_stock`, `remark`
+        $db->query('INSERT `tyck_switch` (`company`, `goods_id`, `qty`, `from_location`, `to_location`, `remark`)
+        SELECT `company`, `goods_id`, `qty`, `from_location`, `to_location`, `remark`
         FROM `tyck_switch_temp` WHERE `deleted_at` is null;');
 
         $db->query('TRUNCATE TABLE `tyck_switch_temp`');
