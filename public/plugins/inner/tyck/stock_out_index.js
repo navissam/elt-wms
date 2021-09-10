@@ -67,7 +67,7 @@ $(document).ready(function () {
 
     });
     $('.select2-recipient_dept').prop('disabled', true);
-    $('#recipient_company').on('change', function() {
+    $('#recipient_company').on('change', function () {
         $('.select2-recipient_dept').prop('disabled', false);
         $('.select2-recipient_dept').empty();
         company = $(this).val();
@@ -82,12 +82,12 @@ $(document).ready(function () {
                 data: dept,
                 theme: 'bootstrap4',
             });
-    
+
         });
-    
+
     })
 
-    
+
     // function for rebuild datatables (restore table)
     function createTable2(obj) {
         table2.destroy();
@@ -356,6 +356,7 @@ $(document).ready(function () {
                         .draw();
                     $("#sto_date").val(today);
                     $("#sto_date").attr("max", today);
+                    swap();
                     $('#recipient_dept').prop('disabled', true);
                     $('#recipient_dept').trigger('change');
                     reloadTable2();
