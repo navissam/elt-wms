@@ -241,8 +241,7 @@ class Report extends BaseController
             "recipient_company" => "领用公司",
             "recipient_dept" => "领用部门",
             "recipient_name" => "领用人",
-            "remark" => "备注",
-            "stock_left" => "出库后数量"
+            "remark" => "备注"
         ];
         $h = [];
         $i = 0;

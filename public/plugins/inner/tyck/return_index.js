@@ -57,7 +57,7 @@ $(document).ready(function () {
         $.get("/tyck/return_/getDept/" + company, function (data) {
             let object = JSON.parse(data);
             dept = $.map(object, function (obj) {
-                obj.id = obj.id || obj.deptID;
+                obj.id = obj.id || obj.deptName;
                 obj.text = obj.text || obj.deptName;
                 return obj;
             });

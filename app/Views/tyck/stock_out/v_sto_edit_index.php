@@ -1,4 +1,4 @@
-<?= $this->extend('templates/index'); ?>
+<?= $this->extend('templates/index') ?>
 
 <?= $this->section('style') ?>
 <!-- DataTables -->
@@ -12,14 +12,14 @@
 <link rel="stylesheet" href="<?= base_url('/'); ?>/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 
 <style>
-    #table1 tbody tr.selected {
+    #table2 tbody tr.selected {
         background-color: #82B6D9;
         color: white;
     }
 </style>
 <?= $this->endSection() ?>
 
-<?= $this->section('content'); ?>
+<?= $this->section('content') ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -27,10 +27,11 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0"><?= $title; ?></h1>
-                </div>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
     <!-- Main content -->
     <div class="content">
@@ -38,54 +39,77 @@
             <div class="row">
                 <div class="col">
                     <div class="card card-bbb card-outline">
-                        <div class="card-header">
+                        <div class="card-header ">
                             <div class="row">
-                                <div class="col-2">
-                                    <label for="start">开始日期</label>
-                                    <input type="date" class="form-control" name="start" id="start" value="<?= date('Y-m-d'); ?>">
+                                <div class=" form-group col">
+                                    <label class="" for="edit-recipient_company">领用公司</label>
+                                    <input type="hidden" class="form-control" id="sto_id" value="<?= $head[0]['sto_id']; ?>">
+                                    <input type="hidden" class="form-control" id="updated_at" value="<?= $head[0]['updated_at']; ?>">
+                                    <select id="edit-recipient_company" class="select2-edit-recipient_company form-control" style="width: 100%;">
+                                    </select>
                                 </div>
-                                <div class="col-2">
-                                    <label for="finish">结束日期</label>
-                                    <input type="date" class="form-control" name="finish" id="finish" value="<?= date('Y-m-d'); ?>">
+                                <div class="form-group col" style="padding: 0 0 0 7.5px;">
+                                    <label class="" for="edit-recipient_dept">领用部门</label>
+                                    <div class="swapselect">
+                                        <select class="form-control select2-edit-recipient_dept" style="width: 100%;">
+                                        </select>
+                                        <div class="invalid-feedback edit-recipient_dept-invalid">
+                                        </div>
+                                    </div>
+                                    <div class="swaptext">
+                                        <input type="text" class="form-control text-edit-recipient_dept" placeholder="输入领用部门" maxlength="30">
+                                        <div class="invalid-feedback edit-recipient_dept-invalid">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-2 mt-auto">
-                                    <button type="button" class="btn btn-primary" id="basicfilter"><i class="fas fa-search"></i> 查询</button>
+                                <div class="form-group mt-4" style="padding: 0 7.5px 0 0;">
+                                    <button type="button" class="btn btn-outline-secondary float-right" style="margin: 8px 0 0;" id="swaps"><i class="fas fa-plus" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary float-right" style="margin: 8px 0 0;" id="swapt"><i class="fas fa-chevron-circle-down" aria-hidden="true"></i></button>
                                 </div>
-                                <div class="col-6 mt-auto">
-                                    <button type="button" class="btn btn-secondary float-right" id="advanced"><i class="fas fa-filter"></i> 高级</button>
+                                <div class="form-group col">
+                                    <label class="" for="edit-recipient_name">领用人</label>
+                                    <input type="text" class="form-control" id="edit-recipient_name" placeholder="输入领用人" maxlength="40">
+                                    <div class="invalid-feedback edit-recipient_name-invalid">
+                                    </div>
+                                </div>
+                                <div class="form-group col">
+                                    <label class="" for="sto_date">出库日期</label>
+                                    <input type="date" class="form-control" id="edit-sto_date">
+                                    <div class="invalid-feedback sto_date-invalid">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <table id="table2" class="table table-bordered table-striped">
+                            <table id="table-edit" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>出库编号</th>
-                                        <th>出库日期</th>
                                         <th>公司</th>
                                         <th>物料代码</th>
                                         <th>物料名称与规格型号</th>
                                         <th>单位</th>
                                         <th>出库量</th>
                                         <th>库位</th>
-                                        <th>领用公司</th>
-                                        <th>领用部门</th>
-                                        <th>领用人</th>
                                         <th>备注</th>
+                                        <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                             </table>
+                            <button id="save-edit" class="btn btn-primary float-right">
+                                <i class="fa fa-save" aria-hidden="true"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content -->
 </div>
-<!-- /.card-body -->
-<?php $this->endSection(); ?>
+<?= $this->endSection() ?>
 
 <?= $this->section('script') ?>
 <!-- DataTables  & Plugins -->
@@ -105,5 +129,6 @@
 <script src="<?= base_url('/'); ?>/plugins/select2/js/select2.full.min.js"></script>
 <!-- Sweetalert2 -->
 <script src="<?= base_url('/'); ?>/plugins/sweetalert2/sweetalert2.min.js"></script>
-<script src="<?= base_url('/'); ?>/plugins/inner/tyck/sto_report_index.js"></script>
-<?php $this->endSection(); ?>
+<script src="<?= base_url('/'); ?>/plugins/inner/tyck/stock_out_edit.js"></script>
+
+<?= $this->endSection() ?>

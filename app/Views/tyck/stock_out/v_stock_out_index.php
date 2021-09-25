@@ -41,7 +41,7 @@
                     <div class="card card-bbb card-outline">
                         <div class="card-header ">
                             <div class="row">
-                                <div class=" form-group col-3">
+                                <div class=" form-group col">
                                     <label class="" for="recipient_company">领用公司</label>
                                     <select id="recipient_company" class="select2-recipient_company form-control" style="width: 100%;">
                                     </select>

@@ -29,8 +29,7 @@ $(document).ready(function () {
             $("#recipient_company").prop("checked") == true &&
             $("#recipient_dept").prop("checked") == true &&
             $("#recipient_name").prop("checked") == true &&
-            $("#remark").prop("checked") == true &&
-            $("#stock_left").prop("checked") == true) 
+            $("#remark").prop("checked") == true) 
         {
             $("#chooseAll").prop("checked", true)
         } else {
@@ -247,9 +246,6 @@ $(document).ready(function () {
                 },
                 {
                     data: 'remark'
-                },
-                {
-                    data: 'stock_left'
                 },
             ],
         });

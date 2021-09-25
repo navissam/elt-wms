@@ -8,7 +8,6 @@ $(document).ready(function () {
     selectrc = $('.select2-ret_company').select2();
     selectrd = $('.select2-ret_dept').select2();
     selectrn = $('.select2-ret_name').select2();
-
     $("#advanced").on("click", function () {
         window.location.href = window.location.origin + "/tyck/report/ret_advanced";
     });

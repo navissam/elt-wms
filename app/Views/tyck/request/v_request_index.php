@@ -43,7 +43,7 @@
                             <div class="card-header ">
                                 <div class="row">
                                     <!-- <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1"> -->
-                                    <div class="form-group col-3">
+                                    <div class="form-group col">
                                         <label class="" for="req_company">领用公司</label>
                                         <select id="req_company" name="req_company" class="select2-req_company form-control" style="width: 100%;">
                                         </select>

@@ -108,10 +108,6 @@
                                                     <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="remark" value="remark">
                                                     <label for="remark" class="custom-control-label">备注</label>
                                                 </div>
-                                                <div class="custom-control custom-checkbox my-1">
-                                                    <input class="custom-control-input choose" type="checkbox" name="choosen[]" id="stock_left" value="stock_left">
-                                                    <label for="stock_left" class="custom-control-label">出库后数量</label>
-                                                </div>
                                             </li>
                                         </ul>
                                     </div>

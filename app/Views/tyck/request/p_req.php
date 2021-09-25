@@ -226,7 +226,7 @@
     <!-- Moment.js -->
     <script src="<?= base_url(); ?>/plugins/moment/moment.min.js"></script>
     <script>
-        window.addEventListener("load", window.print());
+        // window.addEventListener("load", window.print());
     </script>
 </body>
 

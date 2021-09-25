@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // declare global variable
-    var inv, row, company, company_select;
-    // initialize plugins
+    var inv, row, company, company_select, dept, dept_select;
+    // insert item table
     let table1 = $("#table1").DataTable({
         searching: false,
         paging: false,
@@ -64,6 +64,10 @@ $(document).ready(function () {
             data: company,
             theme: 'bootstrap4',
         });
+        company_select = $(".select2-edit-recipient_company").select2({
+            data: company,
+            theme: 'bootstrap4',
+        });
 
     });
     $('.select2-recipient_dept').prop('disabled', true);
@@ -74,11 +78,15 @@ $(document).ready(function () {
         $.get("/tyck/stock_out/getDept/" + company, function (data) {
             let object = JSON.parse(data);
             dept = $.map(object, function (obj) {
-                obj.id = obj.id || obj.deptID;
+                obj.id = obj.id || obj.deptName;
                 obj.text = obj.text || obj.deptName;
                 return obj;
             });
             dept_select = $(".select2-recipient_dept").select2({
+                data: dept,
+                theme: 'bootstrap4',
+            });
+            dept_select = $(".select2-edit-recipient_dept").select2({
                 data: dept,
                 theme: 'bootstrap4',
             });
@@ -87,8 +95,7 @@ $(document).ready(function () {
 
     })
 
-
-    // function for rebuild datatables (restore table)
+    // table add goods for stockout
     function createTable2(obj) {
         table2.destroy();
         table2 = $("#table2").DataTable({
@@ -135,16 +142,6 @@ $(document).ready(function () {
     }
 
     // reload datasource from ajax
-    // function reloadTable1() {
-    //     let url = "/stock_in/getAll";
-    //     $.get(url, function (data, status) {
-    //         let obj = JSON.parse(data);
-    //         createTable1(obj);
-    //         role = obj;
-    //     });
-    // }
-
-    // reload datasource from ajax
     function reloadTable2() {
         let url = "/tyck/stock_out/getInv";
         $.get(url, function (data) {
@@ -157,6 +154,7 @@ $(document).ready(function () {
     reloadTable2();
     swap();
 
+    // swap location select2/input
     function swap() {
         $('#swapt').hide();
         $(".swaptext").hide();
@@ -198,6 +196,7 @@ $(document).ready(function () {
         $("#addModal").modal("show");
     });
 
+
     $("body").on("click", "#table2 tbody tr", function () {
         inv = table2.row(this).data();
         if ($(this).hasClass('selected')) {
@@ -215,7 +214,7 @@ $(document).ready(function () {
         }
     });
 
-    // save button click event (for new data)
+    //insert button click event (for new data)
     $("#insert").on("click", function () {
         if (inv == null) {
             Swal.fire(
@@ -253,6 +252,7 @@ $(document).ready(function () {
         }
     });
 
+    // frontend qty editing new data
     var qty_edit = false;
     $('#table1').on('dblclick', 'tbody td:nth-child(5)', function (e) {
         if (!qty_edit) {
@@ -290,6 +290,7 @@ $(document).ready(function () {
         }
     });
 
+    //save button click event (for new data)
     $("#save").on("click", function () {
         $(".is-invalid").removeClass("is-invalid");
         var err = false;
@@ -377,6 +378,7 @@ $(document).ready(function () {
         });
     }
 
+    //delete button click event (for new data)
     $('#table1 tbody').on('click', '.btn-delete', function () {
         table1
             .row($(this).parents('tr'))
@@ -387,34 +389,26 @@ $(document).ready(function () {
     table_print = $("#table_print").DataTable({
         language: {
             url: "/plugins/inner/datatables-lang.json",
-            // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
         },
     });
 
+    table_list = $("#table-list").DataTable({
+        language: {
+            url: "/plugins/inner/datatables-lang.json",
+        },
+    });
+    table_detail = $("#table-detail").DataTable();
+
     $('.c_print').on('change', function () {
         var val = $(this).val();
-        console.log(val);
+        // console.log(val);
         var parent = $(this);
         $("input[value='" + val + "']").each(function () {
             $(this).not(parent).attr('disabled', parent.is(':checked'));
         });
+    });
 
-        // // cache the elements
-        // var $chk = $("[name='c_print[]']");
-        // // bind change event handler
-        // $chk.change(function () {
-        //     $chk
-        //         // remove current element
-        //         .not(this)
-        //         // filter out element with same value
-        //         .filter('[value="' + this.value + '"]')
-        //         // update disabled property based on the checked property
-        //         .prop('disabled', this.checked);
-        // })
-
-    })
-
-
+    // table for print (单据交接)
     function createTable3(obj) {
         table_print.destroy();
         table_print = $("#table_print").DataTable({
@@ -441,7 +435,12 @@ $(document).ready(function () {
                     data: 'unit'
                 },
                 {
-                    data: 'qty'
+                    data: 'qty',
+                    render: function (data) {
+                        if (data % 1 == 0)
+                            return parseInt(data);
+                        return data;
+                    }
                 },
                 {
                     data: 'location'
@@ -462,6 +461,7 @@ $(document).ready(function () {
         });
     }
 
+    // print filter
     $("#printfilter").on("click", function () {
         tgl = $('#datefilter').val();
         var date = new Date(tgl);
@@ -493,5 +493,137 @@ $(document).ready(function () {
         );
         $("#printForm").submit();
         window.location.href = window.location.origin + "/tyck/stock_out/sto_print/";
+    });
+
+    // table for stockout list
+    function createTable4(obj) {
+        table_list.destroy();
+        table_list = $("#table-list").DataTable({
+            "order": [
+                [1, "desc"]
+            ],
+            responsive: true,
+            autoWidth: false,
+            language: {
+                url: "/plugins/inner/datatables-lang.json",
+                // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
+            },
+            data: obj,
+            columns: [{
+                    data: 'sto_id'
+                },
+                {
+                    data: 'sto_date'
+                },
+                {
+                    data: 'recipient_company'
+                },
+                {
+                    data: 'recipient_dept'
+                },
+                {
+                    data: 'recipient_name'
+                },
+                {
+                    data: 'sto_id',
+                    render: function (data) {
+                        let btn = '<button type="button" class="btn btn-info btn-sm btn-record" data-sto-id="' + data + '">';
+                        btn += '<i class="fas fa-history" aria-hidden="true"></i>';
+                        btn += '</button> ';
+                        btn += '<button type="button" class="btn btn-primary btn-sm btn-edit" data-sto-id="' + data + '">';
+                        btn += '<i class="fa fa-edit" aria-hidden="true"></i>';
+                        btn += '</button> ';
+                        return btn;
+                    }
+                },
+            ],
+        });
+    }
+
+    // table for stockout detail
+    function createTable5(obj) {
+        table_detail.destroy();
+        table_detail = $("#table-detail").DataTable({
+            pageLength: 5,
+            lengthMenu: [
+                [5, 10, 20],
+                [5, 10, 20]
+            ],
+            "order": [
+                [1, "desc"]
+            ],
+            responsive: true,
+            autoWidth: false,
+            language: {
+                url: "/plugins/inner/datatables-lang.json",
+                // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
+            },
+            data: obj,
+            columns: [{
+                    data: 'company'
+                },
+                {
+                    data: 'goods_id'
+                },
+                {
+                    data: 'name_type'
+                },
+                {
+                    data: 'qty',
+                    render: function (data) {
+                        if (data % 1 == 0)
+                            return parseInt(data);
+                        return data;
+                    }
+                },
+                {
+                    data: 'unit'
+                },
+                {
+                    data: 'location'
+                },
+                {
+                    data: 'remark'
+                }
+            ],
+        });
+    }
+
+    // list filter
+    $("#listfilter").on("click", function () {
+        start = $('#start').val();
+        finish = $('#finish').val();
+        let url = "/tyck/stock_out/sto_list_data/" + start + "/" + finish;
+        $.get(url, function (data) {
+            let obj = JSON.parse(data);
+            inv = obj;
+            createTable4(obj);
+        });
+    });
+
+    $("body").on("click", ".btn-record", function (e) {
+        sto_id = $(this).data('sto-id');
+        let i = inv.find(x => x.sto_id == sto_id);
+        // console.log(i);
+        let sto_date = i.sto_date;
+        let recipient_company = i.recipient_company;
+        let recipient_dept = i.recipient_dept;
+        let recipient_name = i.recipient_name;
+        // console.log(i);
+        $.get('/tyck/stock_out/sto_detail/' + sto_id, function (response) {
+            let r = JSON.parse(response);
+            $('span.sto_id').html(sto_id);
+            $('span.sto_date').html(sto_date);
+            $('span.recipient_company').html(recipient_company);
+            $('span.recipient_dept').html(recipient_dept);
+            $('span.recipient_name').html(recipient_name);
+            createTable5(r);
+            $('#detailModal').modal('show');
+        });
+    });
+
+    $("body").on("click", ".btn-edit", function (e) {
+        sto_id = $(this).data('sto-id');
+        window.open(window.location.origin + "/tyck/stock_out/sto_edit_view/" + sto_id, '_blank');
     });
 });

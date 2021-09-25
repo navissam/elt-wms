@@ -205,5 +205,5 @@
 <script src="<?= base_url('/'); ?>/plugins/select2/js/select2.full.min.js"></script>
 <!-- Sweetalert2 -->
 <script src="<?= base_url('/'); ?>/plugins/sweetalert2/sweetalert2.min.js"></script>
-<script src="<?= base_url('/'); ?>/plugins/inner/tyck/sto_report_index.js"></script>
+<script src="<?= base_url('/'); ?>/plugins/inner/tyck/ret_report_index.js"></script>
 <?php $this->endSection(); ?>
