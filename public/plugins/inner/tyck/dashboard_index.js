@@ -79,6 +79,10 @@ $(document).ready(function () {
         window.location.href = "/tyck/request";
     });
 
+    $('#sto_edit').on('click', function () {
+        window.location.href = "/tyck/stock_out/sto_list";
+    });
+
     $('#report').on('click', function () {
         $("#reportModal").modal("show");
     });

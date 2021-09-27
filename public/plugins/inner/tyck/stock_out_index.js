@@ -528,7 +528,7 @@ $(document).ready(function () {
                     data: 'sto_id',
                     render: function (data) {
                         let btn = '<button type="button" class="btn btn-info btn-sm btn-record" data-sto-id="' + data + '">';
-                        btn += '<i class="fas fa-history" aria-hidden="true"></i>';
+                        btn += '<i class="fas fa-search" aria-hidden="true"></i>';
                         btn += '</button> ';
                         btn += '<button type="button" class="btn btn-primary btn-sm btn-edit" data-sto-id="' + data + '">';
                         btn += '<i class="fa fa-edit" aria-hidden="true"></i>';

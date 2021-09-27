@@ -96,12 +96,17 @@ class Stock_out_model extends Model
         $db      = \Config\Database::connect();
         // $this->db->transBegin();
         $db->transBegin();
-        $rec = $db->table('tyck_stock_out_d');
-        $rec->updateBatch($data, 'id');
 
-        $del = $db->table('tyck_stock_out_d');
-        $del->whereIn('id', $deleted);
-        $del->update(['deleted_at' => $date]);
+        if ($data != null) {
+            $rec = $db->table('tyck_stock_out_d');
+            $rec->updateBatch($data, 'id');
+        }
+
+        if ($deleted != null) {
+            $del = $db->table('tyck_stock_out_d');
+            $del->whereIn('id', $deleted);
+            $del->update(['deleted_at' => $date]);
+        }
 
         $sto = $db->table('tyck_stock_out_h');
         $sto->where('sto_id', $sto_id);

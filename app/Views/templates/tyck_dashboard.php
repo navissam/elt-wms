@@ -222,12 +222,24 @@ if ($roleID != 0) {
                     endif;
                     if (in_array(27, $permIDs)) :
                 ?>
-                    <div class="small-box bg-teal mt-2" id="req">
+                    <div class="small-box bg-secondary mt-2" id="req">
                         <div class="icon">
                             <i class="fas fa-print"></i>
                         </div>
                         <div class="inner">
                             <h2>领用申请</h2>
+                        </div>
+                    </div>
+                <?php
+                    endif;
+                    if (in_array(22, $permIDs)) :
+                ?>
+                    <div class="small-box bg-teal mt-2" id="sto_edit">
+                        <div class="icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="inner">
+                            <h2>修改出库数据</h2>
                         </div>
                     </div>
                 <?php

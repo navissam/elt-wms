@@ -130,12 +130,6 @@ class Stock_out extends BaseController
         $items = json_decode($this->request->getPost('items'));
         $deleted = json_decode($this->request->getPost('deleted'));
 
-        if (count($items) == 0) {
-            return json_encode([
-                'status' => 'invalid',
-                'errors' => ['items' => '没有物料数据']
-            ]);
-        }
         try {
             $d = date_create();
             $date = date_format($d, "Y-m-d H:i:s");

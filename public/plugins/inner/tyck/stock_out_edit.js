@@ -198,82 +198,71 @@ $(document).ready(function () {
 
     //save button click event (for new data)
     $("#save-edit").on("click", function () {
-        $.get('/tyck/stock_out/check_updated/' + sto_id, function (data) {
-            result = JSON.parse(data);
-            if (updated_at != result[0]['updated_at']) {
-                Swal.fire(
-                    '修改失败!',
-                    '其他用户已修改过这个数据!',
-                    'error'
-                );
-                setTimeout(function () {
-                    window.top.close();
-                }, 2000);
-            } else {
-                $(".is-invalid").removeClass("is-invalid");
-                var err = false;
-                if ($("#edit-recipient_dept").val() == '' || $("#edit-recipient_dept").val() == null) {
-                    $("#edit-recipient_dept").addClass("is-invalid");
-                    $(".recipient_dept-invalid").html("领用部门不可以空");
-                    err = true;
-                }
-                if ($("#edit-recipient_name").val() == '' || $("#edit-recipient_name").val() == null) {
-                    $("#edit-recipient_name").addClass("is-invalid");
-                    $(".recipient_name-invalid").html("领用人不可以空");
-                    err = true;
-                }
-                if ($("#edit-sto_date").val() == '' || $("#edit-sto_date").val() == null) {
-                    $("#edit-sto_date").addClass("is-invalid");
-                    $(".sto_date-invalid").html("出库日期不可以空");
-                    err = true;
-                }
-
-                let sto_detail = table_edit.rows().data().toArray();
-                if (sto_detail.length == 0) {
+        if (!qty_edit) {
+            $.get('/tyck/stock_out/check_updated/' + sto_id, function (data) {
+                result = JSON.parse(data);
+                if (updated_at != result[0]['updated_at']) {
                     Swal.fire(
-                        "失误!", "请添加物料", "warning"
+                        '修改失败!',
+                        '其他用户已修改过这个数据!',
+                        'error'
                     );
-                    err = true;
-                }
+                    setTimeout(function () {
+                        window.top.close();
+                    }, 2000);
+                } else {
+                    $(".is-invalid").removeClass("is-invalid");
+                    var err = false;
+                    if ($("#edit-recipient_dept").val() == '' || $("#edit-recipient_dept").val() == null) {
+                        $("#edit-recipient_dept").addClass("is-invalid");
+                        $(".recipient_dept-invalid").html("领用部门不可以空");
+                        err = true;
+                    }
+                    if ($("#edit-recipient_name").val() == '' || $("#edit-recipient_name").val() == null) {
+                        $("#edit-recipient_name").addClass("is-invalid");
+                        $(".recipient_name-invalid").html("领用人不可以空");
+                        err = true;
+                    }
+                    if ($("#edit-sto_date").val() == '' || $("#edit-sto_date").val() == null) {
+                        $("#edit-sto_date").addClass("is-invalid");
+                        $(".sto_date-invalid").html("出库日期不可以空");
+                        err = true;
+                    }
 
-                if (qty_edit == true) {
-                    Swal.fire(
-                        "失误!", "数量修改", "warning"
-                    );
-                    err = true;
+                    let sto_detail = table_edit.rows().data().toArray();
+                    if (!err) {
+                        $.post('/tyck/stock_out/update', {
+                            sto_id: sto_id,
+                            recipient_company: $('#edit-recipient_company').val(),
+                            recipient_dept: $('#edit-recipient_dept').val(),
+                            recipient_name: $('#edit-recipient_name').val(),
+                            sto_date: $('#edit-sto_date').val(),
+                            items: JSON.stringify(sto_detail),
+                            deleted: JSON.stringify(deleted),
+                        }, function (response) {
+                            let r = JSON.parse(response);
+                            if (r.status == 'error') {
+                                Swal.fire(
+                                    '保存失败!',
+                                    r.msg,
+                                    'error'
+                                );
+                            } else if (r.status == 'success') {
+                                Swal.fire(
+                                    '保存成功!',
+                                    '',
+                                    'success'
+                                ).then(() => {
+                                    setTimeout(function () {
+                                        window.top.close();
+                                    }, 500);
+                                });
+                            }
+                        });
+                    }
                 }
-
-                if (!err) {
-                    $.post('/tyck/stock_out/update', {
-                        sto_id: sto_id,
-                        recipient_company: $('#edit-recipient_company').val(),
-                        recipient_dept: $('#edit-recipient_dept').val(),
-                        recipient_name: $('#edit-recipient_name').val(),
-                        sto_date: $('#edit-sto_date').val(),
-                        items: JSON.stringify(sto_detail),
-                        deleted: JSON.stringify(deleted),
-                    }, function (response) {
-                        let r = JSON.parse(response);
-                        if (r.status == 'error') {
-                            Swal.fire(
-                                '保存失败!',
-                                r.msg,
-                                'error'
-                            );
-                        } else if (r.status == 'success') {
-                            Swal.fire(
-                                '保存成功!',
-                                '',
-                                'success'
-                            );
-                            setTimeout(function () {
-                                window.top.close();
-                            }, 1800);
-                        }
-                    });
-                }
-            }
-        });
+            });
+        }
     });
 
     //delete button click event (for edit data)
@@ -283,7 +272,6 @@ $(document).ready(function () {
         let r = inv.find(x => x.id == id);
         Swal.fire({
             title: '你确定要删除?',
-            text: "编号：" + id,
             icon: 'warning',
             showCancelButton: true,
             cancelButtonText: '取消',
@@ -304,11 +292,6 @@ $(document).ready(function () {
                 //             'error'
                 //         );
                 //     } else if (r.status == 'success') {
-                Swal.fire(
-                    '已删除',
-                    id + '已经成功删除',
-                    'success'
-                );
                 table_edit
                     .row($(this).parents('tr'))
                     .remove()

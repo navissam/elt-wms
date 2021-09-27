@@ -11,7 +11,7 @@ $(document).ready(function() {
     function createTable1(obj) {
         table1.destroy();
         table1 = $("#table1").DataTable({
-            "order": [[4, "desc"]],
+            "order": [[3, "desc"]],
             "responsive": true,
             "autoWidth": false,
             data: obj,
@@ -19,9 +19,7 @@ $(document).ready(function() {
                 url: '/plugins/inner/datatables-lang.json'
                 // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
             },
-            columns: [{
-                    data: 'syslogID',
-                },
+            columns: [
                 {
                     data: 'user_name',
                     render: function(data, type) {
@@ -40,7 +38,7 @@ $(document).ready(function() {
                 {
                     data: 'syslogID',
                     render: function(data, type) {
-                        let btn = '<button type="button" class="btn badge bg-bbb btn-detail" data-syslogid="' + data + '">detail';
+                        let btn = '<button type="button" class="btn badge bg-bbb btn-detail" data-syslogid="' + data + '">详细';
                         btn += '</button> ';
                         // let btn = '<button type="button" class="btn badge badge-success btn-detail" data-toggle="popover" title="数据" data-content="' + data + '">details</button>';
                     return btn
@@ -69,7 +67,7 @@ $(document).ready(function() {
     // reload datasource from ajax
     function reloadTable1() {
         // let url = '<?= base_url('/syslog/getAll/') ?>';
-        let url = '/syslog/getAll/';
+        let url = '/tyck/admlog/getAll/';
         $.get(url, function(data, status) {
             let obj = JSON.parse(data);
             createTable1(obj);
@@ -85,7 +83,7 @@ $(document).ready(function() {
         var month = ("0" + (date.getMonth() + 1)).slice(-2);
         var finish = date.getFullYear() + "-" + (month) + "-" + (day);
         
-        let url = '/syslog/getByDate/' + start + "/" + finish;
+        let url = '/tyck/admlog/getByDate/' + start + "/" + finish;
         $.get(url, function(data, status) {
             let obj = JSON.parse(data);
             createTable1(obj);
