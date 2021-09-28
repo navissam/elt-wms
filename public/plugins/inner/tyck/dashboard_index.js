@@ -87,6 +87,10 @@ $(document).ready(function () {
         $("#reportModal").modal("show");
     });
 
+    $('#inv_report').on('click', function () {
+        window.location.href = "/tyck/report/inv";
+    });
+
     $('#sti_report').on('click', function () {
         window.location.href = "/tyck/report/sti";
     });
