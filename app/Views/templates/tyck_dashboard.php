@@ -285,11 +285,21 @@ if ($roleID != 0) {
     </div>
     <!-- reportModal -->
     <div class="modal fade" id="reportModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row mt-3">
-                        <div class="col-6">
+                        <div class="col-4">
+                            <div class="small-box bg-info" id="inv_report">
+                                <div class="icon">
+                                    <i class="fas fa-cubes"></i>
+                                </div>
+                                <div class="inner">
+                                    <h2>库存报表</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
                             <div class="small-box bg-primary" id="sti_report">
                                 <div class="icon">
                                     <i class="fas fa-sign-in-alt"></i>
@@ -299,7 +309,7 @@ if ($roleID != 0) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="small-box bg-success" id="sto_report">
                                 <div class="icon">
                                     <i class="fas fa-sign-out-alt"></i>
@@ -311,7 +321,7 @@ if ($roleID != 0) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="small-box bg-teal" id="ret_report">
                                 <div class="icon">
                                     <i class="fas fa-undo-alt"></i>
@@ -321,7 +331,7 @@ if ($roleID != 0) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="small-box bg-danger" id="scr_report">
                                 <div class="icon">
                                     <i class="fas fa-times-circle"></i>
@@ -331,13 +341,15 @@ if ($roleID != 0) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="small-box bg-info" id="swc_report">
-                        <div class="icon">
-                            <i class="fas fa-sync-alt"></i>
-                        </div>
-                        <div class="inner">
-                            <h2>库位变更报表</h2>
+                        <div class="col-4">
+                            <div class="small-box bg-info" id="swc_report">
+                                <div class="icon">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <div class="inner">
+                                    <h2>库位变更报表</h2>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
