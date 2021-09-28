@@ -29,6 +29,7 @@ class Safety_model extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('tyck_under_safety_union');
+        $builder->where('qty >', 0);
         return $builder->get()->getResultArray();
     }
 }

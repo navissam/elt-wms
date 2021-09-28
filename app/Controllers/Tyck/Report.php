@@ -13,6 +13,13 @@ class Report extends BaseController
         $this->report_model = new Report_model();
     }
     // filter basic
+    public function inv()
+    {
+        $data['title'] = '库存报表';
+        $data['active']['report']['inv_report'] = true;
+        return view('tyck/inv_report/v_inv_basic_report_index', $data);
+    }
+
     public function sti()
     {
         $data['title'] = '入库报表';
@@ -49,6 +56,13 @@ class Report extends BaseController
     }
 
     // filter advanced
+    public function inv_advanced()
+    {
+        $data['title'] = '库存报表';
+        $data['active']['report']['inv_report'] = true;
+        return view('tyck/inv_report/v_inv_filter_index', $data);
+    }
+
     public function sti_advanced()
     {
         $data['title'] = '入库报表';
@@ -130,12 +144,24 @@ class Report extends BaseController
     }
 
     // report basic
+    public function inv_report_basic($start, $f)
+    {
+        $date = date_create($f);
+        date_modify($date, "+1 days");
+        $finish = date_format($date, "Y-m-d");
+        return json_encode([
+            'data' => $this->report_model->inv_report_basic($start, $finish)
+        ]);
+    }
+
     public function sti_report_basic($start, $f)
     {
         $date = date_create($f);
         date_modify($date, "+1 days");
         $finish = date_format($date, "Y-m-d");
-        return json_encode($this->report_model->sti_report_basic($start, $finish));
+        return json_encode([
+            'data' => $this->report_model->sti_report_basic($start, $finish)
+        ]);
     }
 
     public function sto_report_basic($start, $f)
@@ -143,7 +169,9 @@ class Report extends BaseController
         $date = date_create($f);
         date_modify($date, "+1 days");
         $finish = date_format($date, "Y-m-d");
-        return json_encode($this->report_model->sto_report_basic($start, $finish));
+        return json_encode([
+            'data' => $this->report_model->sto_report_basic($start, $finish)
+        ]);
     }
 
     public function ret_report_basic($start, $f)
@@ -151,7 +179,9 @@ class Report extends BaseController
         $date = date_create($f);
         date_modify($date, "+1 days");
         $finish = date_format($date, "Y-m-d");
-        return json_encode($this->report_model->ret_report_basic($start, $finish));
+        return json_encode([
+            'data' => $this->report_model->ret_report_basic($start, $finish)
+        ]);
     }
 
     public function scr_report_basic($start, $f)
@@ -159,7 +189,9 @@ class Report extends BaseController
         $date = date_create($f);
         date_modify($date, "+1 days");
         $finish = date_format($date, "Y-m-d");
-        return json_encode($this->report_model->scr_report_basic($start, $finish));
+        return json_encode([
+            'data' => $this->report_model->scr_report_basic($start, $finish)
+        ]);
     }
 
     public function swc_report_basic($start, $f)
@@ -167,10 +199,52 @@ class Report extends BaseController
         $date = date_create($f);
         date_modify($date, "+1 days");
         $finish = date_format($date, "Y-m-d");
-        return json_encode($this->report_model->swc_report_basic($start, $finish));
+        return json_encode([
+            'data' => $this->report_model->swc_report_basic($start, $finish)
+        ]);
     }
 
     // report advanced
+    public function inv_report_adv()
+    {
+        $data['title'] = '库存报表';
+        $choosen = $this->request->getPost('choosen');
+        $start = $this->request->getPost('start');
+
+        $f = $this->request->getPost('finish');
+        $date = date_create($f);
+        date_modify($date, "+1 days");
+        $finish = date_format($date, "Y-m-d");
+
+        $company = $this->request->getPost('s_company');
+        $goods = $this->request->getPost('s_goods_id');
+        $location = $this->request->getPost('s_location');
+
+        $data['rows'] = $this->report_model->inv_report_adv($choosen, $start, $finish, $company, $goods, $location);
+        $header = [
+            "inv_id" => "库存编号",
+            "company" => "公司",
+            "goods_id" => "物料代码",
+            "name_type" => "物料名称与规格型号",
+            "unit" => "单位",
+            "qty" => "数量",
+            "location" => "库位",
+            "safety" => "安全库存",
+            "created_at" => "入库日期",
+            "remark" => "备注"
+        ];
+        // dd($header);
+        $h = [];
+        $i = 0;
+        for ($i >= 0; $i < count($choosen); $i++) {
+            array_push($h, $header[$choosen[$i]]);
+        }
+
+        $data['header'] = $h;
+        $data['body'] = $choosen;
+        return view('tyck/inv_report/v_inv_report_index', $data);
+    }
+
     public function sti_report_adv()
     {
         $data['title'] = '入库报表';

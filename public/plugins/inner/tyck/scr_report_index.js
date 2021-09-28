@@ -171,7 +171,9 @@ $(document).ready(function () {
         },
     });
 
-    function createTable2(obj) {
+    $("#basicfilter").on("click", function () {
+        start = $('#start').val();
+        finish = $('#finish').val();
         table2.destroy();
         table2 = $("#table2").DataTable({
             responsive: true,
@@ -204,7 +206,7 @@ $(document).ready(function () {
                     className: 'btn btn-success'
                 }
             ],
-            data: obj,
+            ajax: "/tyck/report/scr_report_basic/" + start + "/" + finish,
             columns: [{
                     data: 'scr_id'
                 },
@@ -242,20 +244,6 @@ $(document).ready(function () {
                     data: 'remark'
                 },
             ],
-        });
-    }
-
-    $("#basicfilter").on("click", function () {
-        start = $('#start').val();
-        finish = $('#finish').val();
-        // var date = new Date(f);
-        // var day = ("0" + (date.getDate() + 1)).slice(-2);
-        // var month = ("0" + (date.getMonth() + 1)).slice(-2);
-        // var finish = date.getFullYear() + "-" + (month) + "-" + (day);
-        let url = "/tyck/report/scr_report_basic/" + start + "/" + finish;
-        $.get(url, function (data) {
-            let obj = JSON.parse(data);
-            createTable2(obj);
         });
     });
 });

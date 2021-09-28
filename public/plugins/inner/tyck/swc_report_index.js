@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    
+
     $("#alert").hide();
 
     selectc = $('.select2-company').select2();
     selectg = $('.select2-goods_id').select2();
     selecto = $('.select2-old_location').select2();
     selectn = $('.select2-new_location').select2();
-    
+
     $("#advanced").on("click", function () {
         window.location.href = window.location.origin + "/tyck/report/swc_advanced";
     });
@@ -26,8 +26,7 @@ $(document).ready(function () {
             $("#to_location").prop("checked") == true &&
             $("#old_stock").prop("checked") == true &&
             $("#new_stock").prop("checked") == true &&
-            $("#remark").prop("checked") == true) 
-        {
+            $("#remark").prop("checked") == true) {
             $("#chooseAll").prop("checked", true)
         } else {
             $("#chooseAll").prop("checked", false)
@@ -99,7 +98,7 @@ $(document).ready(function () {
             $("#alert").show();
             err = true;
         }
-        
+
         if (!err) {
             $("#filterForm").submit();
             window.location.href = window.location.origin + "/tyck/report/swc_advanced";
@@ -146,7 +145,9 @@ $(document).ready(function () {
         },
     });
 
-    function createTable2(obj) {
+    $("#basicfilter").on("click", function () {
+        start = $('#start').val();
+        finish = $('#finish').val();
         table2.destroy();
         table2 = $("#table2").DataTable({
             responsive: true,
@@ -157,8 +158,8 @@ $(document).ready(function () {
             },
             dom: '<"row mb-3"<"col-12 float-right"B>><"row"<"col-2"l><"col-10"f>>t<"row"<"col-3"i><"col-9"p>>',
             lengthMenu: [
-                [20,50,100],
-                ["20","50","100"]
+                [20, 50, 100],
+                ["20", "50", "100"]
             ],
             buttons: [{
                     extend: 'copyHtml5',
@@ -179,9 +180,8 @@ $(document).ready(function () {
                     className: 'btn btn-success'
                 }
             ],
-            data: obj,
-            columns: [
-                {
+            ajax: "/tyck/report/swc_report_basic/" + start + "/" + finish,
+            columns: [{
                     data: 'swc_date'
                 },
                 {
@@ -215,20 +215,6 @@ $(document).ready(function () {
                     data: 'remark'
                 },
             ],
-        });
-    }
-
-    $("#basicfilter").on("click", function () {
-        start = $('#start').val();
-        finish = $('#finish').val();
-        // var date = new Date(f);
-        // var day = ("0" + (date.getDate() + 1)).slice(-2);
-        // var month = ("0" + (date.getMonth() + 1)).slice(-2);
-        // var finish = date.getFullYear() + "-" + (month) + "-" + (day);
-        let url = "/tyck/report/swc_report_basic/" + start + "/" + finish;
-        $.get(url, function (data) {
-            let obj = JSON.parse(data);
-            createTable2(obj);
         });
     });
 });

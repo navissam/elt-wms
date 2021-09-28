@@ -29,6 +29,7 @@ class Inventory_model extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('tyck_inventory_all');
+        $builder->where('qty >', 0);
         return $builder->get()->getResultArray();
     }
 

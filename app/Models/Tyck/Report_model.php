@@ -93,6 +93,15 @@ class Report_model extends Model
     }
 
     // report basic
+    public function inv_report_basic($start, $finish)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_inventory_all');
+        $builder->where('created_at >=', $start);
+        $builder->where('created_at <=', $finish);
+        return $builder->get()->getResultArray();
+    }
+
     public function sti_report_basic($start, $finish)
     {
         $db      = \Config\Database::connect();
@@ -139,6 +148,26 @@ class Report_model extends Model
     }
 
     // report advanced
+    public function inv_report_adv($choosen, $start, $finish, $company, $goods, $location)
+    {
+
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_inventory_all');
+        $builder->select($choosen);
+        $builder->where('created_at >=', $start);
+        $builder->where('created_at <=', $finish);
+        if ($company != null) {
+            $builder->whereIn('company', $company);
+        }
+        if ($goods != null) {
+            $builder->whereIn('goods_id', $goods);
+        }
+        if ($location != null) {
+            $builder->whereIn('location', $location);
+        }
+        return $builder->get()->getResultArray();
+    }
+
     public function sti_report_adv($choosen, $start, $finish, $company, $goods, $location)
     {
 

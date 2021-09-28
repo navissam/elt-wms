@@ -5,11 +5,9 @@ $(document).ready(function () {
     selectc = $('.select2-company').select2();
     selectg = $('.select2-goods_id').select2();
     selectl = $('.select2-location').select2();
-    selectrc = $('.select2-ret_company').select2();
-    selectrd = $('.select2-ret_dept').select2();
-    selectrn = $('.select2-ret_name').select2();
+
     $("#advanced").on("click", function () {
-        window.location.href = window.location.origin + "/tyck/report/ret_advanced";
+        window.location.href = window.location.origin + "/tyck/report/inv_advanced";
     });
 
     $("#chooseAll").on("change", function () {
@@ -17,17 +15,15 @@ $(document).ready(function () {
     });
 
     $(".choose").on("change", function () {
-        if ($("#ret_id").prop("checked") == true &&
-            $("#ret_date").prop("checked") == true &&
+        if ($("#inv_id").prop("checked") == true &&
             $("#company").prop("checked") == true &&
             $("#goods_id").prop("checked") == true &&
             $("#name_type").prop("checked") == true &&
             $("#unit").prop("checked") == true &&
             $("#qty").prop("checked") == true &&
-            $("#ret_location").prop("checked") == true &&
-            $("#ret_company").prop("checked") == true &&
-            $("#ret_dept").prop("checked") == true &&
-            $("#ret_name").prop("checked") == true &&
+            $("#location").prop("checked") == true &&
+            $("#safety").prop("checked") == true &&
+            $("#created_at").prop("checked") == true &&
             $("#remark").prop("checked") == true) {
             $("#chooseAll").prop("checked", true)
         } else {
@@ -54,10 +50,6 @@ $(document).ready(function () {
         });
         selectc.empty();
         selectc.select2({
-            data: company,
-        });
-        selectrc.empty();
-        selectrc.select2({
             data: company,
         });
     });
@@ -88,33 +80,6 @@ $(document).ready(function () {
         });
     });
 
-    $.get('/tyck/report/getRetDept/', function (data) {
-        let object = JSON.parse(data);
-        ret_dept = $.map(object, function (obj) {
-            obj.id = obj.id || obj.ret_dept;
-            obj.text = obj.text || obj.ret_dept;
-            return obj;
-        });
-        selectrd.empty();
-        selectrd.select2({
-            data: ret_dept,
-        });
-    });
-
-    $.get('/tyck/report/getRetName/', function (data) {
-        let object = JSON.parse(data);
-        ret_name = $.map(object, function (obj) {
-            obj.id = obj.id || obj.ret_name;
-            obj.text = obj.text || obj.ret_name;
-            return obj;
-        });
-        selectrn.empty();
-        selectrn.select2({
-            data: ret_name,
-        });
-    });
-
-
     $("#advfilter").on("click", function () {
         $("#alert").hide();
         var err = false;
@@ -130,7 +95,7 @@ $(document).ready(function () {
 
         if (!err) {
             $("#filterForm").submit();
-            window.location.href = window.location.origin + "/tyck/report/ret_advanced";
+            window.location.href = window.location.origin + "/tyck/report/inv_advanced";
         }
     });
 
@@ -157,7 +122,7 @@ $(document).ready(function () {
                 // footer: true,
                 text: '导出',
                 filename: function fred() {
-                    return "退库报表" + today;
+                    return "库存报表" + today;
                 },
                 exportOptions: {
                     orthogonal: "exportxls"
@@ -173,7 +138,7 @@ $(document).ready(function () {
             // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
         },
     });
-
+    
     $("#basicfilter").on("click", function () {
         start = $('#start').val();
         finish = $('#finish').val();
@@ -201,7 +166,7 @@ $(document).ready(function () {
                     // footer: true,
                     text: '导出',
                     filename: function fred() {
-                        return "退库报表" + today;
+                        return "库存报表" + today;
                     },
                     exportOptions: {
                         orthogonal: "exportxls"
@@ -209,12 +174,12 @@ $(document).ready(function () {
                     className: 'btn btn-success'
                 }
             ],
-            ajax: "/tyck/report/ret_report_basic/" + start + "/" + finish,
+            ajax: "/tyck/report/inv_report_basic/" + start + "/" + finish,
             columns: [{
-                    data: 'ret_id'
-                },
-                {
-                    data: 'ret_date'
+                    data: 'inv_id',
+                    render: function(data) {
+                        return Number(data);
+                    }
                 },
                 {
                     data: 'company'
@@ -232,16 +197,17 @@ $(document).ready(function () {
                     data: 'qty'
                 },
                 {
-                    data: 'ret_location'
+                    data: 'location'
                 },
                 {
-                    data: 'ret_company'
+                    data: 'safety'
                 },
                 {
-                    data: 'ret_dept'
-                },
-                {
-                    data: 'ret_name'
+                    data: 'created_at',
+                    render: function (data) {
+                        data = data.split(" ");
+                        return data[0];
+                    }
                 },
                 {
                     data: 'remark'
