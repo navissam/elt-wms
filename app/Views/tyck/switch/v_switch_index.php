@@ -56,6 +56,10 @@
                                             </button>
                                         </form>
                                     </div>
+                                    <div class="col-4 mt-auto">
+                                        <div class="loading-upload">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -110,17 +114,25 @@
                                         <span class="h5">操作</span>
                                     </div>
                                     <div class="card-body">
-                                        <button class="btn btn-primary" id="reload">
-                                            <i class="fas fa-sync"></i> 刷新界面
-                                        </button>
-                                        <button type="button" class="btn btn-danger" id="cancel">
-                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                            取消库位变更
-                                        </button>
-                                        <button type="button" class="btn btn-success" id="submit">
-                                            <i class="fa fa-upload" aria-hidden="true"></i>
-                                            提交库位变更
-                                        </button>
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <button class="btn btn-primary" id="reload">
+                                                    <i class="fas fa-sync"></i> 刷新界面
+                                                </button>
+                                                <button type="button" class="btn btn-danger" id="cancel">
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                    取消库位变更
+                                                </button>
+                                                <button type="button" class="btn btn-success" id="submit">
+                                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                                    提交库位变更
+                                                </button>
+                                            </div>
+                                            <div class="col-auto mt-auto">
+                                                <div class="loading-import">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

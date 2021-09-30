@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // declare global variable
-    var inv, row, company, company_select, dept, dept_select;
+    var inv, row, stock, company, company_select, dept, dept_select;
     // insert item table
     let table1 = $("#table1").DataTable({
         searching: false,
@@ -262,6 +262,13 @@ $(document).ready(function () {
             var input = "<input min=\"0\" class=\"form-control\" id=\"edit-qty\" type=\"number\" value=\"" + val + "\">";
             qty.html(input);
             qty_edit = true;
+
+                goods_id = row['goods_id'],
+                company = row['company'],
+                locations = row['location'],
+                $.get('/tyck/stock_out/check_stock/' + goods_id + "/" + company + "/" + locations, function (data) {
+                    stock = JSON.parse(data);
+                });
         }
     });
 
@@ -270,12 +277,12 @@ $(document).ready(function () {
         if (keycode == '27' || keycode == '13') {
             if (qty_edit) {
                 var val = Number($(this).val());
-                var stock = Number(row.stock);
-                if (val > stock) {
+                inv_qty = Number(stock[0]['inv_qty']);
+                if (val > inv_qty) {
                     Swal.fire(
                         "失误", "数量不可以超过库存数量", "error"
                     );
-                    $(this).val(stock);
+                    $(this).val(inv_qty);
                 } else if (val <= 0) {
                     Swal.fire(
                         "失误", "数量必须多于零", "error"
@@ -292,77 +299,79 @@ $(document).ready(function () {
 
     //save button click event (for new data)
     $("#save").on("click", function () {
-        $(".is-invalid").removeClass("is-invalid");
-        var err = false;
-        var field = [];
-        // if ($("#recipient_company").val() == '' || $("#recipient_company").val() == null) {
-        //     $("#recipient_company").addClass("is-invalid");
-        //     $(".recipient_company-invalid").html("领用公司不可以空");
-        //     err = true;
-        //     field.push('recipient_company');
-        // }
-        if ($("#recipient_dept").val() == '' || $("#recipient_dept").val() == null) {
-            $("#recipient_dept").addClass("is-invalid");
-            $(".recipient_dept-invalid").html("领用部门不可以空");
-            err = true;
-            field.push('recipient_dept');
-        }
-        if ($("#recipient_name").val() == '' || $("#recipient_name").val() == null) {
-            $("#recipient_name").addClass("is-invalid");
-            $(".recipient_name-invalid").html("领用人不可以空");
-            err = true;
-            field.push('recipient_name');
-        }
-        if ($("#sto_date").val() == '' || $("#sto_date").val() == null) {
-            $("#sto_date").addClass("is-invalid");
-            $(".sto_date-invalid").html("出库日期不可以空");
-            err = true;
-            field.push('sto_date');
-        }
+        if (!qty_edit) {
+            $(".is-invalid").removeClass("is-invalid");
+            var err = false;
+            var field = [];
+            // if ($("#recipient_company").val() == '' || $("#recipient_company").val() == null) {
+            //     $("#recipient_company").addClass("is-invalid");
+            //     $(".recipient_company-invalid").html("领用公司不可以空");
+            //     err = true;
+            //     field.push('recipient_company');
+            // }
+            if ($("#recipient_dept").val() == '' || $("#recipient_dept").val() == null) {
+                $("#recipient_dept").addClass("is-invalid");
+                $(".recipient_dept-invalid").html("领用部门不可以空");
+                err = true;
+                field.push('recipient_dept');
+            }
+            if ($("#recipient_name").val() == '' || $("#recipient_name").val() == null) {
+                $("#recipient_name").addClass("is-invalid");
+                $(".recipient_name-invalid").html("领用人不可以空");
+                err = true;
+                field.push('recipient_name');
+            }
+            if ($("#sto_date").val() == '' || $("#sto_date").val() == null) {
+                $("#sto_date").addClass("is-invalid");
+                $(".sto_date-invalid").html("出库日期不可以空");
+                err = true;
+                field.push('sto_date');
+            }
 
-        let sto_detail = table1.rows().data().toArray();
-        if (sto_detail.length == 0) {
-            Swal.fire(
-                "失误!", "请添加物料", "warning"
-            );
-            err = true;
-        }
+            let sto_detail = table1.rows().data().toArray();
+            if (sto_detail.length == 0) {
+                Swal.fire(
+                    "失误!", "请添加物料", "warning"
+                );
+                err = true;
+            }
 
-        if (!err) {
-            $.post('/tyck/stock_out/save', {
-                recipient_company: $.trim($('#recipient_company').val()),
-                recipient_dept: $.trim($('#recipient_dept').val()),
-                recipient_name: $.trim($('#recipient_name').val()),
-                sto_date: $('#sto_date').val(),
-                items: JSON.stringify(sto_detail),
-            }, function (response) {
-                let r = JSON.parse(response);
+            if (!err) {
+                $.post('/tyck/stock_out/save', {
+                    recipient_company: $.trim($('#recipient_company').val()),
+                    recipient_dept: $.trim($('#recipient_dept').val()),
+                    recipient_name: $.trim($('#recipient_name').val()),
+                    sto_date: $('#sto_date').val(),
+                    items: JSON.stringify(sto_detail),
+                }, function (response) {
+                    let r = JSON.parse(response);
 
-                if (r.status == 'error') {
-                    Swal.fire(
-                        '保存失败!',
-                        r.msg,
-                        'error'
-                    );
-                } else if (r.status == 'success') {
-                    Swal.fire(
-                        '保存成功!',
-                        '',
-                        'success'
-                    );
-                    $(".is-invalid").removeClass("is-invalid");
-                    $('.form-control').val('');
-                    table1
-                        .clear()
-                        .draw();
-                    $("#sto_date").val(today);
-                    $("#sto_date").attr("max", today);
-                    swap();
-                    $('#recipient_dept').prop('disabled', true);
-                    $('#recipient_dept').trigger('change');
-                    reloadTable2();
-                }
-            });
+                    if (r.status == 'error') {
+                        Swal.fire(
+                            '保存失败!',
+                            r.msg,
+                            'error'
+                        );
+                    } else if (r.status == 'success') {
+                        Swal.fire(
+                            '保存成功!',
+                            '',
+                            'success'
+                        );
+                        $(".is-invalid").removeClass("is-invalid");
+                        $('.form-control').val('');
+                        table1
+                            .clear()
+                            .draw();
+                        $("#sto_date").val(today);
+                        $("#sto_date").attr("max", today);
+                        swap();
+                        $('#recipient_dept').prop('disabled', true);
+                        $('#recipient_dept').trigger('change');
+                        reloadTable2();
+                    }
+                });
+            }
         }
     });
 

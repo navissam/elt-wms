@@ -272,6 +272,7 @@ $(document).ready(function () {
         $(".is-invalid").removeClass("is-invalid");
         $(this).addClass("disabled");
         $(this).prop('disabled', true);
+        $('.loading-upload').addClass('spinner-border');
         var btn = this;
         var form_data = new FormData();
         if ($('#file').prop('files').length != 0) {
@@ -287,6 +288,7 @@ $(document).ready(function () {
             data: form_data,
             type: 'post',
             success: function (response) {
+                $('.loading-upload').removeClass('spinner-border');
                 let r = JSON.parse(response);
                 if (r.status == 'invalid') {
                     $("#file").addClass("is-invalid");
@@ -486,9 +488,17 @@ $(document).ready(function () {
             confirmButtonText: '确定！'
         }).then((result) => {
             if (result.isConfirmed) {
+                $(this).addClass("disabled");
+                $(this).prop('disabled', true);
+                $('#cancel').addClass("disabled");
+                $('#cancel').prop('disabled', true);
+                $('#reload').addClass("disabled");
+                $('#reload').prop('disabled', true);
+                $('.loading-import').addClass('spinner-border');
                 $.post('/tyck/switch_/import', {
                     submit: true,
                 }, function (response) {
+                    $('.loading-import').removeClass('spinner-border');
                     let g = JSON.parse(response);
                     if (g.status == 'error') {
                         Swal.fire(

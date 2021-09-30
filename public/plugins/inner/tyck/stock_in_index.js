@@ -13,8 +13,7 @@ $(document).ready(function () {
             });
             if (data.data.inconsistent > 0 || data.data.invalid_qty > 0 || data.data.new_company > 0 || data.data.duplicate > 0) {
                 $("#submit").prop("disabled", true);
-            }
-            else {
+            } else {
                 $("#submit").prop("disabled", false);
             }
         });
@@ -37,43 +36,43 @@ $(document).ready(function () {
         // },
         ajax: '/tyck/stock_in/temp',
         columns: [{
-            data: 'num',
-            type: 'num'
-        },
-        {
-            data: 'company',
-        },
-        {
-            data: 'goods_id',
-        },
-        {
-            data: 'name_type'
-        },
-        {
-            data: 'unit'
-        },
-        {
-            data: 'qty',
-            type: 'num'
-        },
-        {
-            data: 'location'
-        },
-        {
-            data: 'remark'
-        },
-        {
-            data: 'sti_id',
-            render: function (data) {
-                let btn = '<button type="button" class="btn btn-primary btn-sm btn-edit" data-sti-id="' + data + '">';
-                btn += '<i class="fas fa-edit" aria-hidden="true"></i>';
-                btn += '</button> ';
-                btn += '<button type="button" class="btn btn-danger btn-sm btn-delete" data-sti-id="' + data + '">';
-                btn += '<i class="fas fa-trash" aria-hidden="true"></i>';
-                btn += '</button>';
-                return btn;
+                data: 'num',
+                type: 'num'
+            },
+            {
+                data: 'company',
+            },
+            {
+                data: 'goods_id',
+            },
+            {
+                data: 'name_type'
+            },
+            {
+                data: 'unit'
+            },
+            {
+                data: 'qty',
+                type: 'num'
+            },
+            {
+                data: 'location'
+            },
+            {
+                data: 'remark'
+            },
+            {
+                data: 'sti_id',
+                render: function (data) {
+                    let btn = '<button type="button" class="btn btn-primary btn-sm btn-edit" data-sti-id="' + data + '">';
+                    btn += '<i class="fas fa-edit" aria-hidden="true"></i>';
+                    btn += '</button> ';
+                    btn += '<button type="button" class="btn btn-danger btn-sm btn-delete" data-sti-id="' + data + '">';
+                    btn += '<i class="fas fa-trash" aria-hidden="true"></i>';
+                    btn += '</button>';
+                    return btn;
+                }
             }
-        }
         ],
     });
     table_duplicate = $("#table-duplicate").DataTable({
@@ -83,8 +82,7 @@ $(document).ready(function () {
             url: '/plugins/inner/datatables-lang.json'
         },
         ajax: '/tyck/stock_in/duplicate',
-        columns: [
-            {
+        columns: [{
                 data: 'num',
                 render: function (data) {
                     return '<span class="text-danger">' + data + '</span>';
@@ -115,8 +113,7 @@ $(document).ready(function () {
             url: '/plugins/inner/datatables-lang.json'
         },
         ajax: '/tyck/stock_in/new_company',
-        columns: [
-            {
+        columns: [{
                 data: 'num',
             },
             {
@@ -150,8 +147,7 @@ $(document).ready(function () {
             url: '/plugins/inner/datatables-lang.json'
         },
         ajax: '/tyck/stock_in/new_goods',
-        columns: [
-            {
+        columns: [{
                 data: 'goods_id',
             },
             {
@@ -172,8 +168,7 @@ $(document).ready(function () {
             url: '/plugins/inner/datatables-lang.json'
         },
         ajax: '/tyck/stock_in/new_location',
-        columns: [
-            {
+        columns: [{
                 data: 'location'
             },
             {
@@ -188,8 +183,7 @@ $(document).ready(function () {
             url: '/plugins/inner/datatables-lang.json'
         },
         ajax: '/tyck/stock_in/inconsistent',
-        columns: [
-            {
+        columns: [{
                 data: 'num'
             },
             {
@@ -210,8 +204,7 @@ $(document).ready(function () {
             url: '/plugins/inner/datatables-lang.json'
         },
         ajax: '/tyck/stock_in/invalid_qty',
-        columns: [
-            {
+        columns: [{
                 data: 'num'
             },
             {
@@ -245,6 +238,7 @@ $(document).ready(function () {
         $(".is-invalid").removeClass("is-invalid");
         $(this).addClass("disabled");
         $(this).prop('disabled', true);
+        $('.loading-upload').addClass('spinner-border');
         var btn = this;
         var form_data = new FormData();
         if ($('#file').prop('files').length != 0) {
@@ -260,6 +254,7 @@ $(document).ready(function () {
             data: form_data,
             type: 'post',
             success: function (response) {
+                $('.loading-upload').removeClass('spinner-border');
                 let r = JSON.parse(response);
                 if (r.status == 'invalid') {
                     $("#file").addClass("is-invalid");
@@ -460,10 +455,18 @@ $(document).ready(function () {
             cancelButtonColor: '#d33',
             confirmButtonText: '确定！'
         }).then((result) => {
+            $(this).addClass("disabled");
+            $(this).prop('disabled', true);
+            $('#cancel').addClass("disabled");
+            $('#cancel').prop('disabled', true);
+            $('#reload').addClass("disabled");
+            $('#reload').prop('disabled', true);
+            $('.loading-import').addClass('spinner-border');
             if (result.isConfirmed) {
                 $.post('/tyck/stock_in/import', {
                     submit: true,
                 }, function (response) {
+                    $('.loading-import').removeClass('spinner-border');
                     let g = JSON.parse(response);
                     if (g.status == 'error') {
                         Swal.fire(
