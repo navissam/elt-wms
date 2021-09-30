@@ -55,14 +55,8 @@ class Stock_out_model extends Model
     public function getInv()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('tyck_inventory');
-        $builder->select([
-            'tyck_inventory.*',
-            'tyck_goods.name_type as goods_name',
-            'tyck_goods.unit as unit',
-        ]);
-        $builder->join('tyck_goods', 'tyck_goods.goods_id = tyck_inventory.goods_id', 'left');
-        // $builder->where(['deleted_at' => null]);
+        $builder = $db->table('tyck_inventory_all');
+        $builder->where('qty >', 0);
         return $builder->get()->getResultArray();
     }
 

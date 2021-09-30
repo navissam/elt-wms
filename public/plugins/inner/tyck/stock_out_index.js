@@ -121,7 +121,7 @@ $(document).ready(function () {
                     data: 'goods_id'
                 },
                 {
-                    data: 'goods_name'
+                    data: 'name_type'
                 },
                 {
                     data: 'unit'
