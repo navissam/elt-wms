@@ -272,21 +272,21 @@ class Stock_in extends BaseController
         try {
             $this->sti_temp_model->update($this->request->getPost('sti_id'), $this->request->getPost());
         } catch (\Exception $e) {
-            // $this->syslog->update([
-            //     'controller' => 'goods',
-            //     'method' => 'update',
-            //     'userID' => session()->get('userID') ?? '',
-            //     'status' => 0,
-            //     'data' => json_encode($id),
-            //     'response' => $e->getMessage()
-            // ]);
+            $this->syslog->update([
+                'controller' => 'stock_in',
+                'method' => 'update',
+                'userID' => session()->get('userID') ?? '',
+                'status' => 0,
+                'data' => json_encode($id),
+                'response' => $e->getMessage()
+            ]);
             return json_encode([
                 'status' => 'error',
                 'msg' => $e->getMessage()
             ]);
         }
         $this->syslog->insert([
-            'controller' => 'goods',
+            'controller' => 'stock_in',
             'method' => 'update',
             'userID' => session()->get('userID') ?? '',
             'status' => 1,
@@ -306,26 +306,26 @@ class Stock_in extends BaseController
             $id = $this->request->getPost('sti_id') ?? '';
             $this->sti_temp_model->delete($id);
         } catch (\Exception $e) {
-            // $this->syslog->insert([
-            //     'controller' => 'goods',
-            //     'method' => 'delete',
-            //     'userID' => session()->get('userID') ?? '',
-            //     'status' => 0,
-            //     'data' => 'goodsID = ' .  $id,
-            //     'response' => $e->getMessage()
-            // ]);
+            $this->syslog->insert([
+                'controller' => 'stock_in',
+                'method' => 'delete',
+                'userID' => session()->get('userID') ?? '',
+                'status' => 0,
+                // 'data' => 'goodsID = ' .  $id,
+                'response' => $e->getMessage()
+            ]);
             return json_encode([
                 'status' => 'error',
                 'msg' => $e->getMessage()
             ]);
         }
-        // $this->syslog->insert([
-        //     'controller' => 'goods',
-        //     'method' => 'delete',
-        //     'userID' => session()->get('userID') ?? '',
-        //     'status' => 1,
-        //     'data' => 'goodsID = ' . $id
-        // ]);
+        $this->syslog->insert([
+            'controller' => 'stock_in',
+            'method' => 'delete',
+            'userID' => session()->get('userID') ?? '',
+            'status' => 1,
+            // 'data' => 'goodsID = ' . $id
+        ]);
         return json_encode([
             'status' => 'success',
         ]);
@@ -345,26 +345,26 @@ class Stock_in extends BaseController
                 ]);
             };
         } catch (\Exception $e) {
-            // $this->syslog->insert([
-            //     'controller' => 'goods',
-            //     'method' => 'delete',
-            //     'userID' => session()->get('userID') ?? '',
-            //     'status' => 0,
-            //     'data' => 'goodsID = ' .  $id,
-            //     'response' => $e->getMessage()
-            // ]);
+            $this->syslog->insert([
+                'controller' => 'stock_in',
+                'method' => 'cancel',
+                'userID' => session()->get('userID') ?? '',
+                'status' => 0,
+                // 'data' => 'goodsID = ' .  $id,
+                'response' => $e->getMessage()
+            ]);
             return json_encode([
                 'status' => 'error',
                 'msg' => $e->getMessage()
             ]);
         }
-        // $this->syslog->insert([
-        //     'controller' => 'goods',
-        //     'method' => 'delete',
-        //     'userID' => session()->get('userID') ?? '',
-        //     'status' => 1,
-        //     'data' => 'goodsID = ' . $id
-        // ]);
+        $this->syslog->insert([
+            'controller' => 'stock_in',
+            'method' => 'cancel',
+            'userID' => session()->get('userID') ?? '',
+            'status' => 1,
+            // 'data' => 'goodsID = ' . $id
+        ]);
         return json_encode([
             'status' => 'success',
         ]);
@@ -381,26 +381,26 @@ class Stock_in extends BaseController
             }
             $this->sti_temp_model->migrate();
         } catch (\Exception $e) {
-            // $this->syslog->insert([
-            //     'controller' => 'goods',
-            //     'method' => 'delete',
-            //     'userID' => session()->get('userID') ?? '',
-            //     'status' => 0,
-            //     'data' => 'goodsID = ' .  $id,
-            //     'response' => $e->getMessage()
-            // ]);
+            $this->syslog->insert([
+                'controller' => 'stock_in',
+                'method' => 'import',
+                'userID' => session()->get('userID') ?? '',
+                'status' => 0,
+                // 'data' => 'goodsID = ' .  $id,
+                'response' => $e->getMessage()
+            ]);
             return json_encode([
                 'status' => 'error',
                 'msg' => $e->getMessage()
             ]);
         }
-        // $this->syslog->insert([
-        //     'controller' => 'goods',
-        //     'method' => 'delete',
-        //     'userID' => session()->get('userID') ?? '',
-        //     'status' => 1,
-        //     'data' => 'goodsID = ' . $id
-        // ]);
+        $this->syslog->insert([
+            'controller' => 'goods',
+            'method' => 'import',
+            'userID' => session()->get('userID') ?? '',
+            'status' => 1,
+            // 'data' => 'goodsID = ' . $id
+        ]);
         return json_encode([
             'status' => 'success',
         ]);

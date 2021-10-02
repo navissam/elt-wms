@@ -69,13 +69,26 @@ class Request extends BaseController
             $res = $this->req_model->request($data);
             // $this->role_->delete('a');
         } catch (\Exception $e) {
-
+            $this->syslog->insert([
+                'controller' => 'request',
+                'method' => 'save',
+                'userID' => session()->get('userID') ?? '',
+                'status' => 0,
+                // 'data' => json_encode($id),
+                'response' => $e->getMessage()
+            ]);
             return json_encode([
                 'status' => 'error',
                 'msg' => $e->getMessage()
             ]);
         }
-
+        $this->syslog->insert([
+            'controller' => 'request',
+            'method' => 'save',
+            'userID' => session()->get('userID') ?? '',
+            'status' => 1,
+            // 'data' => json_encode($id)
+        ]);
         return json_encode([
             'status' => 'success',
         ]);

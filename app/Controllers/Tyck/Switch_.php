@@ -272,21 +272,21 @@ class Switch_ extends BaseController
         try {
             $this->swc_temp_model->update($this->request->getPost('swc_id'), $this->request->getPost());
         } catch (\Exception $e) {
-            // $this->syslog->update([
-            //     'controller' => 'goods',
-            //     'method' => 'update',
-            //     'userID' => session()->get('userID') ?? '',
-            //     'status' => 0,
-            //     'data' => json_encode($id),
-            //     'response' => $e->getMessage()
-            // ]);
+            $this->syslog->update([
+                'controller' => 'switch',
+                'method' => 'update',
+                'userID' => session()->get('userID') ?? '',
+                'status' => 0,
+                'data' => json_encode($id),
+                'response' => $e->getMessage()
+            ]);
             return json_encode([
                 'status' => 'error',
                 'msg' => $e->getMessage()
             ]);
         }
         $this->syslog->insert([
-            'controller' => 'goods',
+            'controller' => 'switch',
             'method' => 'update',
             'userID' => session()->get('userID') ?? '',
             'status' => 1,
@@ -306,26 +306,26 @@ class Switch_ extends BaseController
             $id = $this->request->getPost('swc_id') ?? '';
             $this->swc_temp_model->delete($id);
         } catch (\Exception $e) {
-            // $this->syslog->insert([
-            //     'controller' => 'goods',
-            //     'method' => 'delete',
-            //     'userID' => session()->get('userID') ?? '',
-            //     'status' => 0,
-            //     'data' => 'goodsID = ' .  $id,
-            //     'response' => $e->getMessage()
-            // ]);
+            $this->syslog->insert([
+                'controller' => 'switch',
+                'method' => 'delete',
+                'userID' => session()->get('userID') ?? '',
+                'status' => 0,
+                'data' => 'swc_id = ' .  $id,
+                'response' => $e->getMessage()
+            ]);
             return json_encode([
                 'status' => 'error',
                 'msg' => $e->getMessage()
             ]);
         }
-        // $this->syslog->insert([
-        //     'controller' => 'goods',
-        //     'method' => 'delete',
-        //     'userID' => session()->get('userID') ?? '',
-        //     'status' => 1,
-        //     'data' => 'goodsID = ' . $id
-        // ]);
+        $this->syslog->insert([
+            'controller' => 'switch',
+            'method' => 'delete',
+            'userID' => session()->get('userID') ?? '',
+            'status' => 1,
+            'data' => 'swc_id = ' . $id
+        ]);
         return json_encode([
             'status' => 'success',
         ]);
@@ -345,26 +345,26 @@ class Switch_ extends BaseController
                 ]);
             };
         } catch (\Exception $e) {
-            // $this->syslog->insert([
-            //     'controller' => 'goods',
-            //     'method' => 'delete',
-            //     'userID' => session()->get('userID') ?? '',
-            //     'status' => 0,
-            //     'data' => 'goodsID = ' .  $id,
-            //     'response' => $e->getMessage()
-            // ]);
+            $this->syslog->insert([
+                'controller' => 'switch',
+                'method' => 'cancel',
+                'userID' => session()->get('userID') ?? '',
+                'status' => 0,
+                // 'data' => 'goodsID = ' .  $id,
+                'response' => $e->getMessage()
+            ]);
             return json_encode([
                 'status' => 'error',
                 'msg' => $e->getMessage()
             ]);
         }
-        // $this->syslog->insert([
-        //     'controller' => 'goods',
-        //     'method' => 'delete',
-        //     'userID' => session()->get('userID') ?? '',
-        //     'status' => 1,
-        //     'data' => 'goodsID = ' . $id
-        // ]);
+        $this->syslog->insert([
+            'controller' => 'switch',
+            'method' => 'cancel',
+            'userID' => session()->get('userID') ?? '',
+            'status' => 1,
+            // 'data' => 'goodsID = ' . $id
+        ]);
         return json_encode([
             'status' => 'success',
         ]);
@@ -378,26 +378,26 @@ class Switch_ extends BaseController
         try {
             $this->swc_temp_model->migrate();
         } catch (\Exception $e) {
-            // $this->syslog->insert([
-            //     'controller' => 'goods',
-            //     'method' => 'delete',
-            //     'userID' => session()->get('userID') ?? '',
-            //     'status' => 0,
-            //     'data' => 'goodsID = ' .  $id,
-            //     'response' => $e->getMessage()
-            // ]);
+            $this->syslog->insert([
+                'controller' => 'switch',
+                'method' => 'import',
+                'userID' => session()->get('userID') ?? '',
+                'status' => 0,
+                // 'data' => 'goodsID = ' .  $id,
+                'response' => $e->getMessage()
+            ]);
             return json_encode([
                 'status' => 'error',
                 'msg' => $e->getMessage()
             ]);
         }
-        // $this->syslog->insert([
-        //     'controller' => 'goods',
-        //     'method' => 'delete',
-        //     'userID' => session()->get('userID') ?? '',
-        //     'status' => 1,
-        //     'data' => 'goodsID = ' . $id
-        // ]);
+        $this->syslog->insert([
+            'controller' => 'switch',
+            'method' => 'import',
+            'userID' => session()->get('userID') ?? '',
+            'status' => 1,
+            // 'data' => 'goodsID = ' . $id
+        ]);
         return json_encode([
             'status' => 'success',
         ]);
