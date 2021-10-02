@@ -18,14 +18,10 @@ class Home extends BaseController
 		// dd($roleID);
 		if ($roleID == 14) {
 			return view('templates/dashboard');
-		} else if ($roleID == 16) {
+		} else {
 			$data = $this->safetyModel->getAllTyck();
 			$x = (count($data) != 0);
 			return view('templates/tyck_dashboard', ['x' => $x]);
-		} else if ($roleID == 1) {
-			$data = $this->safetyModel->getAllTyck();
-			$x = (count($data) != 0);
-			return view('templates/dashboard', ['x' => $x]);
 		}
 	}
 }
