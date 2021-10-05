@@ -395,7 +395,7 @@ class Stock_in extends BaseController
             ]);
         }
         $this->syslog->insert([
-            'controller' => 'goods',
+            'controller' => 'stock_in',
             'method' => 'import',
             'userID' => session()->get('userID') ?? '',
             'status' => 1,
