@@ -33,6 +33,12 @@
                 <div class="col">
                     <div class="card card-bbb card-outline">
                         <div class="card-body">
+                            <div class="col">
+                                <div class="form-group float-right">
+                                    <span>库存总数量 </span>
+                                    <label id="allqty" style="font-size: 20px;"></label>
+                                </div>
+                            </div>
                             <table id="table1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>

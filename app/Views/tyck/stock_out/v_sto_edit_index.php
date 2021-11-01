@@ -41,11 +41,12 @@
                     <div class="card card-bbb card-outline">
                         <div class="card-header ">
                             <div class="row">
+                                <input type="hidden" class="form-control" id="sto_id" value="<?= $head[0]['sto_id']; ?>">
+                                <input type="hidden" class="form-control" id="updated_at" value="<?= $head[0]['updated_at']; ?>">
                                 <div class=" form-group col">
                                     <label class="" for="edit-recipient_company">领用公司</label>
-                                    <input type="hidden" class="form-control" id="sto_id" value="<?= $head[0]['sto_id']; ?>">
-                                    <input type="hidden" class="form-control" id="updated_at" value="<?= $head[0]['updated_at']; ?>">
                                     <select id="edit-recipient_company" class="select2-edit-recipient_company form-control" style="width: 100%;">
+                                        <option value="<?= $head[0]['recipient_company']; ?>"><?= $head[0]['nameInd']; ?> - <?= $head[0]['nameMan']; ?></option>
                                     </select>
                                 </div>
                                 <div class="form-group col" style="padding: 0 0 0 7.5px;">
@@ -57,7 +58,7 @@
                                         </div>
                                     </div>
                                     <div class="swaptext">
-                                        <input type="text" class="form-control text-edit-recipient_dept" placeholder="输入领用部门" maxlength="30">
+                                        <input type="text" class="form-control text-edit-recipient_dept" placeholder="输入领用部门" value="<?= $head[0]['recipient_dept']; ?>" maxlength="30">
                                         <div class="invalid-feedback edit-recipient_dept-invalid">
                                         </div>
                                     </div>
@@ -68,13 +69,13 @@
                                 </div>
                                 <div class="form-group col">
                                     <label class="" for="edit-recipient_name">领用人</label>
-                                    <input type="text" class="form-control" id="edit-recipient_name" placeholder="输入领用人" maxlength="40">
+                                    <input type="text" class="form-control" id="edit-recipient_name" placeholder="输入领用人" value="<?= $head[0]['recipient_name']; ?>" maxlength="40">
                                     <div class="invalid-feedback edit-recipient_name-invalid">
                                     </div>
                                 </div>
                                 <div class="form-group col">
                                     <label class="" for="sto_date">出库日期</label>
-                                    <input type="date" class="form-control" id="edit-sto_date">
+                                    <input type="date" class="form-control" id="edit-sto_date" value="<?= $head[0]['sto_date']; ?>">
                                     <div class="invalid-feedback sto_date-invalid">
                                     </div>
                                 </div>

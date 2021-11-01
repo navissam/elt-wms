@@ -211,8 +211,8 @@ class Stock_out extends BaseController
         $data['title'] = '修改出库数据';
         $data['active']['sto_list']['stock_out'] = true;
         $data['head'] = $this->sto_model->sto_edit_h($id);
-        // $data['detail'] = $this->sto_model->sto_detail();
-        // // dd($data);
+        // $data['detail'] = $this->sto_model->sto_detail($id);
+        // dd($data);
         return view('tyck/stock_out/v_sto_edit_index', $data);
     }
 

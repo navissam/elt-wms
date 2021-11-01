@@ -96,7 +96,19 @@ $(document).ready(function () {
         ],
     });
 
+
+    function AllQty() {
+        let url = "/tyck/inventory/getAllQty";
+        $.get(url, function (data) {
+            let obj = JSON.parse(data);
+            qty = obj[0]['allqty'];
+            all = qty % 1 == 0 ? parseInt(qty).toLocaleString() : qty;
+            $('#allqty').html(all); 
+        });
+    }
+
     getInvLocation();
+    AllQty();
 
     var safety_edit = false;
     var remark_edit = false;

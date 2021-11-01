@@ -33,6 +33,14 @@ class Inventory_model extends Model
         return $builder->get()->getResultArray();
     }
 
+    public function getAllQty()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tyck_inventory');
+        $builder->select('sum(qty) as allqty');
+        return $builder->get()->getResultArray();
+    }
+
     public function getLocation()
     {
         $db      = \Config\Database::connect();

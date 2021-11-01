@@ -44,7 +44,10 @@
                                 <div class=" form-group col">
                                     <label class="" for="recipient_company">领用公司</label>
                                     <select id="recipient_company" class="select2-recipient_company form-control" style="width: 100%;">
+                                        <option value="">-选择领用公司-</option>
                                     </select>
+                                    <div class="invalid-feedback recipient_company-invalid">
+                                    </div>
                                 </div>
                                 <div class="form-group col" style="padding: 0 0 0 7.5px;">
                                     <!-- <select id="recipient_dept" class="select2-recipient_dept form-control" style="width: 100%;">

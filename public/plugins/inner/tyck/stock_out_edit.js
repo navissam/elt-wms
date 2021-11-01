@@ -28,7 +28,7 @@ $(document).ready(function () {
         $.get("/tyck/stock_out/getDept/" + company, function (data) {
             let object = JSON.parse(data);
             dept = $.map(object, function (obj) {
-                obj.id = obj.id || obj.deptID;
+                obj.id = obj.id || obj.deptName;
                 obj.text = obj.text || obj.deptName;
                 return obj;
             });
@@ -40,21 +40,21 @@ $(document).ready(function () {
 
     })
 
-    let url = '/tyck/stock_out/sto_detail/' + sto_id;
-    $.get(url, function (data) {
-        let obj = JSON.parse(data);
-        inv = obj;
-        let i = inv.find(x => x.sto_id == sto_id);
-        sto_date = i.sto_date;
-        recipient_company = i.recipient_company;
-        recipient_dept = i.recipient_dept;
-        recipient_name = i.recipient_name;
-        $('#swaps').trigger('click');
-        $('#edit-sto_date').val(sto_date);
-        $('#edit-recipient_company').val(recipient_company).trigger('change');
-        $('#edit-recipient_dept').val(recipient_dept).trigger('change');
-        $('#edit-recipient_name').val(recipient_name);
-    });
+    // let url = '/tyck/stock_out/sto_detail/' + sto_id;
+    // $.get(url, function (data) {
+    //     let obj = JSON.parse(data);
+    //     inv = obj;
+    //     let i = inv.find(x => x.sto_id == sto_id);
+    //     sto_date = i.sto_date;
+    //     recipient_company = i.recipient_company;
+    //     recipient_dept = i.recipient_dept;
+    //     recipient_name = i.recipient_name;
+    //     $('#swaps').trigger('click');
+    //     $('#edit-sto_date').val(sto_date);
+    //     $('#edit-recipient_company').val(recipient_company).trigger('change');
+    //     $('#edit-recipient_dept').val(recipient_dept).trigger('change');
+    //     $('#edit-recipient_name').val(recipient_name);
+    // });
 
 
     table_edit = $("#table-edit").DataTable({
@@ -110,15 +110,15 @@ $(document).ready(function () {
 
     // swap location select2/input
     function swap() {
-        $('#swapt').hide();
-        $(".swaptext").hide();
-        $(".text-edit-recipient_dept").removeAttr("id");
-        $(".text-edit-recipient_dept").removeAttr("name");
+        $("#swapt").show();
+        $(".swaptext").show();
+        $(".text-edit-recipient_dept").attr("id", "edit-recipient_dept");
+        $(".text-edit-recipient_dept").attr("name", "edit-recipient_dept");
 
-        $("#swaps").show();
-        $(".swapselect").show();
-        $(".select2-edit-recipient_dept").attr("id", "edit-recipient_dept");
-        $(".select2-edit-recipient_dept").attr("name", "edit-recipient_dept");
+        $("#swaps").hide();
+        $(".swapselect").hide();
+        $(".select2-edit-recipient_dept").removeAttr("id");
+        $(".select2-edit-recipient_dept").removeAttr("name");
     }
 
     $('#swaps').on('click', function () {

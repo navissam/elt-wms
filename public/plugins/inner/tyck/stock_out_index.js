@@ -74,9 +74,10 @@ $(document).ready(function () {
     $('#recipient_company').on('change', function () {
         $('.select2-recipient_dept').prop('disabled', false);
         $('.select2-recipient_dept').empty();
-        company = $(this).val();
+        company = $(this).val() ? $(this).val() : null;
         $.get("/tyck/stock_out/getDept/" + company, function (data) {
             let object = JSON.parse(data);
+            // console.log(object);
             dept = $.map(object, function (obj) {
                 obj.id = obj.id || obj.deptName;
                 obj.text = obj.text || obj.deptName;
@@ -239,7 +240,7 @@ $(document).ready(function () {
                     inv_id: inv.inv_id,
                     company: inv.company,
                     goods_id: inv.goods_id,
-                    name_type: inv.goods_name,
+                    name_type: inv.name_type,
                     unit: inv.unit,
                     location: inv.location,
                     stock: inv.qty,
@@ -303,12 +304,12 @@ $(document).ready(function () {
             $(".is-invalid").removeClass("is-invalid");
             var err = false;
             var field = [];
-            // if ($("#recipient_company").val() == '' || $("#recipient_company").val() == null) {
-            //     $("#recipient_company").addClass("is-invalid");
-            //     $(".recipient_company-invalid").html("领用公司不可以空");
-            //     err = true;
-            //     field.push('recipient_company');
-            // }
+            if ($("#recipient_company").val() == '' || $("#recipient_company").val() == null) {
+                $("#recipient_company").addClass("is-invalid");
+                $(".recipient_company-invalid").html("领用公司不可以空");
+                err = true;
+                field.push('recipient_company');
+            }
             if ($("#recipient_dept").val() == '' || $("#recipient_dept").val() == null) {
                 $("#recipient_dept").addClass("is-invalid");
                 $(".recipient_dept-invalid").html("领用部门不可以空");
@@ -633,6 +634,8 @@ $(document).ready(function () {
 
     $("body").on("click", ".btn-edit", function (e) {
         sto_id = $(this).data('sto-id');
+        // setTimeout(function () {
         window.open(window.location.origin + "/tyck/stock_out/sto_edit_view/" + sto_id, '_blank');
+        // }, 1500);
     });
 });
