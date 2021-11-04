@@ -16,20 +16,20 @@ $(document).ready(function () {
             // url: '<?= base_url() ?>/plugins/inner/datatables-lang.json'
         },
         dom: '<"row mb-3"<"col-12"B>><"row"<"col-2"l><"col-10"f>>t<"row"<"col-3"i><"col-9"p>>',
-            buttons: [{
-                    extend: 'copyHtml5',
-                    text: '复制',
-                    className: 'btn btn-warning'
+        buttons: [{
+                extend: 'copyHtml5',
+                text: '复制',
+                className: 'btn btn-warning'
+            },
+            {
+                extend: 'excelHtml5',
+                text: '导出',
+                exportOptions: {
+                    orthogonal: "exportxls"
                 },
-                {
-                    extend: 'excelHtml5',
-                    text: '导出',
-                    exportOptions: {
-                        orthogonal: "exportxls"
-                    },
-                    className: 'btn btn-success'
-                }
-            ],
+                className: 'btn btn-success'
+            }
+        ],
         ajax: '/tyck/inventory/getAll',
         columns: [{
                 data: 'inv_id',
@@ -102,8 +102,12 @@ $(document).ready(function () {
         $.get(url, function (data) {
             let obj = JSON.parse(data);
             qty = obj[0]['allqty'];
-            all = qty % 1 == 0 ? parseInt(qty).toLocaleString() : qty;
-            $('#allqty').html(all); 
+            if (qty != null) {
+                all = qty % 1 == 0 ? parseInt(qty).toLocaleString() : qty;
+                $('#allqty').html(all);
+            } else {
+                $('#allqty').html(0);
+            }
         });
     }
 
