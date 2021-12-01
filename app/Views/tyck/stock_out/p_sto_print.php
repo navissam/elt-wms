@@ -20,7 +20,7 @@
         }
 
         .report-invoice {
-            font-size: 18px;
+            font-size: 17px;
         }
 
 
@@ -35,7 +35,7 @@
             border-style: solid;
             border-color: gray;
             text-align: center;
-            font-size: 15px;
+            font-size: 13px;
         }
 
         .header {
@@ -82,7 +82,7 @@
                     <div class="row mb-1">
                         <div class="col-12">
                             <h2 class="row">
-                                <div class="col">
+                                <div class="col-12">
                                     <p></p>
                                     <p class="brand-text h3 font-weight-bold header">BUKTI SERAH TERIMA NOTA GUDANG UMUM ELEKTRIK</p>
                                     <p class="brand-text h4 font-weight-bold header">电气通用仓库单据交接单</p>
@@ -147,14 +147,14 @@
                             <thead>
                                 <tr>
                                     <td class="font-weight-bold" style="background-color:#DAEEF3 !important; white-space: nowrap;">No<br>序号</td>
-                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Tanggal Terima<br>交接日期</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important; white-space: nowrap;">Tanggal Terima<br>交接日期</td>
                                     <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Perusahaan<br>公司</td>
                                     <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Kode Barang<br>物料代码</td>
-                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Nama Barang dan Spesifikasi<br>物料名称与规格型号</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important; white-space: nowrap;">Nama Barang dan Spesifikasi<br>物料名称与规格型号</td>
                                     <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Satuan<br>单位</td>
                                     <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Jumlah<br>出库量</td>
-                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Lokasi Barang<br>库位</td>
-                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Perusahaan<br>领用公司</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important; white-space: nowrap;">Lokasi Barang<br>库位</td>
+                                    <td class="font-weight-bold" style="background-color:#DAEEF3 !important; white-space: nowrap;">Perusahaan<br>领用公司</td>
                                     <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Dept. Pengambilan<br>领用部门</td>
                                     <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">Diminta Oleh<br>领用人</td>
                                     <td class="font-weight-bold" style="background-color:#DAEEF3 !important;">No. Nota<br>单据编号</td>
